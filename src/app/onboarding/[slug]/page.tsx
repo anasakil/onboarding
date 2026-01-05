@@ -432,8 +432,8 @@ export default function OnboardingPage() {
           />
         </div>
 
-        {/* Full width card */}
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-10">
+        {/* Full width container */}
+        <div className="bg-white rounded-2xl p-6 md:p-10">
           <div className={cn(
             "transition-all duration-200",
             isTransitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
