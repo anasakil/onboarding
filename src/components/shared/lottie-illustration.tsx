@@ -2,6 +2,7 @@
 
 import Lottie from "lottie-react"
 import { useEffect, useState } from "react"
+import { LoadingAnimation } from "./loading-animation"
 
 // Local Lottie animation file path
 const BUSINESSMEN_TABLE_LOTTIE = "/animations/businessmen-table.json"
@@ -31,10 +32,7 @@ export function LottieIllustration({ step, className }: LottieIllustrationProps)
   if (isLoading) {
     return (
       <div className={`flex items-center justify-center ${className}`}>
-        <div className="relative w-16 h-16">
-          <div className="absolute inset-0 border-4 border-gray-200 rounded-full" />
-          <div className="absolute inset-0 border-4 border-[#6BBE4A] border-t-transparent rounded-full animate-spin" />
-        </div>
+        <LoadingAnimation size="md" />
       </div>
     )
   }

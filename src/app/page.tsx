@@ -4,6 +4,7 @@ import { useEffect, useState, memo } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Logo } from '@/components/shared/logo'
+import { LoadingAnimation } from '@/components/shared/loading-animation'
 import {
   Globe,
   TrendingUp,
@@ -240,11 +241,7 @@ export default function HomePage() {
           {/* Services Grid - 4 columns */}
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-20">
-              <div className="relative">
-                <div className="w-12 h-12 border-4 border-gray-200 rounded-full" />
-                <div className="absolute inset-0 w-12 h-12 border-4 border-[#6BBE4A] border-t-transparent rounded-full animate-spin" />
-              </div>
-              <p className="mt-4 text-gray-400">Loading services...</p>
+              <LoadingAnimation size="lg" text="Loading services..." />
             </div>
           ) : services.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20">

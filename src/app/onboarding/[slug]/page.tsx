@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import { Logo } from "@/components/shared/logo"
 import { LottieIllustration } from "@/components/shared/lottie-illustration"
+import { LoadingAnimation } from "@/components/shared/loading-animation"
 import { DynamicField } from "@/components/forms/dynamic-field"
 import {
   ArrowLeft,
@@ -297,13 +298,7 @@ export default function OnboardingPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#FAFBFC]">
-        <div className="flex flex-col items-center gap-4">
-          <div className="relative">
-            <div className="w-10 h-10 border-3 border-gray-200 rounded-full" />
-            <div className="absolute inset-0 w-10 h-10 border-3 border-[#6BBE4A] border-t-transparent rounded-full animate-spin" />
-          </div>
-          <p className="text-gray-500 text-sm">Loading...</p>
-        </div>
+        <LoadingAnimation size="lg" text="Loading..." />
       </div>
     )
   }
