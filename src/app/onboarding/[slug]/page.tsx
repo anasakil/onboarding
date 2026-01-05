@@ -13,8 +13,11 @@ import {
   Loader2,
   Home,
   Check,
-  Shield
+  Shield,
+  Edit3,
+  Send
 } from "lucide-react"
+import Lottie from "lottie-react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 
@@ -125,6 +128,16 @@ export default function OnboardingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [showReview, setShowReview] = useState(false)
+  const [documentAnimation, setDocumentAnimation] = useState<any>(null)
+
+  // Load document Lottie animation
+  useEffect(() => {
+    fetch("/animations/document.json")
+      .then((res) => res.json())
+      .then((data) => setDocumentAnimation(data))
+      .catch((err) => console.error("Failed to load document animation:", err))
+  }, [])
 
   useEffect(() => {
     async function fetchService() {
@@ -208,12 +221,27 @@ export default function OnboardingPage() {
           setIsTransitioning(false)
           window.scrollTo({ top: 0, behavior: 'smooth' })
         }, 200)
+      } else {
+        // Last step completed, show review
+        setIsTransitioning(true)
+        setTimeout(() => {
+          setShowReview(true)
+          setIsTransitioning(false)
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }, 200)
       }
     }
   }, [validateStep, currentStep, service])
 
   const handleBack = useCallback(() => {
-    if (currentStep > 1) {
+    if (showReview) {
+      setIsTransitioning(true)
+      setTimeout(() => {
+        setShowReview(false)
+        setIsTransitioning(false)
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }, 200)
+    } else if (currentStep > 1) {
       setIsTransitioning(true)
       setTimeout(() => {
         setCurrentStep(currentStep - 1)
@@ -221,10 +249,20 @@ export default function OnboardingPage() {
         window.scrollTo({ top: 0, behavior: 'smooth' })
       }, 200)
     }
-  }, [currentStep])
+  }, [currentStep, showReview])
+
+  const goToStep = useCallback((step: number) => {
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setShowReview(false)
+      setCurrentStep(step)
+      setIsTransitioning(false)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, 200)
+  }, [])
 
   const handleSubmit = async () => {
-    if (!validateStep() || !service) return
+    if (!service) return
 
     setIsSubmitting(true)
 
@@ -312,6 +350,159 @@ export default function OnboardingPage() {
   const isLastStep = currentStep === sortedSteps.length
   // Only show illustration for first 2 steps, after that use full two-column form
   const showIllustration = currentStep <= 2
+
+  // Helper function to format field value for display
+  const formatFieldValue = (field: FormField, value: any) => {
+    if (!value) return <span className="text-gray-400 italic">Not provided</span>
+    if (Array.isArray(value)) return value.join(", ")
+    if (typeof value === "boolean") return value ? "Yes" : "No"
+    return String(value)
+  }
+
+  // Review page
+  if (showReview) {
+    return (
+      <div className="min-h-screen bg-[#FAFBFC]">
+        <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
+          <div className="max-w-6xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+            <Link href="/" className="hover:opacity-80 transition-opacity">
+              <Logo size="sm" />
+            </Link>
+            <div className="flex items-center gap-2 text-sm text-gray-400">
+              <Shield className="w-4 h-4 text-[#6BBE4A]" />
+              <span>Review & Submit</span>
+            </div>
+          </div>
+        </header>
+
+        <div className="max-w-6xl mx-auto px-6 lg:px-10 py-8">
+          <div className={cn(
+            "transition-all duration-300",
+            isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
+          )}>
+            {/* Header with animation */}
+            <div className="flex flex-col lg:flex-row items-center gap-8 mb-10">
+              {/* Lottie Animation */}
+              <div className="w-full lg:w-1/3 flex justify-center">
+                {documentAnimation ? (
+                  <div className="w-64 h-64">
+                    <Lottie
+                      animationData={documentAnimation}
+                      loop={true}
+                      autoplay={true}
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                  </div>
+                ) : (
+                  <div className="w-64 h-64 bg-gradient-to-br from-[#6BBE4A]/10 to-[#6BBE4A]/5 rounded-3xl flex items-center justify-center">
+                    <CheckCircle className="w-20 h-20 text-[#6BBE4A]" />
+                  </div>
+                )}
+              </div>
+
+              {/* Review Title */}
+              <div className="flex-1 text-center lg:text-left">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#6BBE4A]/10 text-[#6BBE4A] text-sm font-medium mb-4">
+                  <Check className="w-4 h-4" />
+                  All steps completed
+                </div>
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+                  Review Your Information
+                </h1>
+                <p className="text-gray-500 text-lg max-w-xl">
+                  Please review all the information you've provided before submitting. Click on any section to make changes.
+                </p>
+              </div>
+            </div>
+
+            {/* Review Cards */}
+            <div className="space-y-6">
+              {sortedSteps.map((step) => {
+                const stepFields = service.fields
+                  .filter((f) => f.step === step.order)
+                  .sort((a, b) => a.order - b.order)
+
+                return (
+                  <div
+                    key={step.order}
+                    className="bg-white rounded-2xl border border-gray-100 overflow-hidden animate-fade-in-up"
+                    style={{ animationDelay: `${(step.order - 1) * 100}ms` }}
+                  >
+                    {/* Card Header */}
+                    <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-b border-gray-100">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-[#6BBE4A] text-white flex items-center justify-center text-sm font-semibold">
+                          {step.order}
+                        </div>
+                        <h3 className="font-semibold text-gray-900">{step.title}</h3>
+                      </div>
+                      <button
+                        onClick={() => goToStep(step.order)}
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-[#6BBE4A] hover:bg-[#6BBE4A]/10 transition-colors"
+                      >
+                        <Edit3 className="w-4 h-4" />
+                        Edit
+                      </button>
+                    </div>
+
+                    {/* Card Content */}
+                    <div className="p-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {stepFields.map((field) => (
+                          <div
+                            key={field.name}
+                            className={cn(
+                              (field.type === 'textarea' || field.type === 'multiselect' || field.type === 'radio') && "md:col-span-2"
+                            )}
+                          >
+                            <p className="text-sm text-gray-500 mb-1">{field.label}</p>
+                            <p className="text-gray-900 font-medium">
+                              {formatFieldValue(field, formData[field.name])}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+
+            {/* Submit Actions */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 mt-10 pt-8 border-t border-gray-200">
+              <button
+                onClick={handleBack}
+                className="w-full sm:w-auto h-12 px-8 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition-all text-sm font-medium text-gray-600 flex items-center justify-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back to Edit
+              </button>
+
+              <div className="flex-1" />
+
+              <button
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                className="w-full sm:w-auto h-12 px-10 rounded-xl text-white text-base font-semibold bg-gradient-to-r from-[#6BBE4A] to-[#5AA83D] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    Submit Application
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   // Split layout with illustration
   if (showIllustration) {
@@ -483,21 +674,11 @@ export default function OnboardingPage() {
 
               {isLastStep ? (
                 <button
-                  onClick={handleSubmit}
-                  disabled={isSubmitting}
-                  className="h-11 px-8 rounded-xl text-white text-sm font-semibold bg-gradient-to-r from-[#6BBE4A] to-[#5AA83D] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2 disabled:opacity-50"
+                  onClick={handleNext}
+                  className="h-11 px-8 rounded-xl text-white text-sm font-semibold bg-gradient-to-r from-[#6BBE4A] to-[#5AA83D] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
                 >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      Submitting...
-                    </>
-                  ) : (
-                    <>
-                      Submit
-                      <ArrowRight className="w-4 h-4" />
-                    </>
-                  )}
+                  Review
+                  <Check className="w-4 h-4" />
                 </button>
               ) : (
                 <button
