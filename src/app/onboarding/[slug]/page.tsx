@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import { Logo } from "@/components/shared/logo"
+import { LottieIllustration } from "@/components/shared/lottie-illustration"
 import { DynamicField } from "@/components/forms/dynamic-field"
 import {
   ArrowLeft,
@@ -112,57 +113,6 @@ const StepProgress = ({
     </div>
   )
 }
-
-// Compact Illustration
-const CompactIllustration = ({ step }: { step: number }) => (
-  <div className="relative w-full max-w-sm mx-auto">
-    <svg viewBox="0 0 400 350" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-      <defs>
-        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#6BBE4A"/>
-          <stop offset="100%" stopColor="#5AA83D"/>
-        </linearGradient>
-      </defs>
-
-      {/* Background circles */}
-      <circle cx="200" cy="175" r="120" fill="url(#grad1)" opacity="0.05" />
-      <circle cx="200" cy="175" r="80" fill="url(#grad1)" opacity="0.08" />
-
-      {/* Main card */}
-      <g className="animate-float-slow">
-        <rect x="100" y="80" width="200" height="190" rx="16" fill="white" filter="drop-shadow(0 8px 24px rgba(0,0,0,0.08))"/>
-        <rect x="120" y="105" width="80" height="10" rx="5" fill="url(#grad1)" />
-        <rect x="120" y="125" width="120" height="6" rx="3" fill="#E5E7EB" />
-        <rect x="120" y="150" width="160" height="32" rx="6" fill="#F9FAFB" stroke="#E5E7EB" strokeWidth="1"/>
-        <rect x="120" y="195" width="160" height="32" rx="6" fill="#F9FAFB" stroke="#E5E7EB" strokeWidth="1"/>
-        <rect x="120" y="240" width="80" height="28" rx="6" fill="url(#grad1)" />
-      </g>
-
-      {/* Floating elements */}
-      <g className="animate-float" style={{ animationDelay: '0.5s' }}>
-        <rect x="40" y="100" width="45" height="45" rx="10" fill="white" filter="drop-shadow(0 4px 12px rgba(0,0,0,0.06))"/>
-        <circle cx="62" cy="117" r="8" fill="#6BBE4A" opacity="0.2"/>
-        <path d="M56 125 L60 129 L70 119" stroke="#6BBE4A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      </g>
-
-      <g className="animate-float" style={{ animationDelay: '1s' }}>
-        <rect x="315" y="130" width="45" height="45" rx="10" fill="white" filter="drop-shadow(0 4px 12px rgba(0,0,0,0.06))"/>
-        <circle cx="337" cy="152" r="12" fill="#6BBE4A" opacity="0.15"/>
-        <text x="337" y="157" textAnchor="middle" fill="#6BBE4A" fontSize="14" fontWeight="700">{step}</text>
-      </g>
-
-      <g className="animate-float" style={{ animationDelay: '1.5s' }}>
-        <rect x="50" y="220" width="40" height="40" rx="8" fill="white" filter="drop-shadow(0 4px 12px rgba(0,0,0,0.06))"/>
-        <rect x="58" y="233" width="24" height="5" rx="2.5" fill="#6BBE4A"/>
-        <rect x="58" y="242" width="16" height="5" rx="2.5" fill="#E5E7EB"/>
-      </g>
-
-      {/* Decorative dots */}
-      <circle cx="330" cy="90" r="4" fill="#6BBE4A" className="animate-pulse"/>
-      <circle cx="60" cy="180" r="3" fill="#9B8AFB" opacity="0.5"/>
-    </svg>
-  </div>
-)
 
 export default function OnboardingPage() {
   const params = useParams()
@@ -449,9 +399,9 @@ export default function OnboardingPage() {
           </div>
         </div>
 
-        {/* Right - Illustration */}
+        {/* Right - Lottie Animation */}
         <div className="hidden lg:flex w-1/2 min-h-screen bg-gradient-to-br from-[#f8fdf6] to-[#f0fdf4] items-center justify-center p-8">
-          <CompactIllustration step={currentStep} />
+          <LottieIllustration step={currentStep} />
         </div>
       </div>
     )
