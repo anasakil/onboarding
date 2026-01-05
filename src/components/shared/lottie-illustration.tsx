@@ -3,8 +3,8 @@
 import Lottie from "lottie-react"
 import { useEffect, useState } from "react"
 
-// Businessmen at table / Business meeting animation
-const BUSINESS_MEETING_LOTTIE_URL = "https://lottie.host/4db68bbd-31f6-4cd8-84eb-189571a70a60/PDzAICTsry.json"
+// Local Lottie animation file path
+const BUSINESSMEN_TABLE_LOTTIE = "/animations/businessmen-table.json"
 
 interface LottieIllustrationProps {
   step: number
@@ -16,7 +16,7 @@ export function LottieIllustration({ step, className }: LottieIllustrationProps)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    fetch(BUSINESS_MEETING_LOTTIE_URL)
+    fetch(BUSINESSMEN_TABLE_LOTTIE)
       .then((res) => res.json())
       .then((data) => {
         setAnimationData(data)
