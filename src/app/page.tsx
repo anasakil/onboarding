@@ -148,12 +148,47 @@ const ServiceCard = memo(function ServiceCard({
   )
 })
 
-// SVG Background - extracted and memoized
+// SVG Background - curved connecting lines with animations
 const HeroSVG = memo(function HeroSVG() {
   return (
-    <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-30" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
-      <ellipse cx="600" cy="400" rx="450" ry="300" fill="none" stroke="#d1d5db" strokeWidth="1" strokeDasharray="6 6" className="animate-spin-very-slow origin-center" />
-      <ellipse cx="600" cy="400" rx="350" ry="220" fill="none" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 4" className="animate-spin-very-slow-reverse origin-center" />
+    <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#6BBE4A" stopOpacity="0.4" />
+          <stop offset="50%" stopColor="#d1d5db" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#6BBE4A" stopOpacity="0.4" />
+        </linearGradient>
+      </defs>
+
+      {/* Left side curves */}
+      <path d="M 60 160 Q 200 200 240 280" fill="none" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 4" className="animate-dash" />
+      <path d="M 96 440 Q 180 400 216 280" fill="none" stroke="url(#lineGradient)" strokeWidth="1.5" strokeDasharray="6 4" className="animate-dash-reverse" />
+      <path d="M 144 640 Q 250 500 300 400" fill="none" stroke="#d1d5db" strokeWidth="1" strokeDasharray="4 4" className="animate-dash" />
+      <path d="M 216 280 Q 350 320 400 400" fill="none" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 4" className="animate-dash-slow" />
+
+      {/* Right side curves */}
+      <path d="M 1140 200 Q 1000 240 960 320" fill="none" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 4" className="animate-dash-reverse" />
+      <path d="M 1080 400 Q 980 380 960 320" fill="none" stroke="url(#lineGradient)" strokeWidth="1.5" strokeDasharray="6 4" className="animate-dash" />
+      <path d="M 1104 600 Q 1000 500 920 420" fill="none" stroke="#d1d5db" strokeWidth="1" strokeDasharray="4 4" className="animate-dash-reverse" />
+      <path d="M 960 320 Q 850 360 800 400" fill="none" stroke="#e5e7eb" strokeWidth="1" strokeDasharray="4 4" className="animate-dash-slow" />
+
+      {/* Center connecting arcs */}
+      <path d="M 400 400 Q 500 300 600 320" fill="none" stroke="url(#lineGradient)" strokeWidth="1.5" strokeDasharray="6 4" className="animate-dash" />
+      <path d="M 800 400 Q 700 300 600 320" fill="none" stroke="url(#lineGradient)" strokeWidth="1.5" strokeDasharray="6 4" className="animate-dash-reverse" />
+      <path d="M 600 320 Q 600 450 600 520" fill="none" stroke="#d1d5db" strokeWidth="1" strokeDasharray="4 4" className="animate-dash-slow" />
+
+      {/* Connection dots with pulse */}
+      <circle cx="240" cy="280" r="4" fill="#6BBE4A" className="animate-pulse-dot" />
+      <circle cx="960" cy="320" r="4" fill="#6BBE4A" className="animate-pulse-dot" style={{ animationDelay: '0.5s' }} />
+      <circle cx="600" cy="320" r="5" fill="#6BBE4A" className="animate-pulse-dot" style={{ animationDelay: '1s' }} />
+      <circle cx="400" cy="400" r="3" fill="#d1d5db" className="animate-pulse-dot" style={{ animationDelay: '0.3s' }} />
+      <circle cx="800" cy="400" r="3" fill="#d1d5db" className="animate-pulse-dot" style={{ animationDelay: '0.8s' }} />
+
+      {/* Extra floating dots */}
+      <circle cx="180" cy="350" r="2" fill="#6BBE4A" opacity="0.5" className="animate-pulse-dot" style={{ animationDelay: '1.2s' }} />
+      <circle cx="1020" cy="280" r="2" fill="#6BBE4A" opacity="0.5" className="animate-pulse-dot" style={{ animationDelay: '0.7s' }} />
+      <circle cx="500" cy="250" r="2" fill="#d1d5db" className="animate-pulse-dot" style={{ animationDelay: '1.5s' }} />
+      <circle cx="700" cy="250" r="2" fill="#d1d5db" className="animate-pulse-dot" style={{ animationDelay: '0.2s' }} />
     </svg>
   )
 })
