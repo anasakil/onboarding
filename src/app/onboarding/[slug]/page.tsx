@@ -407,45 +407,49 @@ export default function OnboardingPage() {
     )
   }
 
-  // Full-width two-column layout
+  // Full-width two-column layout for steps 3+
   return (
     <div className="min-h-screen bg-[#FAFBFC]">
       <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
-        <div className="max-w-3xl mx-auto px-5 py-3 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
           <Link href="/" className="hover:opacity-80 transition-opacity">
             <Logo size="sm" />
           </Link>
-          <div className="flex items-center gap-1.5 text-xs text-gray-400">
-            <Shield className="w-3.5 h-3.5 text-[#6BBE4A]" />
-            <span>Secure</span>
+          <div className="flex items-center gap-2 text-sm text-gray-400">
+            <Shield className="w-4 h-4 text-[#6BBE4A]" />
+            <span>Secure Form</span>
           </div>
         </div>
       </header>
 
-      <div className="max-w-3xl mx-auto px-5 py-6">
-        <StepProgress
-          currentStep={currentStep}
-          totalSteps={sortedSteps.length}
-          steps={sortedSteps}
-        />
+      <div className="max-w-6xl mx-auto px-6 lg:px-10 py-8">
+        {/* Progress bar - full width */}
+        <div className="mb-8">
+          <StepProgress
+            currentStep={currentStep}
+            totalSteps={sortedSteps.length}
+            steps={sortedSteps}
+          />
+        </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 md:p-6">
+        {/* Full width card */}
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-10">
           <div className={cn(
             "transition-all duration-200",
             isTransitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
           )}>
-            {/* Step header */}
-            <div className="mb-5">
-              <h1 className="text-lg font-bold text-gray-900 mb-1">
+            {/* Step header - centered */}
+            <div className="text-center mb-8">
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
                 {currentStepData?.title}
               </h1>
               {currentStepData?.description && (
-                <p className="text-gray-500 text-sm">{currentStepData.description}</p>
+                <p className="text-gray-500 text-base max-w-2xl mx-auto">{currentStepData.description}</p>
               )}
             </div>
 
-            {/* Two-column grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Two-column grid for form fields */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
               {currentFields.map((field, index) => (
                 <div
                   key={field._id || field.name}
@@ -465,13 +469,13 @@ export default function OnboardingPage() {
               ))}
             </div>
 
-            {/* Navigation */}
-            <div className="flex items-center gap-3 mt-6 pt-5 border-t border-gray-100">
+            {/* Navigation - full width */}
+            <div className="flex items-center gap-4 mt-10 pt-6 border-t border-gray-100">
               <button
                 onClick={handleBack}
-                className="h-9 px-4 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 transition-all text-sm font-medium text-gray-600 flex items-center gap-1.5"
+                className="h-11 px-6 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition-all text-sm font-medium text-gray-600 flex items-center gap-2"
               >
-                <ArrowLeft className="w-3.5 h-3.5" />
+                <ArrowLeft className="w-4 h-4" />
                 Back
               </button>
 
@@ -481,27 +485,27 @@ export default function OnboardingPage() {
                 <button
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className="h-9 px-6 rounded-lg text-white text-sm font-semibold bg-gradient-to-r from-[#6BBE4A] to-[#5AA83D] shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-1.5 disabled:opacity-50"
+                  className="h-11 px-8 rounded-xl text-white text-sm font-semibold bg-gradient-to-r from-[#6BBE4A] to-[#5AA83D] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2 disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <Loader2 className="w-4 h-4 animate-spin" />
                       Submitting...
                     </>
                   ) : (
                     <>
                       Submit
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <ArrowRight className="w-4 h-4" />
                     </>
                   )}
                 </button>
               ) : (
                 <button
                   onClick={handleNext}
-                  className="h-9 px-5 rounded-lg text-white text-sm font-semibold bg-gradient-to-r from-[#6BBE4A] to-[#5AA83D] shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-1.5"
+                  className="h-11 px-8 rounded-xl text-white text-sm font-semibold bg-gradient-to-r from-[#6BBE4A] to-[#5AA83D] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
                 >
                   Continue
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-4 h-4" />
                 </button>
               )}
             </div>
