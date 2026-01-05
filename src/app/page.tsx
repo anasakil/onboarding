@@ -24,8 +24,6 @@ import {
   Share2,
   Bot,
   Layers,
-  ArrowUpRight,
-  Play,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -221,21 +219,6 @@ export default function HomePage() {
               Select a service below to begin your personalized onboarding experience. Quick, simple, and tailored to your needs.
             </p>
 
-            {/* CTA Buttons */}
-            <div className="flex items-center justify-center gap-4 mb-16">
-              <a
-                href="#services"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#6BBE4A] to-[#4da339] text-white font-semibold text-lg shadow-xl shadow-[#6BBE4A]/25 hover:shadow-2xl hover:shadow-[#6BBE4A]/30 hover:-translate-y-0.5 transition-all"
-              >
-                Browse Services
-                <ArrowRight className="w-5 h-5" />
-              </a>
-              <button className="inline-flex items-center gap-2 px-6 py-4 rounded-full bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition-all">
-                <Play className="w-5 h-5" />
-                Watch Demo
-              </button>
-            </div>
-
           </div>
         </div>
       </section>
@@ -286,36 +269,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 px-6 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#6BBE4A]/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#6BBE4A]/10 rounded-full blur-3xl" />
-
-        <div className="max-w-4xl mx-auto text-center relative">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-            Ready to get started?
-          </h2>
-          <p className="text-xl text-gray-400 mb-10 max-w-xl mx-auto">
-            Join hundreds of businesses that trust us for their onboarding needs.
-          </p>
-          <a
-            href="#services"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#6BBE4A] text-white font-semibold text-lg hover:bg-[#5aa83d] transition-colors"
-          >
-            Start Onboarding
-            <ArrowUpRight className="w-5 h-5" />
-          </a>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-gray-100">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <Logo size="sm" />
             <p className="text-gray-400 text-sm">
-              © {new Date().getFullYear()} Onboarding B2B. All rights reserved.
+              © {new Date().getFullYear()} IntelligentB2B Onboarding. All rights reserved.
             </p>
             <div className="flex items-center gap-8">
               <Link href="#" className="text-gray-400 hover:text-gray-600 text-sm transition-colors">

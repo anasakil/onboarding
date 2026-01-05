@@ -68,7 +68,7 @@ export function Logo({ className, size = "md", variant = "default", showFull = t
               variant === "light" ? "text-white" : "text-gray-900"
             )}
           >
-            Onboarding
+            IntelligentB2B
           </span>
           <span
             className={cn(
@@ -78,7 +78,7 @@ export function Logo({ className, size = "md", variant = "default", showFull = t
                 : "bg-[#6BBE4A]/10 text-[#6BBE4A]"
             )}
           >
-            B2B
+            Onboarding
           </span>
         </div>
       )}
