@@ -124,30 +124,17 @@ export function DynamicField({ field, value, onChange, error }: DynamicFieldProp
           <Select value={value || ''} onValueChange={handleChange}>
             <SelectTrigger
               className={cn(
-                "h-10 rounded-lg border-2 px-3 text-sm bg-[#10273A] text-white transition-all duration-200",
-                "focus:ring-0 focus:ring-offset-0",
-                error
-                  ? "border-red-400 bg-red-900/20"
-                  : hasValue
-                    ? "border-[#F6B73A] bg-[#F6B73A]/5"
-                    : "border-[#1A3A52] hover:border-[#2A5478]"
+                "h-11",
+                error && "border-red-400 bg-red-900/20 focus:border-red-400",
+                hasValue && !error && "border-[#F6B73A] bg-[#F6B73A]/5"
               )}
             >
               <SelectValue placeholder={field.placeholder || 'Select an option'} />
             </SelectTrigger>
-            <SelectContent className="rounded-lg border border-[#1A3A52] bg-[#10273A] shadow-lg">
+            <SelectContent>
               {field.options?.map((option) => (
-                <SelectItem
-                  key={option}
-                  value={option}
-                  className="py-2 px-3 text-sm text-white cursor-pointer rounded focus:bg-[#F6B73A]/10"
-                >
-                  <div className="flex items-center gap-2">
-                    <span>{option}</span>
-                    {value === option && (
-                      <Check className="w-3.5 h-3.5 text-[#F6B73A]" />
-                    )}
-                  </div>
+                <SelectItem key={option} value={option}>
+                  {option}
                 </SelectItem>
               ))}
             </SelectContent>
