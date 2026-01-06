@@ -38,11 +38,11 @@ export function LoadingAnimation({ size = "md", text, className }: LoadingAnimat
         </div>
       ) : (
         <div className={`${sizes[size]} flex items-center justify-center`}>
-          <div className="w-8 h-8 border-3 border-gray-200 border-t-[#6BBE4A] rounded-full animate-spin" />
+          <div className="w-8 h-8 border-3 border-[#1A3A52] border-t-[#F6B73A] rounded-full animate-spin" />
         </div>
       )}
       {text && (
-        <p className="mt-3 text-gray-500 text-sm">{text}</p>
+        <p className="mt-3 text-[#8F8F94] text-sm">{text}</p>
       )}
     </div>
   )

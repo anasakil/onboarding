@@ -77,9 +77,9 @@ const StepProgress = ({
               <div
                 className={cn(
                   "w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold transition-all duration-300 flex-shrink-0",
-                  isCompleted && "bg-[#6BBE4A] text-white",
-                  isCurrent && "bg-[#6BBE4A] text-white ring-4 ring-[#6BBE4A]/20",
-                  !isCompleted && !isCurrent && "bg-gray-100 text-gray-400"
+                  isCompleted && "bg-[#F6B73A] text-[#0C1C2A]",
+                  isCurrent && "bg-[#F6B73A] text-[#0C1C2A] ring-4 ring-[#F6B73A]/20",
+                  !isCompleted && !isCurrent && "bg-[#1A3A52] text-[#8F8F94]"
                 )}
               >
                 {isCompleted ? (
@@ -95,7 +95,7 @@ const StepProgress = ({
                   <div
                     className={cn(
                       "h-full rounded-full transition-all duration-500",
-                      stepNumber < currentStep ? "bg-[#6BBE4A]" : "bg-gray-200"
+                      stepNumber < currentStep ? "bg-[#F6B73A]" : "bg-[#1A3A52]"
                     )}
                   />
                 </div>
@@ -107,10 +107,10 @@ const StepProgress = ({
 
       {/* Current step label */}
       <div className="flex items-center justify-between mt-3">
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-[#8F8F94]">
           Step {currentStep} of {totalSteps}
         </p>
-        <p className="text-xs font-medium text-[#6BBE4A]">
+        <p className="text-xs font-medium text-[#F6B73A]">
           {Math.round((currentStep / totalSteps) * 100)}% complete
         </p>
       </div>
@@ -297,7 +297,7 @@ export default function OnboardingPage() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FAFBFC]">
+      <div className="min-h-screen flex items-center justify-center bg-[#0C1C2A]">
         <LoadingAnimation size="lg" text="Loading..." />
       </div>
     )
@@ -310,23 +310,23 @@ export default function OnboardingPage() {
   // Success state
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-[#FAFBFC] flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 max-w-sm w-full text-center animate-fade-in-up">
+      <div className="min-h-screen bg-[#0C1C2A] flex items-center justify-center p-4">
+        <div className="bg-[#10273A] rounded-2xl shadow-lg border border-[#1A3A52] p-8 max-w-sm w-full text-center animate-fade-in-up">
           {/* Success icon */}
           <div className="relative w-16 h-16 mx-auto mb-5">
-            <div className="absolute inset-0 bg-[#6BBE4A]/20 rounded-full animate-ping" style={{ animationDuration: '2s' }} />
-            <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-[#6BBE4A] to-[#5AA83D] flex items-center justify-center shadow-lg shadow-[#6BBE4A]/30">
-              <CheckCircle className="w-8 h-8 text-white" />
+            <div className="absolute inset-0 bg-[#F6B73A]/20 rounded-full animate-ping" style={{ animationDuration: '2s' }} />
+            <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-[#F6B73A] to-[#E9A30E] flex items-center justify-center shadow-lg shadow-[#F6B73A]/30">
+              <CheckCircle className="w-8 h-8 text-[#0C1C2A]" />
             </div>
           </div>
 
-          <h1 className="text-xl font-bold text-gray-900 mb-2">Thank You!</h1>
-          <p className="text-gray-500 text-sm mb-6 leading-relaxed">
-            Your request for <span className="font-semibold text-gray-700">{service.name}</span> has been submitted. We'll respond within 24-48 hours.
+          <h1 className="text-xl font-bold text-white mb-2">Thank You!</h1>
+          <p className="text-[#8F8F94] text-sm mb-6 leading-relaxed">
+            Your request for <span className="font-semibold text-white">{service.name}</span> has been submitted. We'll respond within 24-48 hours.
           </p>
 
           <Link href="/">
-            <button className="w-full h-10 text-sm font-semibold text-white rounded-xl flex items-center justify-center gap-2 bg-gradient-to-r from-[#6BBE4A] to-[#5AA83D] shadow-md hover:shadow-lg transition-all">
+            <button className="w-full h-10 text-sm font-semibold text-[#0C1C2A] rounded-xl flex items-center justify-center gap-2 bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-md hover:shadow-lg transition-all">
               <Home className="w-4 h-4" />
               Back to Home
             </button>
@@ -348,7 +348,7 @@ export default function OnboardingPage() {
 
   // Helper function to format field value for display
   const formatFieldValue = (field: FormField, value: any) => {
-    if (!value) return <span className="text-gray-400 italic">Not provided</span>
+    if (!value) return <span className="text-[#8F8F94] italic">Not provided</span>
     if (Array.isArray(value)) return value.join(", ")
     if (typeof value === "boolean") return value ? "Yes" : "No"
     return String(value)
@@ -357,14 +357,14 @@ export default function OnboardingPage() {
   // Review page
   if (showReview) {
     return (
-      <div className="min-h-screen bg-[#FAFBFC]">
-        <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
+      <div className="min-h-screen bg-[#0C1C2A]">
+        <header className="bg-[#10273A] border-b border-[#1A3A52] sticky top-0 z-50">
           <div className="max-w-6xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
             <Link href="/" className="hover:opacity-80 transition-opacity">
               <Logo size="sm" />
             </Link>
-            <div className="flex items-center gap-2 text-sm text-gray-400">
-              <Shield className="w-4 h-4 text-[#6BBE4A]" />
+            <div className="flex items-center gap-2 text-sm text-[#8F8F94]">
+              <Shield className="w-4 h-4 text-[#F6B73A]" />
               <span>Review & Submit</span>
             </div>
           </div>
@@ -389,22 +389,22 @@ export default function OnboardingPage() {
                     />
                   </div>
                 ) : (
-                  <div className="w-64 h-64 bg-gradient-to-br from-[#6BBE4A]/10 to-[#6BBE4A]/5 rounded-3xl flex items-center justify-center">
-                    <CheckCircle className="w-20 h-20 text-[#6BBE4A]" />
+                  <div className="w-64 h-64 bg-gradient-to-br from-[#F6B73A]/10 to-[#F6B73A]/5 rounded-3xl flex items-center justify-center">
+                    <CheckCircle className="w-20 h-20 text-[#F6B73A]" />
                   </div>
                 )}
               </div>
 
               {/* Review Title */}
               <div className="flex-1 text-center lg:text-left">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#6BBE4A]/10 text-[#6BBE4A] text-sm font-medium mb-4">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F6B73A]/10 text-[#F6B73A] text-sm font-medium mb-4">
                   <Check className="w-4 h-4" />
                   All steps completed
                 </div>
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
                   Review Your Information
                 </h1>
-                <p className="text-gray-500 text-lg max-w-xl">
+                <p className="text-[#8F8F94] text-lg max-w-xl">
                   Please review all the information you've provided before submitting. Click on any section to make changes.
                 </p>
               </div>
@@ -420,20 +420,20 @@ export default function OnboardingPage() {
                 return (
                   <div
                     key={step.order}
-                    className="bg-white rounded-2xl border border-gray-100 overflow-hidden animate-fade-in-up"
+                    className="bg-[#10273A] rounded-2xl border border-[#1A3A52] overflow-hidden animate-fade-in-up"
                     style={{ animationDelay: `${(step.order - 1) * 100}ms` }}
                   >
                     {/* Card Header */}
-                    <div className="flex items-center justify-between px-6 py-4 bg-gray-50 border-b border-gray-100">
+                    <div className="flex items-center justify-between px-6 py-4 bg-[#0C1C2A] border-b border-[#1A3A52]">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-[#6BBE4A] text-white flex items-center justify-center text-sm font-semibold">
+                        <div className="w-8 h-8 rounded-full bg-[#F6B73A] text-[#0C1C2A] flex items-center justify-center text-sm font-semibold">
                           {step.order}
                         </div>
-                        <h3 className="font-semibold text-gray-900">{step.title}</h3>
+                        <h3 className="font-semibold text-white">{step.title}</h3>
                       </div>
                       <button
                         onClick={() => goToStep(step.order)}
-                        className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-[#6BBE4A] hover:bg-[#6BBE4A]/10 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-[#F6B73A] hover:bg-[#F6B73A]/10 transition-colors"
                       >
                         <Edit3 className="w-4 h-4" />
                         Edit
@@ -450,8 +450,8 @@ export default function OnboardingPage() {
                               (field.type === 'textarea' || field.type === 'multiselect' || field.type === 'radio') && "md:col-span-2"
                             )}
                           >
-                            <p className="text-sm text-gray-500 mb-1">{field.label}</p>
-                            <p className="text-gray-900 font-medium">
+                            <p className="text-sm text-[#8F8F94] mb-1">{field.label}</p>
+                            <p className="text-white font-medium">
                               {formatFieldValue(field, formData[field.name])}
                             </p>
                           </div>
@@ -464,10 +464,10 @@ export default function OnboardingPage() {
             </div>
 
             {/* Submit Actions */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 mt-10 pt-8 border-t border-gray-200">
+            <div className="flex flex-col sm:flex-row items-center gap-4 mt-10 pt-8 border-t border-[#1A3A52]">
               <button
                 onClick={handleBack}
-                className="w-full sm:w-auto h-12 px-8 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition-all text-sm font-medium text-gray-600 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto h-12 px-8 rounded-xl border border-[#1A3A52] bg-[#10273A] hover:bg-[#1A3A52] transition-all text-sm font-medium text-white flex items-center justify-center gap-2"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Edit
@@ -478,7 +478,7 @@ export default function OnboardingPage() {
               <button
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="w-full sm:w-auto h-12 px-10 rounded-xl text-white text-base font-semibold bg-gradient-to-r from-[#6BBE4A] to-[#5AA83D] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full sm:w-auto h-12 px-10 rounded-xl text-[#0C1C2A] text-base font-semibold bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <>
@@ -504,8 +504,8 @@ export default function OnboardingPage() {
     return (
       <div className="min-h-screen flex">
         {/* Left - Form */}
-        <div className="w-full lg:w-1/2 min-h-screen bg-white flex flex-col">
-          <header className="px-5 lg:px-8 py-3 border-b border-gray-100">
+        <div className="w-full lg:w-1/2 min-h-screen bg-[#0C1C2A] flex flex-col">
+          <header className="px-5 lg:px-8 py-3 border-b border-[#1A3A52]">
             <Link href="/" className="hover:opacity-80 transition-opacity inline-block">
               <Logo size="sm" />
             </Link>
@@ -525,11 +525,11 @@ export default function OnboardingPage() {
               )}>
                 {/* Step header */}
                 <div className="mb-5">
-                  <h1 className="text-lg font-bold text-gray-900 mb-1">
+                  <h1 className="text-lg font-bold text-white mb-1">
                     {currentStepData?.title}
                   </h1>
                   {currentStepData?.description && (
-                    <p className="text-gray-500 text-sm">{currentStepData.description}</p>
+                    <p className="text-[#8F8F94] text-sm">{currentStepData.description}</p>
                   )}
                 </div>
 
@@ -552,18 +552,18 @@ export default function OnboardingPage() {
                 </div>
 
                 {/* Navigation */}
-                <div className="flex items-center gap-3 mt-6 pt-5 border-t border-gray-100">
+                <div className="flex items-center gap-3 mt-6 pt-5 border-t border-[#1A3A52]">
                   {currentStep > 1 ? (
                     <button
                       onClick={handleBack}
-                      className="h-9 px-4 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 transition-all text-sm font-medium text-gray-600 flex items-center gap-1.5"
+                      className="h-9 px-4 rounded-lg border border-[#1A3A52] bg-[#10273A] hover:bg-[#1A3A52] transition-all text-sm font-medium text-white flex items-center gap-1.5"
                     >
                       <ArrowLeft className="w-3.5 h-3.5" />
                       Back
                     </button>
                   ) : (
                     <Link href="/">
-                      <button className="h-9 px-4 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 transition-all text-sm font-medium text-gray-600 flex items-center gap-1.5">
+                      <button className="h-9 px-4 rounded-lg border border-[#1A3A52] bg-[#10273A] hover:bg-[#1A3A52] transition-all text-sm font-medium text-white flex items-center gap-1.5">
                         <ArrowLeft className="w-3.5 h-3.5" />
                         Back
                       </button>
@@ -574,7 +574,7 @@ export default function OnboardingPage() {
 
                   <button
                     onClick={handleNext}
-                    className="h-9 px-5 rounded-lg text-white text-sm font-semibold bg-gradient-to-r from-[#6BBE4A] to-[#5AA83D] shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-1.5"
+                    className="h-9 px-5 rounded-lg text-[#0C1C2A] text-sm font-semibold bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-1.5"
                   >
                     Continue
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -586,7 +586,7 @@ export default function OnboardingPage() {
         </div>
 
         {/* Right - Lottie Animation */}
-        <div className="hidden lg:flex w-1/2 min-h-screen bg-gradient-to-br from-[#f8fdf6] to-[#f0fdf4] items-center justify-center p-8">
+        <div className="hidden lg:flex w-1/2 min-h-screen bg-gradient-to-br from-[#10273A] to-[#0C1C2A] items-center justify-center p-8">
           <LottieIllustration step={currentStep} />
         </div>
       </div>
@@ -595,14 +595,14 @@ export default function OnboardingPage() {
 
   // Full-width two-column layout for steps 3+
   return (
-    <div className="min-h-screen bg-[#FAFBFC]">
-      <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <div className="min-h-screen bg-[#0C1C2A]">
+      <header className="bg-[#10273A] border-b border-[#1A3A52] sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
           <Link href="/" className="hover:opacity-80 transition-opacity">
             <Logo size="sm" />
           </Link>
-          <div className="flex items-center gap-2 text-sm text-gray-400">
-            <Shield className="w-4 h-4 text-[#6BBE4A]" />
+          <div className="flex items-center gap-2 text-sm text-[#8F8F94]">
+            <Shield className="w-4 h-4 text-[#F6B73A]" />
             <span>Secure Form</span>
           </div>
         </div>
@@ -619,18 +619,18 @@ export default function OnboardingPage() {
         </div>
 
         {/* Full width container */}
-        <div className="bg-white rounded-2xl p-6 md:p-10">
+        <div className="bg-[#10273A] rounded-2xl p-6 md:p-10 border border-[#1A3A52]">
           <div className={cn(
             "transition-all duration-200",
             isTransitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
           )}>
             {/* Step header - centered */}
             <div className="text-center mb-8">
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
                 {currentStepData?.title}
               </h1>
               {currentStepData?.description && (
-                <p className="text-gray-500 text-base max-w-2xl mx-auto">{currentStepData.description}</p>
+                <p className="text-[#8F8F94] text-base max-w-2xl mx-auto">{currentStepData.description}</p>
               )}
             </div>
 
@@ -656,10 +656,10 @@ export default function OnboardingPage() {
             </div>
 
             {/* Navigation - full width */}
-            <div className="flex items-center gap-4 mt-10 pt-6 border-t border-gray-100">
+            <div className="flex items-center gap-4 mt-10 pt-6 border-t border-[#1A3A52]">
               <button
                 onClick={handleBack}
-                className="h-11 px-6 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition-all text-sm font-medium text-gray-600 flex items-center gap-2"
+                className="h-11 px-6 rounded-xl border border-[#1A3A52] bg-[#0C1C2A] hover:bg-[#1A3A52] transition-all text-sm font-medium text-white flex items-center gap-2"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back
@@ -670,7 +670,7 @@ export default function OnboardingPage() {
               {isLastStep ? (
                 <button
                   onClick={handleNext}
-                  className="h-11 px-8 rounded-xl text-white text-sm font-semibold bg-gradient-to-r from-[#6BBE4A] to-[#5AA83D] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
+                  className="h-11 px-8 rounded-xl text-[#0C1C2A] text-sm font-semibold bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
                 >
                   Review
                   <Check className="w-4 h-4" />
@@ -678,7 +678,7 @@ export default function OnboardingPage() {
               ) : (
                 <button
                   onClick={handleNext}
-                  className="h-11 px-8 rounded-xl text-white text-sm font-semibold bg-gradient-to-r from-[#6BBE4A] to-[#5AA83D] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
+                  className="h-11 px-8 rounded-xl text-[#0C1C2A] text-sm font-semibold bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
                 >
                   Continue
                   <ArrowRight className="w-4 h-4" />

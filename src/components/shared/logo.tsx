@@ -29,8 +29,8 @@ export function Logo({ className, size = "md", variant = "default", showFull = t
           iconSizes[size]
         )}
         style={{
-          background: 'linear-gradient(135deg, #6BBE4A 0%, #5AA83D 100%)',
-          boxShadow: '0 4px 14px -4px rgba(107, 190, 74, 0.4)'
+          background: 'linear-gradient(135deg, #F6B73A 0%, #E9A30E 100%)',
+          boxShadow: '0 4px 14px -4px rgba(246, 183, 58, 0.4)'
         }}
       >
         {/* Shine effect */}
@@ -50,7 +50,7 @@ export function Logo({ className, size = "md", variant = "default", showFull = t
         >
           <path
             d="M12 4L12 20M12 4L6 10M12 4L18 10"
-            stroke="white"
+            stroke="#0C1C2A"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -65,7 +65,7 @@ export function Logo({ className, size = "md", variant = "default", showFull = t
             className={cn(
               "font-bold tracking-tight",
               textSizes[size],
-              variant === "light" ? "text-white" : "text-gray-900"
+              variant === "light" ? "text-white" : "text-white"
             )}
           >
             IntelligentB2B
@@ -75,7 +75,7 @@ export function Logo({ className, size = "md", variant = "default", showFull = t
               "font-semibold px-1.5 py-0.5 rounded-md text-[11px]",
               variant === "light"
                 ? "bg-white/20 text-white"
-                : "bg-[#6BBE4A]/10 text-[#6BBE4A]"
+                : "bg-[#F6B73A]/20 text-[#F6B73A]"
             )}
           >
             Onboarding
