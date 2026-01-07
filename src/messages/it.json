@@ -113,7 +113,7 @@
                 "emailLabel": "Email *",
                 "emailPlaceholder": "mario@azienda.com",
                 "phoneLabel": "Telefono (Opzionale)",
-                "phonePlaceholder": "+39 123 456 7890",
+                "phonePlaceholder": "+212 123 456 7890",
                 "assignLabel": "Assegna a membro del team (Opzionale)",
                 "assignPlaceholder": "Assegnazione automatica in base alle regole",
                 "autoAssign": "Assegnazione automatica in base alle regole"
