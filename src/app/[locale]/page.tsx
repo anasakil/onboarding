@@ -209,6 +209,7 @@ const HeroSVG = memo(function HeroSVG() {
 
 export default function HomePage() {
   const t = useTranslations('HomePage')
+  const locale = useLocale()
   const router = useRouter()
   const [services, setServices] = useState<Service[]>([])
   const [isLoading, setIsLoading] = useState(true)

@@ -229,7 +229,7 @@ export default function OnboardingPage() {
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
-  }, [service, currentStep, formData])
+  }, [service, currentStep, formData, getLoc, t])
 
   const handleNext = useCallback(() => {
     if (validateStep()) {
