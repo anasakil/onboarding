@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ArrowLeft, Save } from "lucide-react"
 
 const CATEGORIES = [
@@ -32,9 +33,9 @@ export default function NewServicePage() {
   const router = useRouter()
   const [saving, setSaving] = useState(false)
   const [service, setService] = useState({
-    name: '',
+    name: { en: '', it: '' },
     category: 'Development',
-    description: '',
+    description: { en: '', it: '' },
     icon: '',
     color: '#6BBE4A',
     isActive: true,
@@ -43,8 +44,8 @@ export default function NewServicePage() {
   })
 
   const handleSave = async () => {
-    if (!service.name.trim()) {
-      alert('Service name is required')
+    if (!service.name.en.trim() || !service.name.it.trim()) {
+      alert('Service name is required in both languages')
       return
     }
 
@@ -98,18 +99,66 @@ export default function NewServicePage() {
             <CardTitle>Service Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
+            <Tabs defaultValue="en">
+              <TabsList className="mb-4">
+                <TabsTrigger value="en">English 🇺🇸</TabsTrigger>
+                <TabsTrigger value="it">Italian 🇮🇹</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="en" className="space-y-4">
+                <div>
+                  <Label htmlFor="name-en">Name (English) *</Label>
+                  <Input
+                    id="name-en"
+                    value={service.name.en}
+                    onChange={(e) =>
+                      setService({ ...service, name: { ...service.name, en: e.target.value } })
+                    }
+                    placeholder="e.g., Website Development"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="description-en">Description (English)</Label>
+                  <Textarea
+                    id="description-en"
+                    value={service.description.en}
+                    onChange={(e) =>
+                      setService({ ...service, description: { ...service.description, en: e.target.value } })
+                    }
+                    rows={3}
+                    placeholder="Brief description of the service..."
+                  />
+                </div>
+              </TabsContent>
+
+              <TabsContent value="it" className="space-y-4">
+                <div>
+                  <Label htmlFor="name-it">Name (Italian) *</Label>
+                  <Input
+                    id="name-it"
+                    value={service.name.it}
+                    onChange={(e) =>
+                      setService({ ...service, name: { ...service.name, it: e.target.value } })
+                    }
+                    placeholder="Es., Sviluppo Siti Web"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="description-it">Description (Italian)</Label>
+                  <Textarea
+                    id="description-it"
+                    value={service.description.it}
+                    onChange={(e) =>
+                      setService({ ...service, description: { ...service.description, it: e.target.value } })
+                    }
+                    rows={3}
+                    placeholder="Breve descrizione del servizio..."
+                  />
+                </div>
+              </TabsContent>
+            </Tabs>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="name">Name *</Label>
-                <Input
-                  id="name"
-                  value={service.name}
-                  onChange={(e) =>
-                    setService({ ...service, name: e.target.value })
-                  }
-                  placeholder="e.g., Website Development"
-                />
-              </div>
               <div>
                 <Label htmlFor="category">Category</Label>
                 <Select
@@ -130,18 +179,6 @@ export default function NewServicePage() {
                   </SelectContent>
                 </Select>
               </div>
-            </div>
-            <div>
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                value={service.description}
-                onChange={(e) =>
-                  setService({ ...service, description: e.target.value })
-                }
-                rows={3}
-                placeholder="Brief description of the service..."
-              />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
@@ -189,7 +226,7 @@ export default function NewServicePage() {
 
             <div className="pt-4 border-t">
               <p className="text-sm text-text-secondary">
-                After creating the service, you'll be able to configure form steps and fields.
+                After creating the service, you&apos;ll be able to configure form steps and fields.
               </p>
             </div>
           </CardContent>

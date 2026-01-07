@@ -4,6 +4,8 @@ import { useEffect, useState, memo, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Logo } from '@/components/shared/logo'
+import LangSwitcher from '@/components/shared/LangSwitcher'
+import { useTranslations, useLocale } from 'next-intl'
 import { LoadingAnimation } from '@/components/shared/loading-animation'
 import {
   Globe,
@@ -24,21 +26,22 @@ import {
   Share2,
   Bot,
   Layers,
+  Facebook
 } from 'lucide-react'
 
 // Icon map
 const iconMap: Record<string, React.ElementType> = {
   Globe, TrendingUp, Mail, FileText, Code, Palette, Megaphone,
   Smartphone, Sparkles, Briefcase, ShoppingCart, Cpu, PenTool,
-  Search, Share2, Bot, Layers,
+  Search, Share2, Bot, Layers, Facebook
 }
 
 // Types
 interface Service {
   _id: string
-  name: string
+  name: string | { en: string; it: string }
   slug: string
-  description?: string
+  description?: string | { en: string; it: string }
   icon?: string
   color: string
   category: string
@@ -104,7 +107,7 @@ const FloatingIcon = memo(function FloatingIcon({
   )
 })
 
-// Memoized Service Card
+// Memoized ServiceCard
 const ServiceCard = memo(function ServiceCard({
   service,
   onSelect,
@@ -116,7 +119,19 @@ const ServiceCard = memo(function ServiceCard({
   index: number
   isVisible: boolean
 }) {
+  const locale = useLocale()
   const Icon = iconMap[service.icon || ''] || Globe
+
+  const getName = (s: Service) => {
+    if (typeof s.name === 'string') return s.name
+    return (s.name as unknown as { en: string; it: string })[locale as 'en' | 'it'] || (s.name as unknown as { en: string; it: string }).en
+  }
+
+  const getDescription = (s: Service) => {
+    if (!s.description) return 'Professional solutions tailored for your business needs.'
+    if (typeof s.description === 'string') return s.description
+    return (s.description as unknown as { en: string; it: string })[locale as 'en' | 'it'] || (s.description as unknown as { en: string; it: string }).en
+  }
 
   return (
     <button
@@ -132,10 +147,10 @@ const ServiceCard = memo(function ServiceCard({
           </div>
         </div>
         <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-[#F6B73A] transition-colors duration-200">
-          {service.name}
+          {getName(service)}
         </h3>
         <p className="text-[#8F8F94] text-sm leading-relaxed mb-6 line-clamp-2">
-          {service.description || 'Professional solutions tailored for your business needs.'}
+          {getDescription(service)}
         </p>
         <div className="flex justify-center">
           <div className="w-10 h-10 rounded-full border-2 border-[#1A3A52] flex items-center justify-center group-hover:border-[#F6B73A] group-hover:bg-[#F6B73A] transition-all duration-200">
@@ -193,6 +208,7 @@ const HeroSVG = memo(function HeroSVG() {
 })
 
 export default function HomePage() {
+  const t = useTranslations('HomePage')
   const router = useRouter()
   const [services, setServices] = useState<Service[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -227,11 +243,15 @@ export default function HomePage() {
     <div className="min-h-screen bg-[#0C1C2A] overflow-x-hidden">
       {/* Nav */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? 'bg-[#0C1C2A]/95 backdrop-blur-xl border-b border-[#1A3A52] shadow-sm'
-          : 'bg-[#0C1C2A]/60 backdrop-blur-xl border-b border-transparent'
+        ? 'bg-[#0C1C2A]/95 backdrop-blur-xl border-b border-[#1A3A52] shadow-sm'
+        : 'bg-[#0C1C2A]/60 backdrop-blur-xl border-b border-transparent'
         }`}>
-        <div className={`max-w-6xl mx-auto px-6 ${isScrolled ? 'py-3' : 'py-4'} flex justify-center transition-all duration-300`}>
+        <div className={`max-w-6xl mx-auto px-6 ${isScrolled ? 'py-3' : 'py-4'} flex justify-between items-center transition-all duration-300`}>
+          <div className="w-20" /> {/* Spacer for centering logo */}
           <Logo size="sm" />
+          <div className="w-20 flex justify-end">
+            <LangSwitcher />
+          </div>
         </div>
       </nav>
 
@@ -256,19 +276,19 @@ export default function HomePage() {
           <div className="max-w-3xl mx-auto text-center">
             <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F6B73A]/10 text-[#F6B73A] text-sm font-medium mb-8 border border-[#F6B73A]/20 transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               <Sparkles className="w-4 h-4" />
-              B2B Onboarding Platform
+              {t('hero.badge')}
             </div>
 
             <h1 className={`text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1] tracking-tight transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: '150ms' }}>
-              Start your journey
+              {t('hero.titleStart')}
               <br />
               <span className="bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] bg-clip-text text-transparent">
-                with us today
+                {t('hero.titleEnd')}
               </span>
             </h1>
 
             <p className={`text-xl text-[#8F8F94] max-w-xl mx-auto leading-relaxed transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: '300ms' }}>
-              Select a service below to begin your personalized onboarding experience.
+              {t('hero.description')}
             </p>
 
             <div className={`mt-12 flex justify-center transition-all duration-700 ${mounted ? 'opacity-100' : 'opacity-0'}`} style={{ transitionDelay: '450ms' }}>
@@ -284,24 +304,24 @@ export default function HomePage() {
       <section id="services" className="py-20 px-6">
         <div ref={servicesAnim.ref} className="max-w-6xl mx-auto">
           <div className={`text-center mb-14 transition-all duration-700 ${servicesAnim.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <span className="text-[#F6B73A] text-sm font-semibold mb-3 block tracking-wider uppercase">Features Services</span>
+            <span className="text-[#F6B73A] text-sm font-semibold mb-3 block tracking-wider uppercase">{t('services.label')}</span>
             <h2 className="text-3xl md:text-4xl font-bold text-white">
-              A wide range of professional
+              {t('services.titleStart')}
               <br />
-              <span className="text-[#8F8F94]">services</span>
+              <span className="text-[#8F8F94]">{t('services.titleEnd')}</span>
             </h2>
           </div>
 
           {isLoading ? (
             <div className="flex justify-center py-16">
-              <LoadingAnimation size="lg" text="Loading services..." />
+              <LoadingAnimation size="lg" text={t('services.loading')} />
             </div>
           ) : services.length === 0 ? (
             <div className="flex flex-col items-center py-16">
               <div className="w-14 h-14 bg-[#10273A] rounded-xl flex items-center justify-center mb-3">
                 <FileText className="w-7 h-7 text-[#8F8F94]" />
               </div>
-              <p className="text-[#8F8F94]">No services available</p>
+              <p className="text-[#8F8F94]">{t('services.empty')}</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -324,10 +344,10 @@ export default function HomePage() {
         <div ref={footerAnim.ref} className="max-w-6xl mx-auto">
           <div className={`flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-700 ${footerAnim.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
             <Logo size="sm" />
-            <p className="text-[#8F8F94] text-sm">© {new Date().getFullYear()} IntelligentB2B Onboarding</p>
+            <p className="text-[#8F8F94] text-sm">{t('footer.copyright', { year: new Date().getFullYear() })}</p>
             <div className="flex gap-6">
-              <Link href="#" className="text-[#8F8F94] hover:text-[#F6B73A] text-sm transition-colors">Privacy</Link>
-              <Link href="#" className="text-[#8F8F94] hover:text-[#F6B73A] text-sm transition-colors">Terms</Link>
+              <Link href="#" className="text-[#8F8F94] hover:text-[#F6B73A] text-sm transition-colors">{t('footer.privacy')}</Link>
+              <Link href="#" className="text-[#8F8F94] hover:text-[#F6B73A] text-sm transition-colors">{t('footer.terms')}</Link>
             </div>
           </div>
         </div>

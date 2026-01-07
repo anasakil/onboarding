@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { LEAD_SOURCES } from "@/lib/constants"
+import { useTranslations } from "next-intl"
 
 interface SourceData {
   source: string[]
@@ -55,16 +56,19 @@ export function StepSource({
     }
   }
 
+  const t = useTranslations('Onboarding.Steps.Source')
+  const tControls = useTranslations('Onboarding.Controls')
+
   const isValid = data.contactName && data.contactEmail
 
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
         <h1 className="text-3xl font-bold text-text-primary">
-          How did you hear about Awesome?
+          {t('title')}
         </h1>
         <p className="text-text-secondary mt-2">
-          Select all that apply.
+          {t('subtitle')}
         </p>
       </div>
 
@@ -102,14 +106,14 @@ export function StepSource({
       {/* Contact Information */}
       <div className="border-t border-border pt-6 space-y-4">
         <h2 className="text-lg font-semibold text-text-primary">
-          Contact Information
+          {t('contactInfo')}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label>Contact Name *</Label>
+            <Label>{t('nameLabel')}</Label>
             <Input
-              placeholder="John Doe"
+              placeholder={t('namePlaceholder')}
               value={data.contactName}
               onChange={(e) =>
                 onChange({ ...data, contactName: e.target.value })
@@ -117,10 +121,10 @@ export function StepSource({
             />
           </div>
           <div className="space-y-2">
-            <Label>Email *</Label>
+            <Label>{t('emailLabel')}</Label>
             <Input
               type="email"
-              placeholder="john@company.com"
+              placeholder={t('emailPlaceholder')}
               value={data.contactEmail}
               onChange={(e) =>
                 onChange({ ...data, contactEmail: e.target.value })
@@ -130,10 +134,10 @@ export function StepSource({
         </div>
 
         <div className="space-y-2">
-          <Label>Phone (Optional)</Label>
+          <Label>{t('phoneLabel')}</Label>
           <Input
             type="tel"
-            placeholder="+1 234 567 890"
+            placeholder={t('phonePlaceholder')}
             value={data.contactPhone}
             onChange={(e) =>
               onChange({ ...data, contactPhone: e.target.value })
@@ -145,16 +149,16 @@ export function StepSource({
       {/* Team Assignment */}
       {teamMembers.length > 0 && (
         <div className="space-y-2">
-          <Label>Assign to Team Member (Optional)</Label>
+          <Label>{t('assignLabel')}</Label>
           <Select
             value={data.assignedTo}
             onValueChange={(value) => onChange({ ...data, assignedTo: value })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Auto-assign based on rules" />
+              <SelectValue placeholder={t('assignPlaceholder')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="auto">Auto-assign based on rules</SelectItem>
+              <SelectItem value="auto">{t('autoAssign')}</SelectItem>
               {teamMembers.map((member) => (
                 <SelectItem key={member._id} value={member._id}>
                   {member.name} ({member.role})
@@ -167,14 +171,14 @@ export function StepSource({
 
       <div className="flex items-center justify-between pt-4">
         <Button variant="outline" onClick={onBack}>
-          <ArrowLeft className="mr-2 w-4 h-4" /> Back
+          <ArrowLeft className="mr-2 w-4 h-4" /> {tControls('back')}
         </Button>
         <div className="flex items-center gap-3">
           <Button variant="ghost" onClick={onBack}>
-            Skip for now
+            {tControls('skip')}
           </Button>
           <Button onClick={onSubmit} disabled={!isValid || isSubmitting}>
-            {isSubmitting ? "Creating..." : "Create Lead"}{" "}
+            {isSubmitting ? tControls('creating') : tControls('createLead')}{" "}
             <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
         </div>

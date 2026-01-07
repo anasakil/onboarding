@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 import { LEAD_TYPES } from "@/lib/constants"
 import { UserPlus, Users, Share2, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useTranslations } from "next-intl"
 
 interface StepLeadTypeProps {
   value: string
@@ -18,11 +19,14 @@ const iconMap = {
 }
 
 export function StepLeadType({ value, onChange, onNext }: StepLeadTypeProps) {
+  const t = useTranslations('Onboarding.Steps.LeadType')
+  const tControls = useTranslations('Onboarding.Controls')
+
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
         <h1 className="text-3xl font-bold text-text-primary">
-          How do you plan to use Awesome?
+          {t('title')}
         </h1>
       </div>
 
@@ -83,7 +87,7 @@ export function StepLeadType({ value, onChange, onNext }: StepLeadTypeProps) {
 
       <div className="pt-4">
         <Button onClick={onNext} size="lg" disabled={!value}>
-          Continue <ArrowRight className="ml-2 w-4 h-4" />
+          {tControls('continue')} <ArrowRight className="ml-2 w-4 h-4" />
         </Button>
       </div>
     </div>

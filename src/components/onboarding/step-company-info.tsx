@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { COMPANY_TYPES, INDUSTRIES, COMPANY_SIZES } from "@/lib/constants"
+import { useTranslations } from "next-intl"
 
 interface CompanyInfoData {
   companyName: string
@@ -35,21 +36,23 @@ export function StepCompanyInfo({
 }: StepCompanyInfoProps) {
   const isValid =
     data.companyName && data.companyType && data.industry && data.companySize
+  const t = useTranslations('Onboarding.Steps.CompanyInfo')
+  const tControls = useTranslations('Onboarding.Controls')
 
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
         <h1 className="text-3xl font-bold text-text-primary">
-          Tell us more about your situation
+          {t('title')}
         </h1>
       </div>
 
       <div className="space-y-6">
         {/* Company Name */}
         <div className="space-y-2">
-          <Label>Company Name</Label>
+          <Label>{t('nameLabel')}</Label>
           <Input
-            placeholder="Enter company name"
+            placeholder={t('namePlaceholder')}
             value={data.companyName}
             onChange={(e) =>
               onChange({ ...data, companyName: e.target.value })
@@ -59,7 +62,7 @@ export function StepCompanyInfo({
 
         {/* Company Type */}
         <div className="space-y-2">
-          <Label>What kind of company do you work for?</Label>
+          <Label>{t('typeLabel')}</Label>
           <Select
             value={data.companyType}
             onValueChange={(value) =>
@@ -67,7 +70,7 @@ export function StepCompanyInfo({
             }
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select company type" />
+              <SelectValue placeholder={t('typePlaceholder')} />
             </SelectTrigger>
             <SelectContent>
               {COMPANY_TYPES.map((type) => (
@@ -81,13 +84,13 @@ export function StepCompanyInfo({
 
         {/* Industry */}
         <div className="space-y-2">
-          <Label>What is your industry?</Label>
+          <Label>{t('industryLabel')}</Label>
           <Select
             value={data.industry}
             onValueChange={(value) => onChange({ ...data, industry: value })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select industry" />
+              <SelectValue placeholder={t('industryPlaceholder')} />
             </SelectTrigger>
             <SelectContent>
               {INDUSTRIES.map((industry) => (
@@ -101,7 +104,7 @@ export function StepCompanyInfo({
 
         {/* Company Size */}
         <div className="space-y-2">
-          <Label>Company Size</Label>
+          <Label>{t('sizeLabel')}</Label>
           <Select
             value={data.companySize}
             onValueChange={(value) =>
@@ -109,7 +112,7 @@ export function StepCompanyInfo({
             }
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select company size" />
+              <SelectValue placeholder={t('sizePlaceholder')} />
             </SelectTrigger>
             <SelectContent>
               {COMPANY_SIZES.map((size) => (
@@ -124,10 +127,10 @@ export function StepCompanyInfo({
 
       <div className="flex items-center justify-between pt-4">
         <Button variant="outline" onClick={onBack}>
-          <ArrowLeft className="mr-2 w-4 h-4" /> Back
+          <ArrowLeft className="mr-2 w-4 h-4" /> {tControls('back')}
         </Button>
         <Button onClick={onNext} disabled={!isValid}>
-          Continue <ArrowRight className="ml-2 w-4 h-4" />
+          {tControls('continue')} <ArrowRight className="ml-2 w-4 h-4" />
         </Button>
       </div>
     </div>

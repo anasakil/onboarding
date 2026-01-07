@@ -1,0 +1,130 @@
+{
+    "HomePage": {
+        "title": "Onboarding Intelligent B2B",
+        "subtitle": "Streamline your client onboarding process",
+        "getStarted": "Get Started",
+        "hero": {
+            "badge": "B2B Onboarding Platform",
+            "titleStart": "Start your journey",
+            "titleEnd": "with us today",
+            "description": "Select a service below to begin your personalized onboarding experience."
+        },
+        "services": {
+            "label": "Features Services",
+            "titleStart": "A wide range of professional",
+            "titleEnd": "services",
+            "loading": "Loading services...",
+            "empty": "No services available",
+            "defaultDesc": "Professional solutions tailored for your business needs."
+        },
+        "footer": {
+            "copyright": "© {year} IntelligentB2B Onboarding",
+            "privacy": "Privacy",
+            "terms": "Terms"
+        }
+    },
+    "Navigation": {
+        "dashboard": "Dashboard",
+        "settings": "Settings"
+    },
+    "Onboarding": {
+        "Progress": {
+            "step": "Step {current} of {total}",
+            "complete": "{percent}% complete"
+        },
+        "Controls": {
+            "back": "Back",
+            "continue": "Continue",
+            "review": "Review",
+            "submit": "Submit Application",
+            "submitting": "Submitting...",
+            "createLead": "Create Lead",
+            "creating": "Creating...",
+            "skip": "Skip for now",
+            "backToEdit": "Back to Edit",
+            "backToHome": "Back to Home"
+        },
+        "Messages": {
+            "loading": "Loading...",
+            "serviceNotFound": "Service not found",
+            "successTitle": "Thank You!",
+            "successDesc": "Your request for {serviceName} has been submitted. We'll respond within 24-48 hours.",
+            "errorTitle": "Submission failed",
+            "errorDesc": "Failed to submit. Please try again."
+        },
+        "Review": {
+            "title": "Review Your Information",
+            "description": "Please review all the information you've provided before submitting. Click on any section to make changes.",
+            "badge": "All steps completed",
+            "headerLabel": "Review & Submit",
+            "edit": "Edit",
+            "notProvided": "Not provided",
+            "yes": "Yes",
+            "no": "No"
+        },
+        "Validation": {
+            "required": "{label} is required",
+            "email": "Please enter a valid email address",
+            "url": "Please enter a valid URL"
+        },
+        "Steps": {
+            "CompanyInfo": {
+                "title": "Tell us more about your situation",
+                "nameLabel": "Company Name",
+                "namePlaceholder": "Enter company name",
+                "typeLabel": "What kind of company do you work for?",
+                "typePlaceholder": "Select company type",
+                "industryLabel": "What is your industry?",
+                "industryPlaceholder": "Select industry",
+                "sizeLabel": "Company Size",
+                "sizePlaceholder": "Select company size"
+            },
+            "Goals": {
+                "title": "What brings you to Awesome today?",
+                "subtitle": "Select your main goals for this project.",
+                "challengesLabel": "Any specific challenges? (Optional)",
+                "challengesPlaceholder": "Tell us about any specific challenges or pain points..."
+            },
+            "Budget": {
+                "title": "Budget & Timeline",
+                "subtitle": "Help us understand your project scope.",
+                "budgetLabel": "Estimated Budget",
+                "budgetPlaceholder": "Select budget range",
+                "urgencyLabel": "How urgent is this project?",
+                "timelineLabel": "Preferred Timeline (Optional)",
+                "timelinePlaceholder": "e.g., Q1 2025, March deadline, etc.",
+                "roleLabel": "What is your role in this decision?",
+                "rolePlaceholder": "Select your role"
+            },
+            "LeadType": {
+                "title": "How do you plan to use Awesome?"
+            },
+            "Services": {
+                "title": "What services are you interested in?",
+                "subtitle": "Select all that apply. You can select up to 5 services.",
+                "selected": "{count}/5 selected"
+            },
+            "Source": {
+                "title": "How did you hear about Awesome?",
+                "subtitle": "Select all that apply.",
+                "contactInfo": "Contact Information",
+                "nameLabel": "Contact Name *",
+                "namePlaceholder": "John Doe",
+                "emailLabel": "Email *",
+                "emailPlaceholder": "john@company.com",
+                "phoneLabel": "Phone (Optional)",
+                "phonePlaceholder": "+1 234 567 890",
+                "assignLabel": "Assign to Team Member (Optional)",
+                "assignPlaceholder": "Auto-assign based on rules",
+                "autoAssign": "Auto-assign based on rules"
+            }
+        }
+    },
+    "Common": {
+        "step": "Step",
+        "loading": "Loading...",
+        "error": "Something went wrong",
+        "submit": "Submit",
+        "cancel": "Cancel"
+    }
+}

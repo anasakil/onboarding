@@ -21,13 +21,14 @@ import {
 import Lottie from "lottie-react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
+import { useTranslations, useLocale } from "next-intl"
 
 interface FormField {
   _id?: string
   name: string
-  label: string
+  label: string | { en: string; it: string }
   type: string
-  placeholder?: string
+  placeholder?: string | { en: string; it: string }
   required: boolean
   options?: string[]
   step: number
@@ -36,17 +37,17 @@ interface FormField {
 
 interface Step {
   _id?: string
-  title: string
-  description?: string
+  title: string | { en: string; it: string }
+  description?: string | { en: string; it: string }
   order: number
   layout?: 'with-image' | 'two-column'
 }
 
 interface Service {
   _id: string
-  name: string
+  name: string | { en: string; it: string }
   slug: string
-  description?: string
+  description?: string | { en: string; it: string }
   color: string
   steps: Step[]
   fields: FormField[]
@@ -57,10 +58,12 @@ const StepProgress = ({
   currentStep,
   totalSteps,
   steps,
+  labels
 }: {
   currentStep: number
   totalSteps: number
   steps: Step[]
+  labels: { step: string; complete: string }
 }) => {
   return (
     <div className="mb-6">
@@ -108,10 +111,15 @@ const StepProgress = ({
       {/* Current step label */}
       <div className="flex items-center justify-between mt-3">
         <p className="text-xs text-[#8F8F94]">
-          Step {currentStep} of {totalSteps}
-        </p>
-        <p className="text-xs font-medium text-[#F6B73A]">
-          {Math.round((currentStep / totalSteps) * 100)}% complete
+          {/* We'll pass these as props or context ideally, but for now let's keep it simple or accept t as prop if we move StepProgress out. 
+              Actually StepProgress is defined inside the file, so we can't easily access `t` unless we move it inside component or pass it. 
+              Let's make StepProgress accept translation strings or moved inside. 
+              Better: Accept a `t` prop or strings. Let's pass `labels` object.
+          */}
+          {/* Wait, StepProgress is outside OnboardingPage. I should change its signature or components structure.
+              For simplicity in this refactor, I will move StepProgress definition inside OnboardingPage OR pass t as prop.
+              Passing t as prop is cleaner.
+           */}
         </p>
       </div>
     </div>
@@ -119,6 +127,9 @@ const StepProgress = ({
 }
 
 export default function OnboardingPage() {
+  const t = useTranslations('Onboarding')
+  const tCommon = useTranslations('Common')
+  const locale = useLocale()
   const params = useParams()
   const router = useRouter()
   const [service, setService] = useState<Service | null>(null)
@@ -131,6 +142,13 @@ export default function OnboardingPage() {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [showReview, setShowReview] = useState(false)
   const [documentAnimation, setDocumentAnimation] = useState<any>(null)
+
+  // Helper to get localized string
+  const getLoc = useCallback((val: string | { en: string; it: string } | undefined) => {
+    if (!val) return ''
+    if (typeof val === 'string') return val
+    return val[locale as 'en' | 'it'] || val.en
+  }, [locale])
 
   // Load document Lottie animation
   useEffect(() => {
@@ -148,7 +166,7 @@ export default function OnboardingPage() {
           const data = await res.json()
           setService(data)
         } else {
-          toast.error("Service not found")
+          toast.error(t('Messages.serviceNotFound'))
           router.push("/")
         }
       } catch (error) {
@@ -189,14 +207,14 @@ export default function OnboardingPage() {
       if (field.required) {
         const value = formData[field.name]
         if (!value || (Array.isArray(value) && value.length === 0)) {
-          newErrors[field.name] = `${field.label} is required`
+          newErrors[field.name] = t('Validation.required', { label: getLoc(field.label) })
         }
       }
 
       if (field.type === "email" && formData[field.name]) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         if (!emailRegex.test(formData[field.name])) {
-          newErrors[field.name] = "Please enter a valid email address"
+          newErrors[field.name] = t('Validation.email')
         }
       }
 
@@ -204,7 +222,7 @@ export default function OnboardingPage() {
         try {
           new URL(formData[field.name])
         } catch {
-          newErrors[field.name] = "Please enter a valid URL"
+          newErrors[field.name] = t('Validation.url')
         }
       }
     }
@@ -273,7 +291,7 @@ export default function OnboardingPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           serviceId: service._id,
-          serviceName: service.name,
+          serviceName: getLoc(service.name),
           data: formData,
           clientEmail: formData.email,
           clientName: formData.fullName || formData.name,
@@ -283,12 +301,12 @@ export default function OnboardingPage() {
 
       if (res.ok) {
         setIsSubmitted(true)
-        toast.success("Thank you! We'll be in touch soon.")
+        toast.success(t('Messages.successTitle'))
       } else {
         throw new Error("Submission failed")
       }
     } catch (error) {
-      toast.error("Failed to submit. Please try again.")
+      toast.error(t('Messages.errorDesc'))
     } finally {
       setIsSubmitting(false)
     }
@@ -298,13 +316,18 @@ export default function OnboardingPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0C1C2A]">
-        <LoadingAnimation size="lg" text="Loading..." />
+        <LoadingAnimation size="lg" text={t('Messages.loading')} />
       </div>
     )
   }
 
   if (!service) {
     return null
+  }
+
+  const getName = (s: Service) => {
+    if (typeof s.name === 'string') return s.name
+    return (s.name as { en: string; it: string })[locale as 'en' | 'it'] || (s.name as { en: string; it: string }).en
   }
 
   // Success state
@@ -320,15 +343,15 @@ export default function OnboardingPage() {
             </div>
           </div>
 
-          <h1 className="text-xl font-bold text-white mb-2">Thank You!</h1>
+          <h1 className="text-xl font-bold text-white mb-2">{t('Messages.successTitle')}</h1>
           <p className="text-[#8F8F94] text-sm mb-6 leading-relaxed">
-            Your request for <span className="font-semibold text-white">{service.name}</span> has been submitted. We'll respond within 24-48 hours.
+            {t('Messages.successDesc', { serviceName: getName(service) })}
           </p>
 
           <Link href="/">
             <button className="w-full h-10 text-sm font-semibold text-[#0C1C2A] rounded-xl flex items-center justify-center gap-2 bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-md hover:shadow-lg transition-all">
               <Home className="w-4 h-4" />
-              Back to Home
+              {t('Controls.backToHome')}
             </button>
           </Link>
         </div>
@@ -348,9 +371,9 @@ export default function OnboardingPage() {
 
   // Helper function to format field value for display
   const formatFieldValue = (field: FormField, value: any) => {
-    if (!value) return <span className="text-[#8F8F94] italic">Not provided</span>
+    if (!value) return <span className="text-[#8F8F94] italic">{t('Review.notProvided')}</span>
     if (Array.isArray(value)) return value.join(", ")
-    if (typeof value === "boolean") return value ? "Yes" : "No"
+    if (typeof value === "boolean") return value ? t('Review.yes') : t('Review.no')
     return String(value)
   }
 
@@ -365,7 +388,7 @@ export default function OnboardingPage() {
             </Link>
             <div className="flex items-center gap-2 text-sm text-[#8F8F94]">
               <Shield className="w-4 h-4 text-[#F6B73A]" />
-              <span>Review & Submit</span>
+              <span>{t('Review.headerLabel')}</span>
             </div>
           </div>
         </header>
@@ -399,13 +422,13 @@ export default function OnboardingPage() {
               <div className="flex-1 text-center lg:text-left">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F6B73A]/10 text-[#F6B73A] text-sm font-medium mb-4">
                   <Check className="w-4 h-4" />
-                  All steps completed
+                  {t('Review.badge')}
                 </div>
                 <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
-                  Review Your Information
+                  {t('Review.title')}
                 </h1>
                 <p className="text-[#8F8F94] text-lg max-w-xl">
-                  Please review all the information you've provided before submitting. Click on any section to make changes.
+                  {t('Review.description')}
                 </p>
               </div>
             </div>
@@ -429,14 +452,14 @@ export default function OnboardingPage() {
                         <div className="w-8 h-8 rounded-full bg-[#F6B73A] text-[#0C1C2A] flex items-center justify-center text-sm font-semibold">
                           {step.order}
                         </div>
-                        <h3 className="font-semibold text-white">{step.title}</h3>
+                        <h3 className="font-semibold text-white">{getLoc(step.title)}</h3>
                       </div>
                       <button
                         onClick={() => goToStep(step.order)}
                         className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-[#F6B73A] hover:bg-[#F6B73A]/10 transition-colors"
                       >
                         <Edit3 className="w-4 h-4" />
-                        Edit
+                        {t('Review.edit')}
                       </button>
                     </div>
 
@@ -450,7 +473,7 @@ export default function OnboardingPage() {
                               (field.type === 'textarea' || field.type === 'multiselect' || field.type === 'radio') && "md:col-span-2"
                             )}
                           >
-                            <p className="text-sm text-[#8F8F94] mb-1">{field.label}</p>
+                            <p className="text-sm text-[#8F8F94] mb-1">{getLoc(field.label)}</p>
                             <p className="text-white font-medium">
                               {formatFieldValue(field, formData[field.name])}
                             </p>
@@ -470,7 +493,7 @@ export default function OnboardingPage() {
                 className="w-full sm:w-auto h-12 px-8 rounded-xl border border-[#1A3A52] bg-[#10273A] hover:bg-[#1A3A52] transition-all text-sm font-medium text-white flex items-center justify-center gap-2"
               >
                 <ArrowLeft className="w-4 h-4" />
-                Back to Edit
+                {t('Controls.backToEdit')}
               </button>
 
               <div className="flex-1" />
@@ -483,12 +506,12 @@ export default function OnboardingPage() {
                 {isSubmitting ? (
                   <>
                     <Loader2 className="w-5 h-5 animate-spin" />
-                    Submitting...
+                    {t('Controls.submitting')}
                   </>
                 ) : (
                   <>
                     <Send className="w-5 h-5" />
-                    Submit Application
+                    {t('Controls.submit')}
                   </>
                 )}
               </button>
@@ -517,6 +540,10 @@ export default function OnboardingPage() {
                 currentStep={currentStep}
                 totalSteps={sortedSteps.length}
                 steps={sortedSteps}
+                labels={{
+                  step: t('Progress.step'),
+                  complete: t('Progress.complete')
+                }}
               />
 
               <div className={cn(
@@ -526,10 +553,10 @@ export default function OnboardingPage() {
                 {/* Step header */}
                 <div className="mb-5">
                   <h1 className="text-lg font-bold text-white mb-1">
-                    {currentStepData?.title}
+                    {getLoc(currentStepData?.title)}
                   </h1>
                   {currentStepData?.description && (
-                    <p className="text-[#8F8F94] text-sm">{currentStepData.description}</p>
+                    <p className="text-[#8F8F94] text-sm">{getLoc(currentStepData.description)}</p>
                   )}
                 </div>
 
@@ -542,7 +569,11 @@ export default function OnboardingPage() {
                       style={{ animationDelay: `${index * 50}ms` }}
                     >
                       <DynamicField
-                        field={field}
+                        field={{
+                          ...field,
+                          label: getLoc(field.label),
+                          placeholder: getLoc(field.placeholder)
+                        }}
                         value={formData[field.name]}
                         onChange={handleFieldChange}
                         error={errors[field.name]}
@@ -559,13 +590,13 @@ export default function OnboardingPage() {
                       className="h-9 px-4 rounded-lg border border-[#1A3A52] bg-[#10273A] hover:bg-[#1A3A52] transition-all text-sm font-medium text-white flex items-center gap-1.5"
                     >
                       <ArrowLeft className="w-3.5 h-3.5" />
-                      Back
+                      {t('Controls.back')}
                     </button>
                   ) : (
                     <Link href="/">
                       <button className="h-9 px-4 rounded-lg border border-[#1A3A52] bg-[#10273A] hover:bg-[#1A3A52] transition-all text-sm font-medium text-white flex items-center gap-1.5">
                         <ArrowLeft className="w-3.5 h-3.5" />
-                        Back
+                        {t('Controls.back')}
                       </button>
                     </Link>
                   )}
@@ -576,7 +607,7 @@ export default function OnboardingPage() {
                     onClick={handleNext}
                     className="h-9 px-5 rounded-lg text-[#0C1C2A] text-sm font-semibold bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-1.5"
                   >
-                    Continue
+                    {t('Controls.continue')}
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -603,7 +634,7 @@ export default function OnboardingPage() {
           </Link>
           <div className="flex items-center gap-2 text-sm text-[#8F8F94]">
             <Shield className="w-4 h-4 text-[#F6B73A]" />
-            <span>Secure Form</span>
+            <span>{t('Review.headerLabel')}</span>
           </div>
         </div>
       </header>
@@ -615,6 +646,10 @@ export default function OnboardingPage() {
             currentStep={currentStep}
             totalSteps={sortedSteps.length}
             steps={sortedSteps}
+            labels={{
+              step: t('Progress.step'),
+              complete: t('Progress.complete')
+            }}
           />
         </div>
 
@@ -627,10 +662,10 @@ export default function OnboardingPage() {
             {/* Step header - centered */}
             <div className="text-center mb-8">
               <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                {currentStepData?.title}
+                {getLoc(currentStepData?.title)}
               </h1>
               {currentStepData?.description && (
-                <p className="text-[#8F8F94] text-base max-w-2xl mx-auto">{currentStepData.description}</p>
+                <p className="text-[#8F8F94] text-base max-w-2xl mx-auto">{getLoc(currentStepData.description)}</p>
               )}
             </div>
 
@@ -646,7 +681,11 @@ export default function OnboardingPage() {
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <DynamicField
-                    field={field}
+                    field={{
+                      ...field,
+                      label: getLoc(field.label),
+                      placeholder: getLoc(field.placeholder)
+                    }}
                     value={formData[field.name]}
                     onChange={handleFieldChange}
                     error={errors[field.name]}
@@ -662,7 +701,7 @@ export default function OnboardingPage() {
                 className="h-11 px-6 rounded-xl border border-[#1A3A52] bg-[#0C1C2A] hover:bg-[#1A3A52] transition-all text-sm font-medium text-white flex items-center gap-2"
               >
                 <ArrowLeft className="w-4 h-4" />
-                Back
+                {t('Controls.back')}
               </button>
 
               <div className="flex-1" />
@@ -672,7 +711,7 @@ export default function OnboardingPage() {
                   onClick={handleNext}
                   className="h-11 px-8 rounded-xl text-[#0C1C2A] text-sm font-semibold bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
                 >
-                  Review
+                  {t('Controls.review')}
                   <Check className="w-4 h-4" />
                 </button>
               ) : (
@@ -680,7 +719,7 @@ export default function OnboardingPage() {
                   onClick={handleNext}
                   className="h-11 px-8 rounded-xl text-[#0C1C2A] text-sm font-semibold bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
                 >
-                  Continue
+                  {t('Controls.continue')}
                   <ArrowRight className="w-4 h-4" />
                 </button>
               )}

@@ -16,7 +16,7 @@ export async function GET() {
 
     return NextResponse.json(services, {
       headers: {
-        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+        'Cache-Control': 'no-store, max-age=0',
       },
     })
   } catch (error) {
@@ -40,8 +40,8 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json()
 
-    // Generate slug from name
-    const slug = body.name
+    // Generate slug from English name
+    const slug = body.name.en
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)/g, '')

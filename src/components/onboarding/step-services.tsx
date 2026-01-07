@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 import { ArrowRight, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SERVICES } from "@/lib/constants"
+import { useTranslations } from "next-intl"
 
 interface StepServicesProps {
   value: string[]
@@ -34,14 +35,17 @@ export function StepServices({
     return acc
   }, {} as Record<string, typeof SERVICES[number][]>)
 
+  const t = useTranslations('Onboarding.Steps.Services')
+  const tControls = useTranslations('Onboarding.Controls')
+
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
         <h1 className="text-3xl font-bold text-text-primary">
-          What services are you interested in?
+          {t('title')}
         </h1>
         <p className="text-text-secondary mt-2">
-          Select all that apply. You can select up to 5 services.
+          {t('subtitle')}
         </p>
       </div>
 
@@ -65,8 +69,8 @@ export function StepServices({
                         ? "border-primary bg-primary-50 text-primary-700"
                         : "border-border bg-white text-text-primary hover:border-gray-300",
                       !isSelected &&
-                        value.length >= 5 &&
-                        "opacity-50 cursor-not-allowed"
+                      value.length >= 5 &&
+                      "opacity-50 cursor-not-allowed"
                     )}
                   >
                     {service.label}
@@ -80,14 +84,14 @@ export function StepServices({
 
       <div className="flex items-center justify-between pt-4">
         <Button variant="outline" onClick={onBack}>
-          <ArrowLeft className="mr-2 w-4 h-4" /> Back
+          <ArrowLeft className="mr-2 w-4 h-4" /> {tControls('back')}
         </Button>
         <div className="flex items-center gap-4">
           <span className="text-sm text-text-secondary">
-            {value.length}/5 selected
+            {t('selected', { count: value.length })}
           </span>
           <Button onClick={onNext} disabled={value.length === 0}>
-            Continue <ArrowRight className="ml-2 w-4 h-4" />
+            {tControls('continue')} <ArrowRight className="ml-2 w-4 h-4" />
           </Button>
         </div>
       </div>

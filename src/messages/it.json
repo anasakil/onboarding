@@ -1,0 +1,130 @@
+{
+    "HomePage": {
+        "title": "B2B Intelligente Onboarding",
+        "subtitle": "Semplifica il processo di onboarding dei clienti",
+        "getStarted": "Inizia",
+        "hero": {
+            "badge": "Piattaforma di Onboarding B2B",
+            "titleStart": "Inizia il tuo viaggio",
+            "titleEnd": "con noi oggi",
+            "description": "Seleziona un servizio qui sotto per iniziare la tua esperienza di onboarding personalizzata."
+        },
+        "services": {
+            "label": "Servizi in Evidenza",
+            "titleStart": "Una vasta gamma di servizi",
+            "titleEnd": "professionali",
+            "loading": "Caricamento servizi...",
+            "empty": "Nessun servizio disponibile",
+            "defaultDesc": "Soluzioni professionali su misura per le tue esigenze aziendali."
+        },
+        "footer": {
+            "copyright": "© {year} IntelligentB2B Onboarding",
+            "privacy": "Privacy",
+            "terms": "Condizioni"
+        }
+    },
+    "Navigation": {
+        "dashboard": "Bacheca",
+        "settings": "Impostazioni"
+    },
+    "Onboarding": {
+        "Progress": {
+            "step": "Passaggio {current} di {total}",
+            "complete": "{percent}% completato"
+        },
+        "Controls": {
+            "back": "Indietro",
+            "continue": "Continua",
+            "review": "Revisione",
+            "submit": "Invia Candidatura",
+            "submitting": "Invio in corso...",
+            "createLead": "Crea Lead",
+            "creating": "Creazione...",
+            "skip": "Salta per ora",
+            "backToEdit": "Torna alla modifica",
+            "backToHome": "Torna alla Home"
+        },
+        "Messages": {
+            "loading": "Caricamento...",
+            "serviceNotFound": "Servizio non trovato",
+            "successTitle": "Grazie!",
+            "successDesc": "La tua richiesta per {serviceName} è stata inviata. Risponderemo entro 24-48 ore.",
+            "errorTitle": "Invio fallito",
+            "errorDesc": "Impossibile inviare. Riprova."
+        },
+        "Review": {
+            "title": "Controlla le tue informazioni",
+            "description": "Ti preghiamo di controllare tutte le informazioni fornite prima di inviare. Clicca su qualsiasi sezione per apportare modifiche.",
+            "badge": "Tutti i passaggi completati",
+            "headerLabel": "Revisione e Invio",
+            "edit": "Modifica",
+            "notProvided": "Non fornito",
+            "yes": "Sì",
+            "no": "No"
+        },
+        "Validation": {
+            "required": "{label} è obbligatorio",
+            "email": "Inserisci un indirizzo email valido",
+            "url": "Inserisci un URL valido"
+        },
+        "Steps": {
+            "CompanyInfo": {
+                "title": "Raccontaci di più sulla tua situazione",
+                "nameLabel": "Nome Azienda",
+                "namePlaceholder": "Inserisci nome azienda",
+                "typeLabel": "Per quale tipo di azienda lavori?",
+                "typePlaceholder": "Seleziona tipo azienda",
+                "industryLabel": "Qual è il tuo settore?",
+                "industryPlaceholder": "Seleziona settore",
+                "sizeLabel": "Dimensione Azienda",
+                "sizePlaceholder": "Seleziona dimensione azienda"
+            },
+            "Goals": {
+                "title": "Cosa ti porta su Awesome oggi?",
+                "subtitle": "Seleziona i tuoi obiettivi principali per questo progetto.",
+                "challengesLabel": "Sfide specifiche? (Opzionale)",
+                "challengesPlaceholder": "Raccontaci eventuali sfide o punti dolenti specifici..."
+            },
+            "Budget": {
+                "title": "Budget e Tempistiche",
+                "subtitle": "Aiutaci a capire la portata del tuo progetto.",
+                "budgetLabel": "Budget Stimato",
+                "budgetPlaceholder": "Seleziona fascia di budget",
+                "urgencyLabel": "Quanto è urgente questo progetto?",
+                "timelineLabel": "Tempistica preferita (Opzionale)",
+                "timelinePlaceholder": "es. Q1 2025, scadenza marzo, ecc.",
+                "roleLabel": "Qual è il tuo ruolo in questa decisione?",
+                "rolePlaceholder": "Seleziona il tuo ruolo"
+            },
+            "LeadType": {
+                "title": "Come pensi di utilizzare Awesome?"
+            },
+            "Services": {
+                "title": "A quali servizi sei interessato?",
+                "subtitle": "Seleziona tutti quelli pertinenti. Puoi selezionare fino a 5 servizi.",
+                "selected": "{count}/5 selezionati"
+            },
+            "Source": {
+                "title": "Come hai conosciuto Awesome?",
+                "subtitle": "Seleziona tutti quelli pertinenti.",
+                "contactInfo": "Informazioni di Contatto",
+                "nameLabel": "Nome Contatto *",
+                "namePlaceholder": "Mario Rossi",
+                "emailLabel": "Email *",
+                "emailPlaceholder": "mario@azienda.com",
+                "phoneLabel": "Telefono (Opzionale)",
+                "phonePlaceholder": "+39 123 456 7890",
+                "assignLabel": "Assegna a membro del team (Opzionale)",
+                "assignPlaceholder": "Assegnazione automatica in base alle regole",
+                "autoAssign": "Assegnazione automatica in base alle regole"
+            }
+        }
+    },
+    "Common": {
+        "step": "Passaggio",
+        "loading": "Caricamento...",
+        "error": "Qualcosa è andato storto",
+        "submit": "Invia",
+        "cancel": "Annulla"
+    }
+}

@@ -12,9 +12,12 @@ interface LottieIllustrationProps {
   className?: string
 }
 
+import { useTranslations } from "next-intl"
+
 export function LottieIllustration({ step, className }: LottieIllustrationProps) {
   const [animationData, setAnimationData] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const t = useTranslations('Common')
 
   useEffect(() => {
     fetch(BUSINESSMEN_TABLE_LOTTIE)
@@ -51,7 +54,7 @@ export function LottieIllustration({ step, className }: LottieIllustrationProps)
       />
       {/* Step indicator overlay */}
       <div className="absolute bottom-4 right-4 bg-[#10273A]/90 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-lg border border-[#1A3A52]">
-        <span className="text-sm font-semibold text-[#F6B73A]">Step {step}</span>
+        <span className="text-sm font-semibold text-[#F6B73A]">{t('step')} {step}</span>
       </div>
     </div>
   )

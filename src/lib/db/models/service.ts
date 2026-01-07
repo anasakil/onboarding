@@ -18,13 +18,13 @@ export type FieldType =
 export interface IFormField {
   _id?: mongoose.Types.ObjectId
   name: string
-  label: string
+  label: string | { en: string; it: string }
   type: FieldType
-  placeholder?: string
+  placeholder?: string | { en: string; it: string }
   required: boolean
-  options?: string[] // For select, multiselect, radio, checkbox
-  step: number // Which step this field belongs to
-  order: number // Order within the step
+  options?: string[]
+  step: number
+  order: number
   validation?: {
     min?: number
     max?: number
@@ -37,18 +37,24 @@ export type StepLayout = 'with-image' | 'two-column'
 
 export interface IStep {
   _id?: mongoose.Types.ObjectId
-  title: string
-  description?: string
+  title: string | { en: string; it: string }
+  description?: string | { en: string; it: string }
   order: number
-  layout?: StepLayout // 'with-image' = form + SVG, 'two-column' = full width two-column form
+  layout?: StepLayout
 }
 
 export interface IService extends Document {
   _id: mongoose.Types.ObjectId
-  name: string
+  name: {
+    en: string
+    it: string
+  }
   slug: string
   category: string
-  description?: string
+  description?: {
+    en: string
+    it: string
+  }
   icon?: string
   color?: string
   isActive: boolean
@@ -60,13 +66,21 @@ export interface IService extends Document {
 
 const FormFieldSchema = new Schema<IFormField>({
   name: { type: String, required: true },
-  label: { type: String, required: true },
+  label: {
+    type: Schema.Types.Mixed,
+    required: true,
+    validate: {
+      validator: function (v: any) {
+        return typeof v === 'string' || (v.en && v.it);
+      }
+    }
+  },
   type: {
     type: String,
     enum: ['text', 'email', 'phone', 'textarea', 'select', 'multiselect', 'checkbox', 'radio', 'number', 'date', 'url', 'file'],
     default: 'text'
   },
-  placeholder: String,
+  placeholder: Schema.Types.Mixed,
   required: { type: Boolean, default: false },
   options: [String],
   step: { type: Number, required: true, default: 1 },
@@ -80,8 +94,16 @@ const FormFieldSchema = new Schema<IFormField>({
 })
 
 const StepSchema = new Schema<IStep>({
-  title: { type: String, required: true },
-  description: String,
+  title: {
+    type: Schema.Types.Mixed,
+    required: true,
+    validate: {
+      validator: function (v: any) {
+        return typeof v === 'string' || (v.en && v.it);
+      }
+    }
+  },
+  description: Schema.Types.Mixed,
   order: { type: Number, required: true },
   layout: { type: String, enum: ['with-image', 'two-column'], default: 'with-image' },
 })
@@ -89,9 +111,8 @@ const StepSchema = new Schema<IStep>({
 const ServiceSchema = new Schema<IService>(
   {
     name: {
-      type: String,
-      required: [true, 'Service name is required'],
-      trim: true,
+      en: { type: String, required: true },
+      it: { type: String, required: true },
     },
     slug: {
       type: String,
@@ -103,7 +124,10 @@ const ServiceSchema = new Schema<IService>(
       type: String,
       required: [true, 'Category is required'],
     },
-    description: String,
+    description: {
+      en: String,
+      it: String,
+    },
     icon: String,
     color: { type: String, default: '#6BBE4A' },
     isActive: {

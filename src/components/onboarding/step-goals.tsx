@@ -5,6 +5,7 @@ import { ArrowRight, ArrowLeft, TrendingUp, Zap, Palette, Rocket, Maximize, Targ
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { GOALS } from "@/lib/constants"
+import { useTranslations } from "next-intl"
 
 interface GoalsData {
   goals: string[]
@@ -30,6 +31,9 @@ const iconMap = {
 }
 
 export function StepGoals({ data, onChange, onNext, onBack }: StepGoalsProps) {
+  const t = useTranslations('Onboarding.Steps.Goals')
+  const tControls = useTranslations('Onboarding.Controls')
+
   const toggleGoal = (goalValue: string) => {
     if (data.goals.includes(goalValue)) {
       onChange({ ...data, goals: data.goals.filter((g) => g !== goalValue) })
@@ -42,10 +46,10 @@ export function StepGoals({ data, onChange, onNext, onBack }: StepGoalsProps) {
     <div className="space-y-8 animate-fade-in">
       <div>
         <h1 className="text-3xl font-bold text-text-primary">
-          What brings you to Awesome today?
+          {t('title')}
         </h1>
         <p className="text-text-secondary mt-2">
-          Select your main goals for this project.
+          {t('subtitle')}
         </p>
       </div>
 
@@ -99,10 +103,10 @@ export function StepGoals({ data, onChange, onNext, onBack }: StepGoalsProps) {
 
       {/* Optional challenges textarea */}
       <div className="space-y-2">
-        <Label>Any specific challenges? (Optional)</Label>
+        <Label>{t('challengesLabel')}</Label>
         <textarea
           className="w-full min-h-[100px] p-3 rounded-md border border-border bg-white text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary resize-none"
-          placeholder="Tell us about any specific challenges or pain points..."
+          placeholder={t('challengesPlaceholder')}
           value={data.challenges}
           onChange={(e) => onChange({ ...data, challenges: e.target.value })}
         />
@@ -110,10 +114,10 @@ export function StepGoals({ data, onChange, onNext, onBack }: StepGoalsProps) {
 
       <div className="flex items-center justify-between pt-4">
         <Button variant="outline" onClick={onBack}>
-          <ArrowLeft className="mr-2 w-4 h-4" /> Back
+          <ArrowLeft className="mr-2 w-4 h-4" /> {tControls('back')}
         </Button>
         <Button onClick={onNext} disabled={data.goals.length === 0}>
-          Continue <ArrowRight className="ml-2 w-4 h-4" />
+          {tControls('continue')} <ArrowRight className="ml-2 w-4 h-4" />
         </Button>
       </div>
     </div>

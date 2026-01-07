@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { BUDGET_RANGES, URGENCY_LEVELS, DECISION_POWER } from "@/lib/constants"
+import { useTranslations } from "next-intl"
 
 interface BudgetData {
   budgetRange: string
@@ -34,28 +35,30 @@ export function StepBudget({
   onBack,
 }: StepBudgetProps) {
   const isValid = data.budgetRange && data.urgency
+  const t = useTranslations('Onboarding.Steps.Budget')
+  const tControls = useTranslations('Onboarding.Controls')
 
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
         <h1 className="text-3xl font-bold text-text-primary">
-          Budget & Timeline
+          {t('title')}
         </h1>
         <p className="text-text-secondary mt-2">
-          Help us understand your project scope.
+          {t('subtitle')}
         </p>
       </div>
 
       <div className="space-y-6">
         {/* Budget Range */}
         <div className="space-y-2">
-          <Label>Estimated Budget</Label>
+          <Label>{t('budgetLabel')}</Label>
           <Select
             value={data.budgetRange}
             onValueChange={(value) => onChange({ ...data, budgetRange: value })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select budget range" />
+              <SelectValue placeholder={t('budgetPlaceholder')} />
             </SelectTrigger>
             <SelectContent>
               {BUDGET_RANGES.map((range) => (
@@ -69,7 +72,7 @@ export function StepBudget({
 
         {/* Urgency */}
         <div className="space-y-3">
-          <Label>How urgent is this project?</Label>
+          <Label>{t('urgencyLabel')}</Label>
           <div className="grid grid-cols-2 gap-3">
             {URGENCY_LEVELS.map((level) => {
               const isSelected = data.urgency === level.value
@@ -103,11 +106,11 @@ export function StepBudget({
 
         {/* Timeline (Optional) */}
         <div className="space-y-2">
-          <Label>Preferred Timeline (Optional)</Label>
+          <Label>{t('timelineLabel')}</Label>
           <input
             type="text"
             className="w-full h-10 px-3 rounded-md border border-border bg-white text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-            placeholder="e.g., Q1 2025, March deadline, etc."
+            placeholder={t('timelinePlaceholder')}
             value={data.timeline}
             onChange={(e) => onChange({ ...data, timeline: e.target.value })}
           />
@@ -115,7 +118,7 @@ export function StepBudget({
 
         {/* Decision Power */}
         <div className="space-y-2">
-          <Label>What is your role in this decision?</Label>
+          <Label>{t('roleLabel')}</Label>
           <Select
             value={data.decisionPower}
             onValueChange={(value) =>
@@ -123,7 +126,7 @@ export function StepBudget({
             }
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select your role" />
+              <SelectValue placeholder={t('rolePlaceholder')} />
             </SelectTrigger>
             <SelectContent>
               {DECISION_POWER.map((power) => (
@@ -143,10 +146,10 @@ export function StepBudget({
 
       <div className="flex items-center justify-between pt-4">
         <Button variant="outline" onClick={onBack}>
-          <ArrowLeft className="mr-2 w-4 h-4" /> Back
+          <ArrowLeft className="mr-2 w-4 h-4" /> {tControls('back')}
         </Button>
         <Button onClick={onNext} disabled={!isValid}>
-          Continue <ArrowRight className="ml-2 w-4 h-4" />
+          {tControls('continue')} <ArrowRight className="ml-2 w-4 h-4" />
         </Button>
       </div>
     </div>

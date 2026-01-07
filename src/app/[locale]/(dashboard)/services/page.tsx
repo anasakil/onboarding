@@ -8,12 +8,16 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Plus, Settings, Eye, EyeOff } from "lucide-react"
 
+import { useLocale } from "next-intl"
+
+// ... imports
+
 interface Service {
   _id: string
-  name: string
+  name: string | { en: string; it: string }
   slug: string
   category: string
-  description?: string
+  description?: string | { en: string; it: string }
   icon?: string
   color?: string
   isActive: boolean
@@ -22,12 +26,26 @@ interface Service {
 }
 
 export default function ServicesPage() {
+  const locale = useLocale()
+  // Helper to safely get localized name
+  const getName = (s: Service) => {
+    if (typeof s.name === 'string') return s.name
+    return (s.name as { en: string; it: string })[locale as 'en' | 'it'] || (s.name as { en: string; it: string }).en
+  }
+
+  const getDescription = (s: Service) => {
+    if (!s.description) return ''
+    if (typeof s.description === 'string') return s.description
+    return (s.description as { en: string; it: string })[locale as 'en' | 'it'] || (s.description as { en: string; it: string }).en
+  }
+
   const [services, setServices] = useState<Service[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetchServices()
   }, [])
+
 
   const fetchServices = async () => {
     try {
@@ -120,18 +138,17 @@ export default function ServicesPage() {
                   {categoryServices.map((service) => (
                     <div
                       key={service._id}
-                      className={`p-4 border rounded-lg transition-colors ${
-                        service.isActive
-                          ? 'border-border hover:border-primary bg-white'
-                          : 'border-gray-200 bg-gray-50 opacity-60'
-                      }`}
+                      className={`p-4 border rounded-lg transition-colors ${service.isActive
+                        ? 'border-border hover:border-primary bg-white'
+                        : 'border-gray-200 bg-gray-50 opacity-60'
+                        }`}
                     >
                       <div className="flex items-start justify-between mb-2">
                         <div
                           className="w-10 h-10 rounded-lg flex items-center justify-center text-white text-lg"
                           style={{ backgroundColor: service.color || '#6BBE4A' }}
                         >
-                          {service.icon || service.name.charAt(0)}
+                          {service.icon || getName(service).charAt(0)}
                         </div>
                         <div className="flex gap-1">
                           <Button
@@ -154,11 +171,11 @@ export default function ServicesPage() {
                         </div>
                       </div>
                       <h3 className="font-medium text-text-primary">
-                        {service.name}
+                        {getName(service)}
                       </h3>
                       {service.description && (
                         <p className="text-sm text-text-secondary mt-1 line-clamp-2">
-                          {service.description}
+                          {getDescription(service)}
                         </p>
                       )}
                       <div className="flex gap-2 mt-3">
