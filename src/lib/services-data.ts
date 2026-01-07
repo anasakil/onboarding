@@ -360,7 +360,7 @@ export const FACEBOOK_ADS_SERVICE: Service = {
         },
         {
             title: { en: 'Creative Resources', it: 'Risorse Creative' },
-            description: { en: 'Assets for your campaigns', it: 'Asset per le tue campagne' },
+            description: { en: 'Asset per le tue campagne', it: 'Asset per le tue campagne' },
             order: 5,
             layout: 'two-column'
         }
@@ -586,9 +586,561 @@ export const FACEBOOK_ADS_SERVICE: Service = {
     ]
 }
 
+export const BLOGGING_SEO_SERVICE: Service = {
+    _id: 'blogging-seo-service-id',
+    name: {
+        en: 'Blogging SEO Friendly',
+        it: 'Blogging SEO Friendly'
+    },
+    slug: 'blogging-seo-friendly',
+    category: 'Marketing',
+    description: {
+        en: 'Dominate search results with high-quality, SEO-optimized content strategy.',
+        it: 'Domina i risultati di ricerca con una strategia di contenuti di alta qualità e ottimizzata SEO.'
+    },
+    icon: 'PenTool',
+    color: '#10B981',
+    isActive: true,
+    steps: [
+        {
+            title: { en: 'Company & Website Basics', it: 'Dati Aziendali e Sito Web' },
+            description: { en: 'Tell us about your business', it: 'Raccontaci della tua attività' },
+            order: 1,
+            layout: 'with-image'
+        },
+        {
+            title: { en: 'Current Content Situation', it: 'Situazione Attuale Contenuti' },
+            description: { en: 'How do you handle content today?', it: 'Come gestisci i contenuti oggi?' },
+            order: 2,
+            layout: 'with-image'
+        },
+        {
+            title: { en: 'SEO & Keyword Strategy', it: 'SEO e Strategia Keyword' },
+            description: { en: 'Defining your search goals', it: 'Definisci i tuoi obiettivi di ricerca' },
+            order: 3,
+            layout: 'two-column'
+        },
+        {
+            title: { en: 'Content Objectives & Goals', it: 'Obiettivi dei Contenuti' },
+            description: { en: 'What do you want to achieve?', it: 'Cosa vuoi ottenere?' },
+            order: 4,
+            layout: 'two-column'
+        },
+        {
+            title: { en: 'Competitor & Market Analysis', it: 'Analisi Competitor e Mercato' },
+            description: { en: 'Understanding the landscape', it: 'Comprendere lo scenario' },
+            order: 5,
+            layout: 'two-column'
+        },
+        {
+            title: { en: 'Content Preferences & Style', it: 'Preferenze e Stile Contenuti' },
+            description: { en: 'Your brand voice and formatting', it: 'Il tuo brand voice e la formattazione' },
+            order: 6,
+            layout: 'two-column'
+        },
+        {
+            title: { en: 'Technical & CMS Details', it: 'Dettagli Tecnici e CMS' },
+            description: { en: 'Website infrastructure', it: 'Infrastruttura del sito' },
+            order: 7,
+            layout: 'two-column'
+        },
+        {
+            title: { en: 'Integration & Workflow', it: 'Integrazione e Workflow' },
+            description: { en: 'How we work together', it: 'Come lavoreremo insieme' },
+            order: 8,
+            layout: 'two-column'
+        },
+        {
+            title: { en: 'Budget & Timeline', it: 'Budget e Tempistiche' },
+            description: { en: 'Investment and scheduling', it: 'Investimento e pianificazione' },
+            order: 9,
+            layout: 'two-column'
+        },
+        {
+            title: { en: 'Success Metrics & Reporting', it: 'Metriche di Successo e Report' },
+            description: { en: 'How we measure results', it: 'Come misuriamo i risultati' },
+            order: 10,
+            layout: 'two-column'
+        },
+        {
+            title: { en: 'Content Calendar & Planning', it: 'Calendario Editoriale e Planning' },
+            description: { en: 'Scheduling and collaboration', it: 'Pianificazione e collaborazione' },
+            order: 11,
+            layout: 'two-column'
+        },
+        {
+            title: { en: 'Special Requirements', it: 'Requisiti Speciali' },
+            description: { en: 'Final details and compliance', it: 'Ultimi dettagli e conformità' },
+            order: 12,
+            layout: 'two-column'
+        }
+    ],
+    fields: [
+        // Section 1
+        {
+            name: 'companyName',
+            label: { en: 'Company Name', it: 'Nome azienda' },
+            type: 'text',
+            required: true,
+            step: 1,
+            order: 1
+        },
+        {
+            name: 'websiteUrl',
+            label: { en: 'Website URL', it: 'URL Sito Web' },
+            type: 'url',
+            required: true,
+            step: 1,
+            order: 2
+        },
+        {
+            name: 'industry',
+            label: { en: 'Industry/Sector', it: 'Settore Industriale' },
+            type: 'select',
+            options: ['Technology', 'Healthcare', 'Finance', 'E-commerce', 'Professional Services', 'Manufacturing', 'Other'],
+            required: false,
+            step: 1,
+            order: 3
+        },
+        {
+            name: 'companySize',
+            label: { en: 'Company Size', it: 'Dimensione Aziendale' },
+            type: 'select',
+            options: ['1-10', '11-50', '51-200', '200+ employees'],
+            required: false,
+            step: 1,
+            order: 4
+        },
+        {
+            name: 'primaryContactName',
+            label: { en: 'Primary Contact Name', it: 'Nome Referente Principale' },
+            type: 'text',
+            required: true,
+            step: 1,
+            order: 5
+        },
+        {
+            name: 'email',
+            label: { en: 'Email Address', it: 'Indirizzo Email' },
+            type: 'email',
+            required: true,
+            step: 1,
+            order: 6
+        },
+        {
+            name: 'phone',
+            label: { en: 'Phone Number', it: 'Numero di Telefono' },
+            type: 'text',
+            required: true,
+            step: 1,
+            order: 7
+        },
+        // Section 2
+        {
+            name: 'hasBlog',
+            label: { en: 'Do you currently have a blog?', it: 'Hai già un blog attualmente?' },
+            type: 'radio',
+            options: ['Yes', 'No'],
+            required: false,
+            step: 2,
+            order: 1
+        },
+        {
+            name: 'blogFrequency',
+            label: { en: 'Current blogging frequency', it: 'Frequenza attuale di pubblicazione' },
+            type: 'select',
+            options: ['Never', 'Weekly', 'Bi-weekly', 'Monthly', 'Irregular'],
+            required: false,
+            step: 2,
+            order: 2
+        },
+        {
+            name: 'contentWriter',
+            label: { en: 'Who currently writes content?', it: 'Chi scrive attualmente i contenuti?' },
+            type: 'select',
+            options: ['No one', 'Internal team', 'Freelancers', 'Agency', 'Mix'],
+            required: false,
+            step: 2,
+            order: 3
+        },
+        {
+            name: 'blogTraffic',
+            label: { en: 'Current blog traffic', it: 'Traffico attuale del blog' },
+            type: 'select',
+            options: ['<1k', '1k-5k', '5k-20k', '20k+ monthly visitors'],
+            required: false,
+            step: 2,
+            order: 4
+        },
+        {
+            name: 'contentChallenges',
+            label: { en: 'Biggest content challenges', it: 'Principali sfide nei contenuti' },
+            type: 'multiselect',
+            options: ['Lack of time', 'Don\'t know what to write about', 'Poor search rankings', 'Low engagement', 'No content strategy', 'Technical SEO issues'],
+            required: false,
+            step: 2,
+            order: 5
+        },
+        // Section 3
+        {
+            name: 'primaryKeywords',
+            label: { en: 'Primary target keywords (5-10 main keywords)', it: 'Keyword primarie target (5-10 keyword principali)' },
+            type: 'textarea',
+            required: false,
+            step: 3,
+            order: 1
+        },
+        {
+            name: 'targetAudience',
+            label: { en: 'Target audience/customer persona', it: 'Pubblico target / customer persona' },
+            type: 'textarea',
+            placeholder: { en: 'Describe your ideal customer...', it: 'Descrivi il tuo cliente ideale...' },
+            required: false,
+            step: 3,
+            order: 2
+        },
+        {
+            name: 'geographicTargeting',
+            label: { en: 'Geographic targeting', it: 'Target geografico' },
+            type: 'select',
+            options: ['Local', 'National', 'International'],
+            required: false,
+            step: 3,
+            order: 3
+        },
+        {
+            name: 'seoTools',
+            label: { en: 'Current SEO tools used', it: 'Tool SEO utilizzati attualmente' },
+            type: 'multiselect',
+            options: ['Google Analytics', 'Google Search Console', 'SEMrush', 'Ahrefs', 'None'],
+            required: false,
+            step: 3,
+            order: 4
+        },
+        // Section 4
+        {
+            name: 'contentGoals',
+            label: { en: 'Primary content goals', it: 'Obiettivi primari dei contenuti' },
+            type: 'multiselect',
+            options: ['Increase organic traffic', 'Generate leads', 'Build brand authority', 'Educate customers', 'Support sales team', 'Improve search rankings'],
+            required: false,
+            step: 4,
+            order: 1
+        },
+        {
+            name: 'targetTrafficIncrease',
+            label: { en: 'Target monthly organic traffic increase', it: 'Aumento target del traffico organico mensile' },
+            type: 'select',
+            options: ['25%', '50%', '100%', '200%+'],
+            required: false,
+            step: 4,
+            order: 2
+        },
+        {
+            name: 'leadGenPriority',
+            label: { en: 'Lead generation priority', it: 'Priorità generazione lead' },
+            type: 'select',
+            options: ['High', 'Medium', 'Low'],
+            required: false,
+            step: 4,
+            order: 3
+        },
+        {
+            name: 'topicsOfInterest',
+            label: { en: 'Content topics of interest', it: 'Argomenti di interesse per i contenuti' },
+            type: 'textarea',
+            required: false,
+            step: 4,
+            order: 4
+        },
+        // Section 5
+        {
+            name: 'mainCompetitors',
+            label: { en: 'Main competitors (list 3-5)', it: 'Principali competitor (elenca 3-5)' },
+            type: 'textarea',
+            required: false,
+            step: 5,
+            order: 1
+        },
+        {
+            name: 'competitorBlogs',
+            label: { en: 'Competitor blogs you admire', it: 'Blog dei competitor che ammiri' },
+            type: 'textarea',
+            required: false,
+            step: 5,
+            order: 2
+        },
+        {
+            name: 'industryPublications',
+            label: { en: 'Industry publications you follow', it: 'Pubblicazioni di settore che segui' },
+            type: 'textarea',
+            required: false,
+            step: 5,
+            order: 3
+        },
+        {
+            name: 'uvp',
+            label: { en: 'What makes you different from competitors?', it: 'Cosa ti differenzia dai tuoi competitor?' },
+            type: 'textarea',
+            required: false,
+            step: 5,
+            order: 4
+        },
+        // Section 6
+        {
+            name: 'contentTone',
+            label: { en: 'Preferred content tone', it: 'Tono dei contenuti preferito' },
+            type: 'select',
+            options: ['Professional', 'Conversational', 'Technical', 'Friendly', 'Authoritative'],
+            required: false,
+            step: 6,
+            order: 1
+        },
+        {
+            name: 'contentTypes',
+            label: { en: 'Content types preferred', it: 'Tipi di contenuti preferiti' },
+            type: 'multiselect',
+            options: ['How-to guides', 'Industry news/trends', 'Case studies', 'Product comparisons', 'Expert interviews', 'Research reports', 'FAQ articles'],
+            required: false,
+            step: 6,
+            order: 2
+        },
+        {
+            name: 'articleLength',
+            label: { en: 'Average article length preference', it: 'Preferenza lunghezza media articoli' },
+            type: 'select',
+            options: ['500-1000', '1000-2000', '2000-3000', '3000+ words'],
+            required: false,
+            step: 6,
+            order: 3
+        },
+        {
+            name: 'visualContent',
+            label: { en: 'Visual content needs', it: 'Esigenze di contenuti visuali' },
+            type: 'multiselect',
+            options: ['Images only', 'Infographics', 'Videos', 'Interactive content'],
+            required: false,
+            step: 6,
+            order: 4
+        },
+        // Section 7
+        {
+            name: 'cms',
+            label: { en: 'Content Management System', it: 'Content Management System (CMS)' },
+            type: 'select',
+            options: ['WordPress', 'Webflow', 'Drupal', 'Shopify', 'Custom', 'Other'],
+            required: false,
+            step: 7,
+            order: 1
+        },
+        {
+            name: 'publishingResponsibility',
+            label: { en: 'Who will publish content?', it: 'Chi pubblicherà i contenuti?' },
+            type: 'select',
+            options: ['You handle', 'We handle', 'Shared responsibility'],
+            required: false,
+            step: 7,
+            order: 2
+        },
+        {
+            name: 'websiteSpeed',
+            label: { en: 'Current website speed score', it: 'Punteggio attuale velocità sito' },
+            type: 'select',
+            options: ['Don\'t know', '<50', '50-70', '70-90', '90+'],
+            required: false,
+            step: 7,
+            order: 3
+        },
+        {
+            name: 'mobileOptimization',
+            label: { en: 'Mobile optimization status', it: 'Stato ottimizzazione mobile' },
+            type: 'select',
+            options: ['Fully optimized', 'Partially', 'Not optimized', 'Don\'t know'],
+            required: false,
+            step: 7,
+            order: 4
+        },
+        // Section 8
+        {
+            name: 'crm',
+            label: { en: 'CRM system used', it: 'Sistema CRM utilizzato' },
+            type: 'select',
+            options: ['HubSpot', 'Salesforce', 'Pipedrive', 'None', 'Other'],
+            required: false,
+            step: 8,
+            order: 1
+        },
+        {
+            name: 'emailPlatform',
+            label: { en: 'Email marketing platform', it: 'Piattaforma email marketing' },
+            type: 'select',
+            options: ['Mailchimp', 'Constant Contact', 'HubSpot', 'None', 'Other'],
+            required: false,
+            step: 8,
+            order: 2
+        },
+        {
+            name: 'socialPlatforms',
+            label: { en: 'Social media platforms', it: 'Piattaforme social media' },
+            type: 'multiselect',
+            options: ['Facebook', 'LinkedIn', 'Twitter', 'Instagram', 'TikTok', 'None'],
+            required: false,
+            step: 8,
+            order: 3
+        },
+        {
+            name: 'commMethod',
+            label: { en: 'Preferred communication method', it: 'Metodo di comunicazione preferito' },
+            type: 'select',
+            options: ['Email', 'Slack', 'Teams', 'Phone calls'],
+            required: false,
+            step: 8,
+            order: 4
+        },
+        // Section 9
+        {
+            name: 'monthlyBudget',
+            label: { en: 'Monthly content budget', it: 'Budget mensile contenuti' },
+            type: 'select',
+            options: ['€500-750', '€750-1000', '€1000+'],
+            required: false,
+            step: 9,
+            order: 1
+        },
+        {
+            name: 'startDate',
+            label: { en: 'When do you want to start?', it: 'Quando vorresti iniziare?' },
+            type: 'select',
+            options: ['Immediately', 'Within 2 weeks', 'Within 1 month'],
+            required: false,
+            step: 9,
+            order: 2
+        },
+        {
+            name: 'resultsTimeline',
+            label: { en: 'Expected timeline for results', it: 'Tempistiche attese per i risultati' },
+            type: 'select',
+            options: ['1-3 months', '3-6 months', '6-12 months'],
+            required: false,
+            step: 9,
+            order: 3
+        },
+        {
+            name: 'approvalProcess',
+            label: { en: 'Content approval process', it: 'Processo di approvazione contenuti' },
+            type: 'select',
+            options: ['Direct approval', 'Team review', 'Multiple stakeholders'],
+            required: false,
+            step: 9,
+            order: 4
+        },
+        // Section 10
+        {
+            name: 'kpis',
+            label: { en: 'Most important KPIs', it: 'KPI più importanti' },
+            type: 'multiselect',
+            options: ['Organic traffic growth', 'Keyword rankings', 'Lead generation', 'Social shares', 'Time on page', 'Conversion rate'],
+            required: false,
+            step: 10,
+            order: 1
+        },
+        {
+            name: 'reportingFrequency',
+            label: { en: 'Reporting frequency preference', it: 'Preferenza frequenza reportistica' },
+            type: 'select',
+            options: ['Weekly', 'Bi-weekly', 'Monthly'],
+            required: false,
+            step: 10,
+            order: 2
+        },
+        {
+            name: 'analyticsAccess',
+            label: { en: 'Current analytics access', it: 'Accesso attuale agli analytics' },
+            type: 'select',
+            options: ['Can provide access', 'Need setup help', 'No analytics'],
+            required: false,
+            step: 10,
+            order: 3
+        },
+        // Section 11
+        {
+            name: 'seasonalNeeds',
+            label: { en: 'Seasonal content needs', it: 'Esigenze di contenuti stagionali' },
+            type: 'textarea',
+            required: false,
+            step: 11,
+            order: 1
+        },
+        {
+            name: 'internalEvents',
+            label: { en: 'Internal events/announcements', it: 'Eventi/annunci interni' },
+            type: 'textarea',
+            required: false,
+            step: 11,
+            order: 2
+        },
+        {
+            name: 'collaborationLevel',
+            label: { en: 'Content collaboration level', it: 'Livello di collaborazione sui contenuti' },
+            type: 'select',
+            options: ['Full outsourcing', 'Collaborative', 'Guidance only'],
+            required: false,
+            step: 11,
+            order: 3
+        },
+        {
+            name: 'reviewTimeline',
+            label: { en: 'Review and approval timeline', it: 'Tempistiche di revisione e approvazione' },
+            type: 'select',
+            options: ['24h', '48h', '1 week'],
+            required: false,
+            step: 11,
+            order: 4
+        },
+        // Section 12
+        {
+            name: 'compliance',
+            label: { en: 'Compliance requirements', it: 'Requisiti di conformità' },
+            type: 'multiselect',
+            options: ['GDPR', 'HIPAA', 'Financial regulations', 'None'],
+            required: false,
+            step: 12,
+            order: 1
+        },
+        {
+            name: 'brandGuidelinesStatus',
+            label: { en: 'Brand guidelines available', it: 'Linee guida del brand disponibili' },
+            type: 'radio',
+            options: ['Yes - will provide', 'Yes - need creation', 'No guidelines'],
+            required: false,
+            step: 12,
+            order: 2
+        },
+        {
+            name: 'multilingualNeeds',
+            label: { en: 'Multilingual content needs', it: 'Esigenze di contenuti multilingua' },
+            type: 'radio',
+            options: ['English only', 'Multiple languages'],
+            required: false,
+            step: 12,
+            order: 3
+        },
+        {
+            name: 'salesIntegration',
+            label: { en: 'Integration with sales materials', it: 'Integrazione con materiali di vendita' },
+            type: 'radio',
+            options: ['Yes', 'No', 'Maybe later'],
+            required: false,
+            step: 12,
+            order: 4
+        }
+    ]
+}
+
 export const SERVICES: Service[] = [
     COLD_EMAIL_SERVICE,
-    FACEBOOK_ADS_SERVICE
+    FACEBOOK_ADS_SERVICE,
+    BLOGGING_SEO_SERVICE
 ]
 
 export function getServiceBySlug(slug: string): Service | undefined {
