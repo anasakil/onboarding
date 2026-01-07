@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, memo, useRef, useCallback } from 'react'
+import { useEffect, useState, memo, useRef, useCallback, useMemo } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Logo } from '@/components/shared/logo'
@@ -219,6 +219,8 @@ export default function HomePage() {
   const servicesAnim = useScrollAnimation()
   const footerAnim = useScrollAnimation()
 
+  const [activeTab, setActiveTab] = useState('all')
+
   useEffect(() => { setMounted(true) }, [])
 
   useEffect(() => {
@@ -234,6 +236,16 @@ export default function HomePage() {
       .catch(() => setServices([]))
       .finally(() => setIsLoading(false))
   }, [])
+
+  const categories = useMemo(() => {
+    const cats = Array.from(new Set(services.map(s => s.category).filter(Boolean)))
+    return ['all', ...cats]
+  }, [services])
+
+  const filteredServices = useMemo(() => {
+    if (activeTab === 'all') return services
+    return services.filter(s => s.category === activeTab)
+  }, [services, activeTab])
 
   const handleSelect = useCallback((slug: string) => {
     router.push(`/onboarding/${slug}`)
@@ -303,20 +315,38 @@ export default function HomePage() {
       {/* Services */}
       <section id="services" className="py-20 px-6">
         <div ref={servicesAnim.ref} className="max-w-6xl mx-auto">
-          <div className={`text-center mb-14 transition-all duration-700 ${servicesAnim.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className={`text-center mb-10 transition-all duration-700 ${servicesAnim.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <span className="text-[#F6B73A] text-sm font-semibold mb-3 block tracking-wider uppercase">{t('services.label')}</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
               {t('services.titleStart')}
               <br />
               <span className="text-[#8F8F94]">{t('services.titleEnd')}</span>
             </h2>
+
+            {/* Category Filter */}
+            {!isLoading && categories.length > 2 && (
+              <div className="flex flex-wrap justify-center gap-3 mb-10">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveTab(cat)}
+                    className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 border ${activeTab === cat
+                      ? 'bg-[#F6B73A] text-[#0C1C2A] border-[#F6B73A] shadow-lg shadow-[#F6B73A]/20'
+                      : 'bg-[#10273A] text-[#8F8F94] border-[#1A3A52] hover:border-[#F6B73A]/50'
+                      }`}
+                  >
+                    {cat === 'all' ? (locale === 'it' ? 'Tutti' : 'All') : cat}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {isLoading ? (
             <div className="flex justify-center py-16">
               <LoadingAnimation size="lg" text={t('services.loading')} />
             </div>
-          ) : services.length === 0 ? (
+          ) : filteredServices.length === 0 ? (
             <div className="flex flex-col items-center py-16">
               <div className="w-14 h-14 bg-[#10273A] rounded-xl flex items-center justify-center mb-3">
                 <FileText className="w-7 h-7 text-[#8F8F94]" />
@@ -325,7 +355,7 @@ export default function HomePage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {services.map((service, i) => (
+              {filteredServices.map((service, i) => (
                 <ServiceCard
                   key={service._id}
                   service={service}
@@ -345,10 +375,7 @@ export default function HomePage() {
           <div className={`flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-700 ${footerAnim.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
             <Logo size="sm" />
             <p className="text-[#8F8F94] text-sm">{t('footer.copyright', { year: new Date().getFullYear() })}</p>
-            <div className="flex gap-6">
-              <Link href="#" className="text-[#8F8F94] hover:text-[#F6B73A] text-sm transition-colors">{t('footer.privacy')}</Link>
-              <Link href="#" className="text-[#8F8F94] hover:text-[#F6B73A] text-sm transition-colors">{t('footer.terms')}</Link>
-            </div>
+
           </div>
         </div>
       </footer>

@@ -10,13 +10,13 @@ console.log('MONGODB_URI:', process.env.MONGODB_URI ? 'Defined' : 'Undefined')
 const COLD_EMAIL_SERVICE = {
     name: {
         en: 'Onboarding Cold Email Marketing',
-        it: 'Onboarding Cold Email Marketing'
+        it: 'Onboarding Marketing Cold Email'
     },
     slug: 'cold-email-marketing',
     category: 'Marketing',
     description: {
         en: 'Powered by Intelligent B2B - The Royal Reach System',
-        it: 'Powered by Intelligent B2B - The Royal Reach System'
+        it: 'Gestito da Intelligent B2B - Il Sistema Royal Reach'
     },
     icon: 'Mail',
     color: '#F6B73A',
@@ -317,7 +317,7 @@ const FACEBOOK_ADS_SERVICE = {
     category: 'Marketing',
     description: {
         en: 'Powered by Intelligent B2B - Meta Performance Division',
-        it: 'Powered by Intelligent B2B - Meta Performance Division'
+        it: 'Gestito da Intelligent B2B - Divisione Meta Performance'
     },
     icon: 'Facebook',
     color: '#1877F2',
