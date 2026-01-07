@@ -1,12 +1,13 @@
 "use client"
 
 import { useEffect, useState, useCallback } from "react"
-import { useParams, useRouter } from "next/navigation"
-import Link from "next/link"
+import { useParams } from "next/navigation"
+import { Link, useRouter } from "@/navigation"
 import { Logo } from "@/components/shared/logo"
 import { LottieIllustration } from "@/components/shared/lottie-illustration"
 import { LoadingAnimation } from "@/components/shared/loading-animation"
 import { DynamicField } from "@/components/forms/dynamic-field"
+import { getServiceBySlug, Service as StaticService } from "@/lib/services-data"
 import {
   ArrowLeft,
   ArrowRight,
@@ -43,15 +44,7 @@ interface Step {
   layout?: 'with-image' | 'two-column'
 }
 
-interface Service {
-  _id: string
-  name: string | { en: string; it: string }
-  slug: string
-  description?: string | { en: string; it: string }
-  color: string
-  steps: Step[]
-  fields: FormField[]
-}
+interface Service extends StaticService { }
 
 // Compact Step Progress Bar
 const StepProgress = ({
@@ -159,28 +152,17 @@ export default function OnboardingPage() {
   }, [])
 
   useEffect(() => {
-    async function fetchService() {
-      try {
-        const res = await fetch(`/api/services/${params.slug}`)
-        if (res.ok) {
-          const data = await res.json()
-          setService(data)
-        } else {
-          toast.error(t('Messages.serviceNotFound'))
-          router.push("/")
-        }
-      } catch (error) {
-        console.error("Failed to fetch service:", error)
-        toast.error("Failed to load service")
-      } finally {
+    if (params.slug) {
+      const staticService = getServiceBySlug(params.slug as string)
+      if (staticService) {
+        setService(staticService as Service)
         setIsLoading(false)
+      } else {
+        toast.error(t('Messages.serviceNotFound'))
+        router.push("/")
       }
     }
-
-    if (params.slug) {
-      fetchService()
-    }
-  }, [params.slug, router])
+  }, [params.slug, router, t])
 
   const handleFieldChange = useCallback((name: string, value: any) => {
     setFormData((prev) => ({ ...prev, [name]: value }))

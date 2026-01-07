@@ -1,12 +1,12 @@
 'use client'
 
 import { useEffect, useState, memo, useRef, useCallback, useMemo } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { Link, useRouter } from '@/navigation'
 import { Logo } from '@/components/shared/logo'
 import LangSwitcher from '@/components/shared/LangSwitcher'
 import { useTranslations, useLocale } from 'next-intl'
 import { LoadingAnimation } from '@/components/shared/loading-animation'
+import { SERVICES, Service as StaticService } from '@/lib/services-data'
 import {
   Globe,
   TrendingUp,
@@ -37,15 +37,7 @@ const iconMap: Record<string, React.ElementType> = {
 }
 
 // Types
-interface Service {
-  _id: string
-  name: string | { en: string; it: string }
-  slug: string
-  description?: string | { en: string; it: string }
-  icon?: string
-  color: string
-  category: string
-}
+interface Service extends StaticService { }
 
 // Optimized scroll animation hook
 function useScrollAnimation(threshold = 0.1) {
@@ -211,8 +203,7 @@ export default function HomePage() {
   const t = useTranslations('HomePage')
   const locale = useLocale()
   const router = useRouter()
-  const [services, setServices] = useState<Service[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [services, setServices] = useState<Service[]>(SERVICES)
   const [isScrolled, setIsScrolled] = useState(false)
   const [mounted, setMounted] = useState(false)
 
@@ -228,14 +219,6 @@ export default function HomePage() {
     const onScroll = () => setIsScrolled(window.scrollY > 10)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  useEffect(() => {
-    fetch('/api/services')
-      .then(res => res.ok ? res.json() : [])
-      .then(data => setServices(data.filter(Boolean)))
-      .catch(() => setServices([]))
-      .finally(() => setIsLoading(false))
   }, [])
 
   const categories = useMemo(() => {
@@ -325,7 +308,7 @@ export default function HomePage() {
             </h2>
 
             {/* Category Filter */}
-            {!isLoading && categories.length > 2 && (
+            {categories.length > 2 && (
               <div className="flex flex-wrap justify-center gap-3 mb-10">
                 {categories.map((cat) => (
                   <button
@@ -343,30 +326,17 @@ export default function HomePage() {
             )}
           </div>
 
-          {isLoading ? (
-            <div className="flex justify-center py-16">
-              <LoadingAnimation size="lg" text={t('services.loading')} />
-            </div>
-          ) : filteredServices.length === 0 ? (
-            <div className="flex flex-col items-center py-16">
-              <div className="w-14 h-14 bg-[#10273A] rounded-xl flex items-center justify-center mb-3">
-                <FileText className="w-7 h-7 text-[#8F8F94]" />
-              </div>
-              <p className="text-[#8F8F94]">{t('services.empty')}</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredServices.map((service, i) => (
-                <ServiceCard
-                  key={service._id}
-                  service={service}
-                  index={i}
-                  isVisible={servicesAnim.isVisible}
-                  onSelect={() => handleSelect(service.slug)}
-                />
-              ))}
-            </div>
-          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredServices.map((service, i) => (
+              <ServiceCard
+                key={service._id}
+                service={service}
+                index={i}
+                isVisible={servicesAnim.isVisible}
+                onSelect={() => handleSelect(service.slug)}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -376,7 +346,6 @@ export default function HomePage() {
           <div className={`flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-700 ${footerAnim.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
             <Logo size="sm" />
             <p className="text-[#8F8F94] text-sm">{t('footer.copyright', { year: new Date().getFullYear() })}</p>
-
           </div>
         </div>
       </footer>
