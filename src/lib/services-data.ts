@@ -6,6 +6,7 @@ export interface Step {
 }
 
 export interface FormField {
+    _id?: string
     name: string
     label: { en: string; it: string }
     type: string

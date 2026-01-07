@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import Link from "next/link"
 import { Header } from "@/components/dashboard"
 import { Card, CardContent } from "@/components/ui/card"
@@ -57,11 +57,7 @@ export default function SubmissionsPage() {
     pages: 0,
   })
 
-  useEffect(() => {
-    fetchSubmissions()
-  }, [statusFilter, pagination.page])
-
-  const fetchSubmissions = async () => {
+  const fetchSubmissions = useCallback(async () => {
     setLoading(true)
     try {
       const params = new URLSearchParams({
@@ -83,7 +79,11 @@ export default function SubmissionsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [pagination.page, pagination.limit, statusFilter])
+
+  useEffect(() => {
+    fetchSubmissions()
+  }, [fetchSubmissions, pagination.page])
 
   const updateStatus = async (id: string, newStatus: string) => {
     try {
@@ -238,10 +238,9 @@ export default function SubmissionsPage() {
                         >
                           <SelectTrigger className="w-32 h-8">
                             <Badge
-                              className={`${
-                                STATUS_COLORS[submission.status] ||
+                              className={`${STATUS_COLORS[submission.status] ||
                                 'bg-gray-100 text-gray-800'
-                              } hover:opacity-80`}
+                                } hover:opacity-80`}
                             >
                               {submission.status}
                             </Badge>
