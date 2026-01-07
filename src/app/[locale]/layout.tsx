@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Onboarding Intelligent B2B - Smart Client Onboarding',
   description: 'Streamline your B2B client onboarding process with intelligent forms and automated workflows.',
+  icons: {
+    icon: '/favicon-1.png',
+  },
 }
 
 export default async function RootLayout({

@@ -9,7 +9,7 @@ console.log('MONGODB_URI:', process.env.MONGODB_URI ? 'Defined' : 'Undefined')
 
 const COLD_EMAIL_SERVICE = {
     name: {
-        en: 'Cold Email Marketing Onboarding',
+        en: 'Onboarding Cold Email Marketing',
         it: 'Onboarding Cold Email Marketing'
     },
     slug: 'cold-email-marketing',
