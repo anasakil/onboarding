@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { COMPANY_TYPES, INDUSTRIES, COMPANY_SIZES } from "@/lib/constants"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 
 interface CompanyInfoData {
   companyName: string
@@ -38,6 +38,10 @@ export function StepCompanyInfo({
     data.companyName && data.companyType && data.industry && data.companySize
   const t = useTranslations('Onboarding.Steps.CompanyInfo')
   const tControls = useTranslations('Onboarding.Controls')
+  const locale = useLocale() as 'en' | 'it'
+
+  // Helper to get label for current selection (for SelectValue placeholder logic if needed, though SelectValue handles it via children matching)
+  // Actually SelectValue displays the text of the selected Item.
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -74,8 +78,8 @@ export function StepCompanyInfo({
             </SelectTrigger>
             <SelectContent>
               {COMPANY_TYPES.map((type) => (
-                <SelectItem key={type} value={type}>
-                  {type}
+                <SelectItem key={type.value} value={type.value}>
+                  {type.label[locale]}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -94,8 +98,8 @@ export function StepCompanyInfo({
             </SelectTrigger>
             <SelectContent>
               {INDUSTRIES.map((industry) => (
-                <SelectItem key={industry} value={industry}>
-                  {industry}
+                <SelectItem key={industry.value} value={industry.value}>
+                  {industry.label[locale]}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -117,7 +121,7 @@ export function StepCompanyInfo({
             <SelectContent>
               {COMPANY_SIZES.map((size) => (
                 <SelectItem key={size.value} value={size.value}>
-                  {size.label}
+                  {size.label[locale]}
                 </SelectItem>
               ))}
             </SelectContent>

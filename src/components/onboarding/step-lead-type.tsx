@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 import { LEAD_TYPES } from "@/lib/constants"
 import { UserPlus, Users, Share2, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 
 interface StepLeadTypeProps {
   value: string
@@ -21,6 +21,7 @@ const iconMap = {
 export function StepLeadType({ value, onChange, onNext }: StepLeadTypeProps) {
   const t = useTranslations('Onboarding.Steps.LeadType')
   const tControls = useTranslations('Onboarding.Controls')
+  const locale = useLocale() as 'en' | 'it'
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -70,9 +71,9 @@ export function StepLeadType({ value, onChange, onNext }: StepLeadTypeProps) {
                     isSelected ? "text-primary-700" : "text-text-primary"
                   )}
                 >
-                  {type.label}
+                  {type.label[locale]}
                 </p>
-                <p className="text-sm text-text-secondary">{type.description}</p>
+                <p className="text-sm text-text-secondary">{type.description[locale]}</p>
               </div>
               <ArrowRight
                 className={cn(

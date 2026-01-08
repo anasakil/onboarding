@@ -1644,12 +1644,250 @@ export const SEO_CONTENT_SERVICE: Service = {
     ]
 }
 
+export const DEVELOPMENT_SERVICE: Service = {
+    _id: 'development-service-id',
+    name: { en: 'Development Services', it: 'Servizi di Sviluppo' },
+    slug: 'development-services',
+    category: 'Development',
+    description: { en: 'Custom websites, SaaS platforms, and mobile apps.', it: 'Siti web su misura, piattaforme SaaS e app mobili.' },
+    icon: 'Code',
+    color: '#3B82F6',
+    isActive: true,
+    steps: [
+        { title: { en: 'Project & Company Basics', it: 'Dati Aziendali e Progetto' }, order: 1, layout: 'two-column' },
+        { title: { en: 'Project Type', it: 'Tipo di Progetto' }, order: 2, layout: 'two-column' },
+        { title: { en: 'Scope & Objectives', it: 'Scopo e Obiettivi' }, order: 3, layout: 'two-column' },
+        { title: { en: 'Technical Requirements', it: 'Requisiti Tecnici' }, order: 4, layout: 'two-column' },
+        { title: { en: 'Design & UX', it: 'Design & UX' }, order: 5, layout: 'two-column' },
+        { title: { en: 'Functionality', it: 'Funzionalità' }, order: 6, layout: 'two-column' },
+        { title: { en: 'Budget & Investment', it: 'Budget e Investimento' }, order: 7, layout: 'two-column' },
+        { title: { en: 'Team & Collaboration', it: 'Team e Collaborazione' }, order: 8, layout: 'two-column' }
+    ],
+    fields: [
+        // SECTION 1
+        { name: 'companyName', label: { en: 'Company Name', it: 'Nome Azienda' }, type: 'text', required: true, step: 1, order: 1 },
+        { name: 'industry', label: { en: 'Industry / Sector', it: 'Settore' }, type: 'select', options: [{ en: 'Technology', it: 'Tecnologia' }, { en: 'Healthcare', it: 'Sanità' }, { en: 'Finance', it: 'Finanza' }, { en: 'E-commerce', it: 'E-commerce' }, { en: 'Professional Services', it: 'Servizi Professionali' }, { en: 'Manufacturing', it: 'Produzione' }, { en: 'Other', it: 'Altro' }], required: false, step: 1, order: 2 },
+        { name: 'companySize', label: { en: 'Company Size', it: 'Dimensione Azienda' }, type: 'select', options: [{ en: '1–10', it: '1–10' }, { en: '11–50', it: '11–50' }, { en: '51–200', it: '51–200' }, { en: '200+', it: '200+' }], required: false, step: 1, order: 3 },
+        { name: 'websiteUrl', label: { en: 'Current Website URL', it: 'Sito Web Attuale' }, type: 'url', required: false, step: 1, order: 4 },
+        { name: 'primaryContactName', label: { en: 'Primary Contact Name', it: 'Nome Referente' }, type: 'text', required: true, step: 1, order: 5 },
+        { name: 'email', label: { en: 'Email Address', it: 'Indirizzo Email' }, type: 'email', required: true, step: 1, order: 6 },
+        { name: 'phone', label: { en: 'Phone Number', it: 'Numero di Telefono' }, type: 'text', required: true, step: 1, order: 7 },
+        { name: 'jobTitle', label: { en: 'Job Title', it: 'Ruolo' }, type: 'text', required: true, step: 1, order: 8 },
+
+        // SECTION 2
+        {
+            name: 'devServices', label: { en: 'Which Development services interest you?', it: 'Quali servizi di sviluppo ti interessano?' }, type: 'multiselect', options: [
+                { en: '💻 WEBSITE DEVELOPMENT', it: '💻 SVILUPPO SITI WEB' },
+                { en: '🚀 SAAS PLATFORM DEVELOPMENT', it: '🚀 SVILUPPO PIATTAFORME SAAS' },
+                { en: '📱 MOBILE APP DEVELOPMENT', it: '📱 SVILUPPO APP SCARICABILI' },
+                { en: '⚙️ CUSTOM SOFTWARE', it: '⚙️ SOFTWARE CUSTOM' }
+            ], required: true, step: 2, order: 1
+        },
+
+        // SECTION 3
+        {
+            name: 'projectGoals', label: { en: 'Primary project goals', it: 'Obiettivi primari progetto' }, type: 'multiselect', options: [
+                { en: 'Build new digital presence', it: 'Nuova presenza digitale' },
+                { en: 'Replace existing system', it: 'Sostituire sistema esistente' },
+                { en: 'Add new functionality', it: 'Aggiungere funzionalità' },
+                { en: 'Improve user experience', it: 'Migliorare UX' },
+                { en: 'Increase conversions', it: 'Aumentare conversioni' },
+                { en: 'Automate processes', it: 'Automatizzare processi' },
+                { en: 'Scale operations', it: 'Scalare operazioni' }
+            ], required: false, step: 3, order: 1
+        },
+        { name: 'targetAudience', label: { en: 'Target audience', it: 'Target di riferimento' }, type: 'textarea', required: true, step: 3, order: 2 },
+        { name: 'timeline', label: { en: 'Expected timeline', it: 'Tempistica attesa' }, type: 'select', options: [{ en: '1–3 months', it: '1–3 mesi' }, { en: '3–6 months', it: '3–6 mesi' }, { en: '6–12 months', it: '6–12 mesi' }, { en: '12+ months', it: '12+ mesi' }], required: false, step: 3, order: 3 },
+        { name: 'deadline', label: { en: 'Launch deadline', it: 'Data di lancio' }, type: 'text', required: false, step: 3, order: 4 },
+
+        // SECTION 4
+        { name: 'techStack', label: { en: 'Current technology stack', it: 'Tech stack attuale' }, type: 'text', required: false, step: 4, order: 1 },
+        { name: 'integrations', label: { en: 'Integration needs', it: 'Integrazioni necessarie' }, type: 'text', required: false, step: 4, order: 2 },
+        { name: 'hosting', label: { en: 'Hosting preferences', it: 'Preferenze hosting' }, type: 'select', options: [{ en: 'Cloud', it: 'Cloud' }, { en: 'On-premise', it: 'On-premise (In sede)' }, { en: 'Managed hosting', it: 'Hosting gestito' }, { en: 'No preference', it: 'Nessuna preferenza' }], required: false, step: 4, order: 3 },
+        { name: 'security', label: { en: 'Security requirements', it: 'Requisiti sicurezza' }, type: 'select', options: [{ en: 'Standard', it: 'Standard' }, { en: 'Enhanced', it: 'Avanzata' }, { en: 'Compliance-specific', it: 'Conformità specifica' }], required: false, step: 4, order: 4 },
+        { name: 'perfExpectations', label: { en: 'Performance expectations', it: 'Aspettative performance' }, type: 'select', options: [{ en: 'Standard', it: 'Standard' }, { en: 'High-traffic', it: 'Alto traffico' }, { en: 'Enterprise-level', it: 'Enterprise' }], required: false, step: 4, order: 5 },
+
+        // SECTION 5
+        { name: 'designPref', label: { en: 'Design preferences', it: 'Preferenze design' }, type: 'select', options: [{ en: 'Modern', it: 'Moderno' }, { en: 'Classic', it: 'Classico' }, { en: 'Minimalist', it: 'Minimalista' }, { en: 'Bold', it: 'Audace' }, { en: 'Industry-specific', it: 'Specifico del settore' }], required: false, step: 5, order: 1 },
+        { name: 'brandingAndAssets', label: { en: 'Branding status', it: 'Stato branding' }, type: 'select', options: [{ en: 'Complete brand guidelines', it: 'Linee guida complete' }, { en: 'Partial branding', it: 'Branding parziale' }, { en: 'Need full branding', it: 'Serve branding completo' }], required: false, step: 5, order: 2 },
+        { name: 'uxPriority', label: { en: 'UX Priority', it: 'Priorità UX' }, type: 'select', options: [{ en: 'Simple/Clean', it: 'Semplice/Pulito' }, { en: 'Feature-rich', it: 'Ricco di funzionalità' }, { en: 'Mobile-first', it: 'Priorità Mobile' }, { en: 'Desktop-first', it: 'Priorità Desktop' }], required: false, step: 5, order: 3 },
+        { name: 'accessibility', label: { en: 'Accessibility requirements (WCAG)', it: 'Requisiti accessibilità (WCAG)' }, type: 'select', options: [{ en: 'Yes', it: 'Sì' }, { en: 'No', it: 'No' }, { en: 'Don’t know', it: 'Non so' }], required: false, step: 5, order: 4 },
+
+        // SECTION 6
+        // Website Dev Features
+        {
+            name: 'websiteFeatures', label: { en: 'Website Features', it: 'Funzionalità Sito Web' }, type: 'multiselect', options: [
+                { en: 'E-commerce functionality', it: 'E-commerce' }, { en: 'User registration/login', it: 'Registrazione/Login' },
+                { en: 'Content management system', it: 'CMS' }, { en: 'Blog/News section', it: 'Blog/News' },
+                { en: 'Contact forms', it: 'Form contatti' }, { en: 'Search functionality', it: 'Cerca' }, { en: 'Multi-language support', it: 'Multilingua' }
+            ], required: false, step: 6, order: 1, showIf: { field: 'devServices', value: '💻 WEBSITE DEVELOPMENT' } // Note: logic might require array check
+        },
+        // SaaS Features logic
+        {
+            name: 'saasFeatures', label: { en: 'SaaS Platform Features', it: 'Funzionalità SaaS' }, type: 'multiselect', options: [
+                { en: 'User management system', it: 'Gestione utenti' }, { en: 'Subscription billing', it: 'Billing ricorrente' },
+                { en: 'API development', it: 'Sviluppo API' }, { en: 'Multi-tenant architecture', it: 'Multi-tenant' },
+                { en: 'Analytics dashboard', it: 'Dashboard analytics' }, { en: 'Third-party integrations', it: 'Integrazioni terze' }, { en: 'Mobile responsiveness', it: 'Mobile responsiveness' }
+            ], required: false, step: 6, order: 2, showIf: { field: 'devServices', value: '🚀 SAAS PLATFORM DEVELOPMENT' }
+        },
+        // Mobile App Features logic
+        {
+            name: 'appFeatures', label: { en: 'Mobile App Features', it: 'Funzionalità App' }, type: 'multiselect', options: [
+                { en: 'iOS development', it: 'Sviluppo iOS' }, { en: 'Android development', it: 'Sviluppo Android' },
+                { en: 'Cross-platform solution', it: 'Cross-platform' }, { en: 'Push notifications', it: 'Notifiche Push' },
+                { en: 'Offline functionality', it: 'Funzionalità Offline' }, { en: 'In-app purchases', it: 'Acquisti In-app' }, { en: 'Social media integration', it: 'Integrazione Social' }
+            ], required: false, step: 6, order: 3, showIf: { field: 'devServices', value: '📱 MOBILE APP DEVELOPMENT' }
+        },
+        // Custom Software Features logic
+        {
+            name: 'softwareFeatures', label: { en: 'Custom Software Features', it: 'Funzionalità Software Custom' }, type: 'multiselect', options: [
+                { en: 'Workflow automation', it: 'Automazione workflow' }, { en: 'Reporting system', it: 'Reportistica' },
+                { en: 'User management', it: 'Gestione utenti' }, { en: 'Data import/export', it: 'Import/Export dati' },
+                { en: 'API integrations', it: 'Integrazioni API' }, { en: 'Real-time features', it: 'Funzioni Real-time' }, { en: 'Document management', it: 'Gestione documenti' }
+            ], required: false, step: 6, order: 4, showIf: { field: 'devServices', value: '⚙️ CUSTOM SOFTWARE' }
+        },
+
+        // SECTION 7
+        { name: 'budgetRange', label: { en: 'Project budget range', it: 'Budget progetto' }, type: 'select', options: [{ en: '€2k–10k', it: '€2k–10k' }, { en: '€10k–25k', it: '€10k–25k' }, { en: '€25k–50k', it: '€25k–50k' }, { en: '€50k+', it: '€50k+' }], required: false, step: 7, order: 1 },
+        { name: 'budgetApproval', label: { en: 'Budget approval status', it: 'Stato approvazione budget' }, type: 'select', options: [{ en: 'Approved', it: 'Approvato' }, { en: 'In approval', it: 'In approvazione' }, { en: 'Need to prepare', it: 'Da preparare' }], required: false, step: 7, order: 2 },
+        { name: 'paymentPref', label: { en: 'Payment preference', it: 'Preferenze pagamento' }, type: 'select', options: [{ en: 'Upfront', it: 'Anticipato' }, { en: 'Milestone-based', it: 'A fasi (Milestone)' }, { en: 'Monthly', it: 'Mensile' }, { en: 'Custom', it: 'Personalizzato' }], required: false, step: 7, order: 3 },
+        { name: 'roiExpectations', label: { en: 'ROI expectations', it: 'Aspettative ROI' }, type: 'select', options: [{ en: '2x', it: '2x' }, { en: '3x', it: '3x' }, { en: '5x', it: '5x' }, { en: '10x+', it: '10x+' }], required: false, step: 7, order: 4 },
+
+        // SECTION 8
+        { name: 'teamInvolvement', label: { en: 'Internal team involvement', it: 'Coinvolgimento team interno' }, type: 'select', options: [{ en: 'High', it: 'Alto' }, { en: 'Medium', it: 'Medio' }, { en: 'Low', it: 'Basso' }, { en: 'Hands-off', it: 'Nessuno (Hands-off)' }], required: false, step: 8, order: 1 },
+        { name: 'techTeamAvailable', label: { en: 'Technical team available', it: 'Team tecnico disponibile' }, type: 'select', options: [{ en: 'Yes - developers', it: 'Sì - sviluppatori' }, { en: 'Yes - designers', it: 'Sì - designer' }, { en: 'No technical team', it: 'Nessun team tecnico' }], required: false, step: 8, order: 2 },
+        { name: 'decisionProcess', label: { en: 'Decision-making process', it: 'Processo decisionale' }, type: 'select', options: [{ en: 'I decide', it: 'Decido io' }, { en: 'Small team', it: 'Piccolo team' }, { en: 'Committee approval', it: 'Comitato' }], required: false, step: 8, order: 3 },
+        { name: 'pmPreference', label: { en: 'Project management preference', it: 'Metodologia preferita' }, type: 'select', options: [{ en: 'Agile/Scrum', it: 'Agile/Scrum' }, { en: 'Waterfall', it: 'Waterfall' }, { en: 'Hybrid', it: 'Ibrida' }, { en: 'Your choice', it: 'Vostra scelta' }], required: false, step: 8, order: 4 }
+    ]
+}
+
+export const AI_AUTOMATION_SERVICE: Service = {
+    _id: 'ai-automation-service-id',
+    name: { en: 'AI & Automation', it: 'AI & Automazione' },
+    slug: 'ai-automation',
+    category: 'AI & Automation',
+    description: { en: 'Streamline operations with AI and custom automation.', it: 'Ottimizza le operazioni con AI e automazioni su misura.' },
+    icon: 'Bot',
+    color: '#10B981',
+    isActive: true,
+    steps: [
+        { title: { en: 'Company & Contact', it: 'Contatti e Azienda' }, order: 1, layout: 'two-column' },
+        { title: { en: 'Service Selection', it: 'Selezione Servizi' }, order: 2, layout: 'two-column' },
+        { title: { en: 'Automation State', it: 'Stato Attuale' }, order: 3, layout: 'two-column' },
+        { title: { en: 'Process Identification', it: 'Identificazione Processi' }, order: 4, layout: 'two-column' },
+        { title: { en: 'Objectives', it: 'Obiettivi' }, order: 5, layout: 'two-column' },
+        { title: { en: 'Technical Env', it: 'Ambiente Tecnico' }, order: 6, layout: 'two-column' },
+        { title: { en: 'AI Requirements', it: 'Requisiti AI' }, order: 7, layout: 'two-column' },
+        { title: { en: 'Budget & ROI', it: 'Budget & ROI' }, order: 8, layout: 'two-column' },
+        { title: { en: 'Implementation', it: 'Implementazione' }, order: 9, layout: 'two-column' },
+        { title: { en: 'Data & Compliance', it: 'Dati & Compliance' }, order: 10, layout: 'two-column' }
+    ],
+    fields: [
+        // SECTION 1
+        { name: 'companyName', label: { en: 'Company Name', it: 'Nome Azienda' }, type: 'text', required: true, step: 1, order: 1 },
+        { name: 'industry', label: { en: 'Industry / Sector', it: 'Settore' }, type: 'select', options: [{ en: 'Technology', it: 'Tecnologia' }, { en: 'Healthcare', it: 'Sanità' }, { en: 'Finance', it: 'Finanza' }, { en: 'Professional Services', it: 'Servizi Professionali' }, { en: 'Manufacturing', it: 'Produzione' }, { en: 'Other', it: 'Altro' }], required: false, step: 1, order: 2 },
+        { name: 'companySize', label: { en: 'Company Size', it: 'Dimensione Azienda' }, type: 'select', options: [{ en: '1–10', it: '1–10' }, { en: '11–50', it: '11–50' }, { en: '51–200', it: '51–200' }, { en: '200+', it: '200+' }], required: false, step: 1, order: 3 },
+        { name: 'primaryContactName', label: { en: 'Primary Contact Name', it: 'Nome Referente' }, type: 'text', required: true, step: 1, order: 4 },
+        { name: 'email', label: { en: 'Email Address', it: 'Indirizzo Email' }, type: 'email', required: true, step: 1, order: 5 },
+        { name: 'phone', label: { en: 'Phone Number', it: 'Numero di Telefono' }, type: 'text', required: true, step: 1, order: 6 },
+        { name: 'jobTitle', label: { en: 'Job Title', it: 'Ruolo' }, type: 'text', required: true, step: 1, order: 7 },
+
+        // SECTION 2
+        {
+            name: 'aiServices', label: { en: 'Which AI & Automation services interest you?', it: 'Quali servizi di AI & Automazione ti interessano?' }, type: 'multiselect', options: [
+                { en: '🧠 CUSTOM GPT/AI SOLUTION', it: '🧠 SOLUZIONI GPT/AI CUSTOM' },
+                { en: '🤖 RPA STANDARD', it: '🤖 RPA STANDARD' },
+                { en: '⚡ RPA ADVANCED/COGNITIVE', it: '⚡ RPA AVANZATA/COGNITIVA' },
+                { en: '📊 ADVANCED ANALYTICS/AI/ML', it: '📊 ANALYTICS AVANZATI/AI/ML' }
+            ], required: true, step: 2, order: 1
+        },
+
+        // SECTION 3
+        { name: 'automationLevel', label: { en: 'Current automation level', it: 'Livello automazione attuale' }, type: 'select', options: [{ en: 'None', it: 'Nessuno' }, { en: 'Basic tools', it: 'Strumenti base' }, { en: 'Some automation', it: 'Qualche automazione' }, { en: 'Advanced systems', it: 'Sistemi avanzati' }], required: false, step: 3, order: 1 },
+        { name: 'existingTools', label: { en: 'Existing AI/automation tools', it: 'Strumenti AI/automazione esistenti' }, type: 'text', required: false, step: 3, order: 2 },
+        {
+            name: 'processChallenges', label: { en: 'Biggest process challenges', it: 'Principali sfide di processo' }, type: 'multiselect', options: [
+                { en: 'Too many manual tasks', it: 'Troppi task manuali' },
+                { en: 'Data entry errors', it: 'Errori data entry' },
+                { en: 'Slow processing times', it: 'Processi lenti' },
+                { en: 'Inconsistent quality', it: 'Qualità incostante' },
+                { en: 'High operational costs', it: 'Costi operativi alti' },
+                { en: 'Limited scalability', it: 'Scalabilità limitata' },
+                { en: 'Poor data insights', it: 'Scarsi insight dai dati' }
+            ], required: false, step: 3, order: 3
+        },
+
+        // SECTION 4
+        { name: 'processesToAutomate', label: { en: 'Processes to automate', it: 'Processi da automatizzare' }, type: 'textarea', required: true, step: 4, order: 1 },
+        { name: 'timeSpent', label: { en: 'Current time spent (hours/week)', it: 'Tempo speso (ore/settimana)' }, type: 'text', required: false, step: 4, order: 2 },
+        { name: 'teamSizeAffected', label: { en: 'Team size affected', it: 'Dimensione team coinvolto' }, type: 'text', required: false, step: 4, order: 3 },
+        { name: 'processComplexity', label: { en: 'Process complexity', it: 'Complessità processo' }, type: 'select', options: [{ en: 'Simple/repetitive', it: 'Semplice/Ripetitivo' }, { en: 'Moderate complexity', it: 'Complessità moderata' }, { en: 'Highly complex', it: 'Molto complesso' }], required: false, step: 4, order: 4 },
+        { name: 'dataSources', label: { en: 'Data sources', it: 'Fonti dati' }, type: 'text', placeholder: { en: 'Excel, DB, Forms...', it: 'Excel, DB, Form...' }, required: false, step: 4, order: 5 },
+
+        // SECTION 5
+        {
+            name: 'automationGoals', label: { en: 'Primary goals', it: 'Obiettivi primari' }, type: 'multiselect', options: [
+                { en: 'Reduce manual work', it: 'Ridurre lavoro manuale' },
+                { en: 'Improve accuracy', it: 'Migliorare accuratezza' },
+                { en: 'Increase processing speed', it: 'Aumentare velocità' },
+                { en: 'Cut operational costs', it: 'Ridurre costi operativi' },
+                { en: 'Better data insights', it: 'Migliori insight dati' },
+                { en: 'Scale operations', it: 'Scalare operazioni' },
+                { en: 'Improve customer service', it: 'Migliorare servizio clienti' }
+            ], required: false, step: 5, order: 1
+        },
+        { name: 'roiTimeline', label: { en: 'Expected ROI timeline', it: 'Timeline ROI attesa' }, type: 'select', options: [{ en: '3 months', it: '3 mesi' }, { en: '6 months', it: '6 mesi' }, { en: '12 months', it: '12 mesi' }, { en: '18+ months', it: '18+ mesi' }], required: false, step: 5, order: 2 },
+        { name: 'successMetrics', label: { en: 'Success metrics', it: 'Metriche di successo' }, type: 'textarea', required: false, step: 5, order: 3 },
+
+        // SECTION 6
+        { name: 'currentSystems', label: { en: 'Current systems', it: 'Sistemi attuali' }, type: 'text', required: false, step: 6, order: 1 },
+        { name: 'integrationReqs', label: { en: 'Integration requirements', it: 'Requisiti integrazione' }, type: 'text', required: false, step: 6, order: 2 },
+        { name: 'securityReqs', label: { en: 'Security requirements', it: 'Requisiti sicurezza' }, type: 'select', options: [{ en: 'Standard', it: 'Standard' }, { en: 'Enhanced', it: 'Avanzata' }, { en: 'Compliance-specific', it: 'Conformità specifica' }], required: false, step: 6, order: 3 },
+        { name: 'cloudPref', label: { en: 'Cloud preference', it: 'Preferenza Cloud' }, type: 'select', options: [{ en: 'Cloud-based', it: 'Cloud-based' }, { en: 'On-premise', it: 'On-premise (In sede)' }, { en: 'Hybrid', it: 'Ibrido' }, { en: 'No preference', it: 'Nessuna preferenza' }], required: false, step: 6, order: 4 },
+        { name: 'techTeam', label: { en: 'Technical team availability', it: 'Disponibilità team tecnico' }, type: 'select', options: [{ en: 'Yes - IT team', it: 'Sì - Team IT' }, { en: 'Limited technical support', it: 'Supporto limitato' }, { en: 'No technical team', it: 'Nessun team' }], required: false, step: 6, order: 5 },
+
+        // SECTION 7
+        // GPT Requirements
+        {
+            name: 'gptUseCase', label: { en: 'Use case (Custom GPT)', it: 'Caso d\'uso (Custom GPT)' }, type: 'textarea',
+            required: false, step: 7, order: 1, showIf: { field: 'aiServices', value: '🧠 CUSTOM GPT/AI SOLUTION' }
+        },
+        // RPA Requirements
+        {
+            name: 'rpaProcessType', label: { en: 'Process type (RPA)', it: 'Tipo processo (RPA)' }, type: 'text',
+            required: false, step: 7, order: 2, showIf: { field: 'aiServices', value: '🤖 RPA STANDARD' }
+        },
+        {
+            name: 'rpaVolume', label: { en: 'Volume', it: 'Volume' }, type: 'select', options: [{ en: 'Low <100/day', it: 'Basso <100/dì' }, { en: 'Medium 100-1000/day', it: 'Medio 100-1000/dì' }, { en: 'High >1000/day', it: 'Alto >1000/dì' }],
+            required: false, step: 7, order: 3, showIf: { field: 'aiServices', value: '🤖 RPA STANDARD' }
+        },
+
+        // SECTION 8
+        { name: 'autoBudget', label: { en: 'Monthly automation budget', it: 'Budget mensile automazione' }, type: 'select', options: [{ en: '€1k–3k', it: '€1k–3k' }, { en: '€3k–7k', it: '€3k–7k' }, { en: '€7k–12k', it: '€7k–12k' }, { en: '€12k+', it: '€12k+' }], required: false, step: 8, order: 1 },
+        { name: 'setupBudget', label: { en: 'Setup budget availability', it: 'Budget setup disponibile' }, type: 'select', options: [{ en: '€1k–3k', it: '€1k–3k' }, { en: '€3k–5k', it: '€3k–5k' }, { en: '€5k–10k', it: '€5k–10k' }, { en: '€10k+', it: '€10k+' }], required: false, step: 8, order: 2 },
+        { name: 'roiExpectations', label: { en: 'ROI expectations', it: 'Aspettative ROI' }, type: 'select', options: [{ en: '2x', it: '2x' }, { en: '3x', it: '3x' }, { en: '5x', it: '5x' }, { en: '10x+', it: '10x+' }], required: false, step: 8, order: 3 },
+        { name: 'paybackPeriod', label: { en: 'Payback period target', it: 'Target payback period' }, type: 'select', options: [{ en: '6 months', it: '6 mesi' }, { en: '12 months', it: '12 mesi' }, { en: '18 months', it: '18 mesi' }, { en: '24+ months', it: '24+ mesi' }], required: false, step: 8, order: 4 },
+
+        // SECTION 9
+        { name: 'implApproach', label: { en: 'Implementation approach', it: 'Approccio implementazione' }, type: 'select', options: [{ en: 'Pilot project', it: 'Progetto pilota' }, { en: 'Full rollout', it: 'Rilascio completo' }, { en: 'Phased approach', it: 'Approccio a fasi' }], required: false, step: 9, order: 1 },
+        { name: 'training', label: { en: 'Training requirements', it: 'Fabbisogno formazione' }, type: 'select', options: [{ en: 'Basic training', it: 'Base' }, { en: 'Comprehensive', it: 'Completa' }, { en: 'Train-the-trainer', it: 'Formazione formatori' }], required: false, step: 9, order: 2 },
+        { name: 'support', label: { en: 'Support needs', it: 'Necessità supporto' }, type: 'select', options: [{ en: 'Self-service', it: 'In autonomia (Self-service)' }, { en: 'Regular support', it: 'Supporto regolare' }, { en: 'Dedicated support', it: 'Supporto dedicato' }], required: false, step: 9, order: 3 },
+
+        // SECTION 10
+        { name: 'dataSens', label: { en: 'Data sensitivity', it: 'Sensibilità dati' }, type: 'select', options: [{ en: 'Public', it: 'Pubblici' }, { en: 'Internal', it: 'Interni' }, { en: 'Confidential', it: 'Confidenziali' }, { en: 'Highly sensitive', it: 'Molto sensibili' }], required: false, step: 10, order: 1 },
+        { name: 'compliance', label: { en: 'Compliance requirements', it: 'Compliance' }, type: 'multiselect', options: [{ en: 'GDPR', it: 'GDPR' }, { en: 'HIPAA', it: 'HIPAA' }, { en: 'SOX', it: 'SOX' }, { en: 'Industry-specific', it: 'Specifica di settore' }, { en: 'None', it: 'Nessuna' }], required: false, step: 10, order: 2 },
+        { name: 'dataLoc', label: { en: 'Data location', it: 'Locazione dati' }, type: 'select', options: [{ en: 'EU', it: 'EU' }, { en: 'US', it: 'US' }, { en: 'Global', it: 'Globale' }, { en: 'No preference', it: 'Nessuna preferenza' }], required: false, step: 10, order: 3 }
+    ]
+}
+
 export const SERVICES: Service[] = [
     COLD_EMAIL_SERVICE,
     FACEBOOK_ADS_SERVICE,
     BLOGGING_SEO_SERVICE,
     LEAD_GEN_CRM_SERVICE,
-    SEO_CONTENT_SERVICE
+    SEO_CONTENT_SERVICE,
+    DEVELOPMENT_SERVICE,
+    AI_AUTOMATION_SERVICE
 ]
 
 export function getServiceBySlug(slug: string): Service | undefined {

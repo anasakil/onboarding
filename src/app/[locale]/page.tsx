@@ -318,7 +318,9 @@ export default function HomePage() {
                     if (c === 'all') return locale === 'it' ? 'Tutti i Servizi' : 'All Services';
                     const labels: Record<string, { en: string, it: string }> = {
                       'Growth & Ads': { en: 'Growth & Ads', it: 'Crescita & Ads' },
-                      'SEO & Content': { en: 'SEO & Content', it: 'SEO & Contenuti' }
+                      'SEO & Content': { en: 'SEO & Content', it: 'SEO & Contenuti' },
+                      'Development': { en: 'Development', it: 'Sviluppo' },
+                      'AI & Automation': { en: 'AI & Automation', it: 'AI & Automazione' }
                     };
                     return labels[c]?.[locale as 'en' | 'it'] || c;
                   };
@@ -344,7 +346,9 @@ export default function HomePage() {
                       {cat === 'all' && <Layers className="w-4 h-4" />}
                       {cat === 'Growth & Ads' && <TrendingUp className="w-4 h-4" />}
                       {cat === 'SEO & Content' && <Search className="w-4 h-4" />}
-                      {!['all', 'Growth & Ads', 'SEO & Content'].includes(cat) && <Briefcase className="w-4 h-4" />}
+                      {cat === 'Development' && <Code className="w-4 h-4" />}
+                      {cat === 'AI & Automation' && <Bot className="w-4 h-4" />}
+                      {!['all', 'Growth & Ads', 'SEO & Content', 'Development', 'AI & Automation'].includes(cat) && <Briefcase className="w-4 h-4" />}
 
                       <span className="relative z-10">
                         {getCategoryLabel(cat)}

@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { LEAD_SOURCES } from "@/lib/constants"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 
 interface SourceData {
   source: string[]
@@ -58,6 +58,7 @@ export function StepSource({
 
   const t = useTranslations('Onboarding.Steps.Source')
   const tControls = useTranslations('Onboarding.Controls')
+  const locale = useLocale() as 'en' | 'it'
 
   const isValid = data.contactName && data.contactEmail
 
@@ -96,7 +97,7 @@ export function StepSource({
                   isSelected ? "text-primary-700" : "text-text-primary"
                 )}
               >
-                {source.label}
+                {source.label[locale]}
               </span>
             </label>
           )
