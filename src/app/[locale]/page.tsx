@@ -1,5 +1,6 @@
 'use client'
 
+import { cn } from "@/lib/utils"
 import { useEffect, useState, memo, useRef, useCallback, useMemo } from 'react'
 import { Link, useRouter } from '@/navigation'
 import { Logo } from '@/components/shared/logo'
@@ -308,20 +309,61 @@ export default function HomePage() {
             </h2>
 
             {/* Category Filter */}
-            {categories.length > 2 && (
-              <div className="flex flex-wrap justify-center gap-3 mb-10">
-                {categories.map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setActiveTab(cat)}
-                    className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 border ${activeTab === cat
-                      ? 'bg-[#F6B73A] text-[#0C1C2A] border-[#F6B73A] shadow-lg shadow-[#F6B73A]/20'
-                      : 'bg-[#10273A] text-[#8F8F94] border-[#1A3A52] hover:border-[#F6B73A]/50'
-                      }`}
-                  >
-                    {cat === 'all' ? (locale === 'it' ? 'Tutti' : 'All') : cat}
-                  </button>
-                ))}
+            {categories.length > 1 && (
+              <div className="flex flex-wrap justify-center gap-4 mb-12">
+                {categories.map((cat) => {
+                  const isActive = activeTab === cat;
+
+                  const getCategoryLabel = (c: string) => {
+                    if (c === 'all') return locale === 'it' ? 'Tutti i Servizi' : 'All Services';
+                    const labels: Record<string, { en: string, it: string }> = {
+                      'Marketing': { en: 'Marketing', it: 'Marketing' },
+                      'Advertising': { en: 'Advertising', it: 'Advertising' },
+                      'Content Strategy': { en: 'Content Strategy', it: 'Strategia Contenuti' },
+                      'Lead Generation': { en: 'Lead Generation', it: 'Lead Generation' }
+                    };
+                    return labels[c]?.[locale as 'en' | 'it'] || c;
+                  };
+
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => setActiveTab(cat)}
+                      className={cn(
+                        "relative px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 flex items-center gap-2",
+                        "group overflow-hidden border",
+                        isActive
+                          ? "bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] text-[#0C1C2A] border-[#F6B73A] shadow-lg shadow-[#F6B73A]/20"
+                          : "bg-[#10273A] text-[#8F8F94] border-[#1A3A52] hover:border-[#F6B73A]/50 hover:text-white"
+                      )}
+                    >
+                      {/* Active background glow */}
+                      {isActive && (
+                        <span className="absolute inset-0 bg-white/20 animate-pulse-slow" />
+                      )}
+
+                      {/* Icon for category */}
+                      {cat === 'all' && <Layers className="w-4 h-4" />}
+                      {cat === 'Marketing' && <Megaphone className="w-4 h-4" />}
+                      {cat === 'Advertising' && <Facebook className="w-4 h-4" />}
+                      {cat === 'Content Strategy' && <PenTool className="w-4 h-4" />}
+                      {cat === 'Lead Generation' && <TrendingUp className="w-4 h-4" />}
+                      {!['all', 'Marketing', 'Advertising', 'Content Strategy', 'Lead Generation'].includes(cat) && <Briefcase className="w-4 h-4" />}
+
+                      <span className="relative z-10">
+                        {getCategoryLabel(cat)}
+                      </span>
+
+                      {/* Small counter */}
+                      <span className={cn(
+                        "text-[10px] ml-1 px-1.5 py-0.5 rounded-md",
+                        isActive ? "bg-black/20 text-[#0C1C2A]" : "bg-[#1A3A52] text-[#8F8F94]"
+                      )}>
+                        {cat === 'all' ? services.length : services.filter(s => s.category === cat).length}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             )}
           </div>

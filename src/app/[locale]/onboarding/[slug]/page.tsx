@@ -31,7 +31,7 @@ interface FormField {
   type: string
   placeholder?: string | { en: string; it: string }
   required: boolean
-  options?: string[]
+  options?: string[] | { en: string; it: string }[]
   step: number
   order: number
 }
@@ -554,7 +554,8 @@ export default function OnboardingPage() {
                         field={{
                           ...field,
                           label: getLoc(field.label),
-                          placeholder: getLoc(field.placeholder)
+                          placeholder: getLoc(field.placeholder),
+                          options: field.options?.map(opt => typeof opt === 'string' ? opt : getLoc(opt))
                         }}
                         value={formData[field.name]}
                         onChange={handleFieldChange}

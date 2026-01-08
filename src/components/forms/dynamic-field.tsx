@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Check, ChevronRight, AlertCircle } from "lucide-react"
+import { useTranslations } from 'next-intl'
 
 interface FormField {
   _id?: string
@@ -20,7 +21,7 @@ interface FormField {
   type: string
   placeholder?: string
   required: boolean
-  options?: string[]
+  options?: string[] | { en: string; it: string }[]
 }
 
 interface DynamicFieldProps {
@@ -31,6 +32,7 @@ interface DynamicFieldProps {
 }
 
 export function DynamicField({ field, value, onChange, error }: DynamicFieldProps) {
+  const t = useTranslations('Common')
   const handleChange = (newValue: any) => {
     onChange(field.name, newValue)
   }
@@ -129,14 +131,18 @@ export function DynamicField({ field, value, onChange, error }: DynamicFieldProp
                 hasValue && !error && "border-[#F6B73A] bg-[#F6B73A]/5"
               )}
             >
-              <SelectValue placeholder={field.placeholder || 'Select an option'} />
+              <SelectValue placeholder={field.placeholder || t('selectPlaceholder')} />
             </SelectTrigger>
             <SelectContent>
-              {field.options?.map((option) => (
-                <SelectItem key={option} value={option}>
-                  {option}
-                </SelectItem>
-              ))}
+              {field.options?.map((option, idx) => {
+                const optLabel = typeof option === 'string' ? option : option.en // Default to en as fallback if needed, but we'll pass localized label
+                const optValue = typeof option === 'string' ? option : option.en // Internal value is always English
+                return (
+                  <SelectItem key={idx} value={optValue}>
+                    {optLabel}
+                  </SelectItem>
+                )
+              })}
             </SelectContent>
           </Select>
         )
@@ -145,17 +151,19 @@ export function DynamicField({ field, value, onChange, error }: DynamicFieldProp
         const selectedValues: string[] = value || []
         return (
           <div className="flex flex-wrap gap-2">
-            {field.options?.map((option) => {
-              const isSelected = selectedValues.includes(option)
+            {field.options?.map((option, idx) => {
+              const optLabel = typeof option === 'string' ? option : option.en
+              const optValue = typeof option === 'string' ? option : option.en
+              const isSelected = selectedValues.includes(optValue)
               return (
                 <button
-                  key={option}
+                  key={idx}
                   type="button"
                   onClick={() => {
                     if (isSelected) {
-                      handleChange(selectedValues.filter((v) => v !== option))
+                      handleChange(selectedValues.filter((v) => v !== optValue))
                     } else {
-                      handleChange([...selectedValues, option])
+                      handleChange([...selectedValues, optValue])
                     }
                   }}
                   className={cn(
@@ -168,7 +176,7 @@ export function DynamicField({ field, value, onChange, error }: DynamicFieldProp
                 >
                   <span className="flex items-center gap-1.5">
                     {isSelected && <Check className="w-3 h-3" />}
-                    {option}
+                    {optLabel}
                   </span>
                 </button>
               )
@@ -179,14 +187,16 @@ export function DynamicField({ field, value, onChange, error }: DynamicFieldProp
       case 'radio':
         return (
           <div className="space-y-2">
-            {field.options?.map((option) => {
-              const isSelected = value === option
+            {field.options?.map((option, idx) => {
+              const optLabel = typeof option === 'string' ? option : option.en
+              const optValue = typeof option === 'string' ? option : option.en
+              const isSelected = value === optValue
 
               return (
                 <button
-                  key={option}
+                  key={idx}
                   type="button"
-                  onClick={() => handleChange(option)}
+                  onClick={() => handleChange(optValue)}
                   className={cn(
                     "w-full flex items-center gap-3 p-3 rounded-lg border transition-all duration-200",
                     "hover:shadow-sm text-left group",
@@ -214,7 +224,7 @@ export function DynamicField({ field, value, onChange, error }: DynamicFieldProp
                     "flex-1 text-sm font-medium",
                     isSelected ? "text-white" : "text-[#8F8F94]"
                   )}>
-                    {option}
+                    {optLabel}
                   </span>
 
                   {/* Arrow or check */}

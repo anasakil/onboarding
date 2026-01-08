@@ -125,6 +125,7 @@
         "loading": "Loading...",
         "error": "Something went wrong",
         "submit": "Submit",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "selectPlaceholder": "Select an option"
     }
 }

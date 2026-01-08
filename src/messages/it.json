@@ -125,6 +125,7 @@
         "loading": "Caricamento...",
         "error": "Qualcosa è andato storto",
         "submit": "Invia",
-        "cancel": "Annulla"
+        "cancel": "Annulla",
+        "selectPlaceholder": "Seleziona un'opzione"
     }
 }

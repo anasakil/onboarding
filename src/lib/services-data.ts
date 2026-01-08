@@ -11,7 +11,7 @@ export interface FormField {
     label: { en: string; it: string }
     type: string
     required: boolean
-    options?: string[]
+    options?: string[] | { en: string; it: string }[]
     step: number
     order: number
     placeholder?: { en: string; it: string }
@@ -276,9 +276,12 @@ export const COLD_EMAIL_SERVICE: Service = {
         },
         {
             name: 'existingExamples',
-            label: { en: 'Existing communications examples?', it: 'Esempi comunicazioni esistenti' },
+            label: { en: 'Existing communications examples?', it: 'Esempi comunicazioni esistenti?' },
             type: 'radio',
-            options: ['Sì / Yes', 'No'],
+            options: [
+                { en: 'Yes', it: 'Sì' },
+                { en: 'No', it: 'No' }
+            ],
             required: true,
             step: 6,
             order: 2
@@ -303,7 +306,10 @@ export const COLD_EMAIL_SERVICE: Service = {
             name: 'brandGuidelines',
             label: { en: 'Logo & Brand Guidelines', it: 'Logo e brand guideline' },
             type: 'radio',
-            options: ['Sì / Yes', 'No'],
+            options: [
+                { en: 'Yes', it: 'Sì' },
+                { en: 'No', it: 'No' }
+            ],
             required: true,
             step: 7,
             order: 1
@@ -326,7 +332,7 @@ export const FACEBOOK_ADS_SERVICE: Service = {
         it: 'Onboarding Facebook Ads'
     },
     slug: 'facebook-ads-onboarding',
-    category: 'Marketing',
+    category: 'Advertising',
     description: {
         en: 'Powered by Intelligent B2B - Meta Performance Division',
         it: 'Gestito da Intelligent B2B - Divisione Meta Performance'
@@ -523,7 +529,10 @@ export const FACEBOOK_ADS_SERVICE: Service = {
             name: 'businessManagerActive',
             label: { en: 'Do you already have an active Business Manager?', it: 'Hai già un Business Manager attivo?' },
             type: 'radio',
-            options: ['SI / YES', 'NO'],
+            options: [
+                { en: 'Yes', it: 'Sì' },
+                { en: 'No', it: 'No' }
+            ],
             required: true,
             step: 4,
             order: 1
@@ -547,7 +556,10 @@ export const FACEBOOK_ADS_SERVICE: Service = {
             name: 'materialsReady',
             label: { en: 'Are materials ready (images, video, texts, landing page)?', it: 'Hai già materiali pronti (immagini, video, testi, landing page)?' },
             type: 'radio',
-            options: ['SI / YES', 'NO'],
+            options: [
+                { en: 'Yes', it: 'Sì' },
+                { en: 'No', it: 'No' }
+            ],
             required: true,
             step: 5,
             order: 1
@@ -594,7 +606,7 @@ export const BLOGGING_SEO_SERVICE: Service = {
         it: 'Blogging SEO Friendly'
     },
     slug: 'blogging-seo-friendly',
-    category: 'Marketing',
+    category: 'Content Strategy',
     description: {
         en: 'Dominate search results with high-quality, SEO-optimized content strategy.',
         it: 'Domina i risultati di ricerca con una strategia di contenuti di alta qualità e ottimizzata SEO.'
@@ -662,7 +674,15 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'industry',
             label: { en: 'Industry / Sector', it: 'Settore Industriale' },
             type: 'select',
-            options: ['Technology', 'Healthcare', 'Finance', 'E-commerce', 'Professional Services', 'Manufacturing', 'Other'],
+            options: [
+                { en: 'Technology', it: 'Tecnologia' },
+                { en: 'Healthcare', it: 'Sanità' },
+                { en: 'Finance', it: 'Finanza' },
+                { en: 'E-commerce', it: 'E-commerce' },
+                { en: 'Professional Services', it: 'Servizi Professionali' },
+                { en: 'Manufacturing', it: 'Produzione' },
+                { en: 'Other', it: 'Altro' }
+            ],
             required: false,
             step: 1,
             order: 3
@@ -687,7 +707,16 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'country',
             label: { en: 'Country', it: 'Paese' },
             type: 'select',
-            options: ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cabo Verde', 'Cambodia', 'Cameroon', 'Canada', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo', 'Costa Rica', 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Eswatini', 'Ethiopia', 'Fiji', 'Finland', 'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Korea, North', 'Korea, South', 'Kosovo', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 'Mauritius', 'Mexico', 'Micronesia', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Macedonia', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania', 'Russia', 'Rwanda', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'San Marino', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Sudan', 'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', 'Timor-Leste', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Vatican City', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'],
+            options: [
+                { en: 'Italy', it: 'Italia' },
+                { en: 'United States', it: 'Stati Uniti' },
+                { en: 'United Kingdom', it: 'Regno Unito' },
+                { en: 'Germany', it: 'Germania' },
+                { en: 'France', it: 'Francia' },
+                { en: 'Spain', it: 'Spagna' },
+                { en: 'Switzerland', it: 'Svizzera' },
+                { en: 'Other', it: 'Altro' }
+            ],
             required: true,
             step: 1,
             order: 6
@@ -705,7 +734,10 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'hasBlog',
             label: { en: 'Do you currently have a blog?', it: 'Hai già un blog attualmente?' },
             type: 'radio',
-            options: ['Yes / Sì', 'No'],
+            options: [
+                { en: 'Yes', it: 'Sì' },
+                { en: 'No', it: 'No' }
+            ],
             required: true,
             step: 2,
             order: 1
@@ -714,7 +746,15 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'blogFrequency',
             label: { en: 'Current blogging frequency', it: 'Frequenza attuale di pubblicazione' },
             type: 'select',
-            options: ['Never', 'Daily', 'Twice a week', 'Weekly', 'Bi-weekly', 'Monthly', 'Irregular'],
+            options: [
+                { en: 'Never', it: 'Mai' },
+                { en: 'Daily', it: 'Giornaliera' },
+                { en: 'Twice a week', it: 'Due volte a settimana' },
+                { en: 'Weekly', it: 'Settimanale' },
+                { en: 'Bi-weekly', it: 'Ogni due settimane' },
+                { en: 'Monthly', it: 'Mensile' },
+                { en: 'Irregular', it: 'Irregolare' }
+            ],
             required: false,
             step: 2,
             order: 2
@@ -723,7 +763,13 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'contentWriter',
             label: { en: 'Who currently writes your content?', it: 'Chi scrive attualmente i tuoi contenuti?' },
             type: 'select',
-            options: ['No one', 'Internal team', 'Freelancers', 'Agency', 'Mix'],
+            options: [
+                { en: 'No one', it: 'Nessuno' },
+                { en: 'Internal team', it: 'Team interno' },
+                { en: 'Freelancers', it: 'Freelancer' },
+                { en: 'Agency', it: 'Agenzia' },
+                { en: 'Mix', it: 'Mix' }
+            ],
             required: false,
             step: 2,
             order: 3
@@ -732,7 +778,12 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'blogTraffic',
             label: { en: 'Current blog traffic', it: 'Traffico attuale del blog' },
             type: 'select',
-            options: ['<1k monthly visitors', '1k–5k', '5k–20k', '20k+'],
+            options: [
+                { en: '<1k monthly visitors', it: '<1k visitatori mensili' },
+                { en: '1k–5k', it: '1k–5k' },
+                { en: '5k–20k', it: '5k–20k' },
+                { en: '20k+', it: '20k+' }
+            ],
             required: false,
             step: 2,
             order: 4
@@ -741,7 +792,14 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'contentChallenges',
             label: { en: 'Biggest content challenges', it: 'Principali sfide nei contenuti' },
             type: 'multiselect',
-            options: ['Lack of time', 'Don’t know what to write about', 'Poor search rankings', 'Low engagement', 'No content strategy', 'Technical SEO issues'],
+            options: [
+                { en: 'Lack of time', it: 'Mancanza di tempo' },
+                { en: 'Don’t know what to write about', it: 'Non so di cosa scrivere' },
+                { en: 'Poor search rankings', it: 'Posizionamento scarso sui motori' },
+                { en: 'Low engagement', it: 'Basso coinvolgimento' },
+                { en: 'No content strategy', it: 'Nessuna strategia di contenuto' },
+                { en: 'Technical SEO issues', it: 'Problemi tecnici SEO' }
+            ],
             required: false,
             step: 2,
             order: 5
@@ -767,7 +825,11 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'geographicTargeting',
             label: { en: 'Geographic targeting', it: 'Target geografico' },
             type: 'select',
-            options: ['Local', 'National', 'International'],
+            options: [
+                { en: 'Local', it: 'Locale' },
+                { en: 'National', it: 'Nazionale' },
+                { en: 'International', it: 'Internazionale' }
+            ],
             required: false,
             step: 3,
             order: 3
@@ -776,7 +838,14 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'seoTools',
             label: { en: 'Current SEO tools used', it: 'Tool SEO utilizzati attualmente' },
             type: 'multiselect',
-            options: ['Google Analytics', 'Google Search Console', 'SEMrush', 'Ahrefs', 'None', 'Other'],
+            options: [
+                { en: 'Google Analytics', it: 'Google Analytics' },
+                { en: 'Google Search Console', it: 'Google Search Console' },
+                { en: 'SEMrush', it: 'SEMrush' },
+                { en: 'Ahrefs', it: 'Ahrefs' },
+                { en: 'None', it: 'Nessuno' },
+                { en: 'Other', it: 'Altro' }
+            ],
             required: false,
             step: 3,
             order: 4
@@ -786,7 +855,14 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'contentGoals',
             label: { en: 'Primary content goals', it: 'Obiettivi primari dei contenuti' },
             type: 'multiselect',
-            options: ['Increase organic traffic', 'Generate leads', 'Build brand authority', 'Educate customers', 'Support sales team', 'Improve search rankings'],
+            options: [
+                { en: 'Increase organic traffic', it: 'Aumentare il traffico organico' },
+                { en: 'Generate leads', it: 'Generare lead' },
+                { en: 'Build brand authority', it: 'Costruire autorità del brand' },
+                { en: 'Educate customers', it: 'Educare i clienti' },
+                { en: 'Support sales team', it: 'Supportare il team vendite' },
+                { en: 'Improve search rankings', it: 'Migliorare il posizionamento' }
+            ],
             required: false,
             step: 4,
             order: 1
@@ -795,7 +871,12 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'targetTrafficIncrease',
             label: { en: 'Target monthly organic traffic growth', it: 'Crescita target del traffico organico mensile' },
             type: 'select',
-            options: ['25%', '50%', '100%', '200%+'],
+            options: [
+                { en: '25%', it: '25%' },
+                { en: '50%', it: '50%' },
+                { en: '100%', it: '100%' },
+                { en: '200%+', it: '200%+' }
+            ],
             required: false,
             step: 4,
             order: 2
@@ -804,7 +885,11 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'leadGenPriority',
             label: { en: 'Lead generation priority', it: 'Priorità generazione lead' },
             type: 'select',
-            options: ['High', 'Medium', 'Low'],
+            options: [
+                { en: 'High', it: 'Alta' },
+                { en: 'Medium', it: 'Media' },
+                { en: 'Low', it: 'Bassa' }
+            ],
             required: false,
             step: 4,
             order: 3
@@ -822,7 +907,14 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'cms',
             label: { en: 'Content Management System', it: 'Content Management System' },
             type: 'select',
-            options: ['WordPress', 'Webflow', 'Drupal', 'Shopify', 'Custom', 'Other'],
+            options: [
+                { en: 'WordPress', it: 'WordPress' },
+                { en: 'Webflow', it: 'Webflow' },
+                { en: 'Drupal', it: 'Drupal' },
+                { en: 'Shopify', it: 'Shopify' },
+                { en: 'Custom', it: 'Custom' },
+                { en: 'Other', it: 'Altro' }
+            ],
             required: false,
             step: 5,
             order: 1
@@ -831,7 +923,13 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'websiteSpeed',
             label: { en: 'Current website speed score', it: 'Punteggio velocità sito attuale' },
             type: 'select',
-            options: ['Don’t know', '<50', '50–70', '70–90', '90+'],
+            options: [
+                { en: 'Don’t know', it: 'Non so' },
+                { en: '<50', it: '<50' },
+                { en: '50–70', it: '50–70' },
+                { en: '70–90', it: '70–90' },
+                { en: '90+', it: '90+' }
+            ],
             required: false,
             step: 5,
             order: 2
@@ -840,7 +938,12 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'mobileOptimization',
             label: { en: 'Mobile optimization status', it: 'Stato ottimizzazione mobile' },
             type: 'select',
-            options: ['Fully optimized', 'Partially optimized', 'Not optimized', 'Don’t know'],
+            options: [
+                { en: 'Fully optimized', it: 'Completamente ottimizzato' },
+                { en: 'Partially optimized', it: 'Parzialmente ottimizzato' },
+                { en: 'Not optimized', it: 'Non ottimizzato' },
+                { en: 'Don’t know', it: 'Non so' }
+            ],
             required: false,
             step: 5,
             order: 3
@@ -850,7 +953,13 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'crm',
             label: { en: 'CRM system used', it: 'Sistema CRM utilizzato' },
             type: 'select',
-            options: ['HubSpot', 'Salesforce', 'Pipedrive', 'None', 'Other'],
+            options: [
+                { en: 'HubSpot', it: 'HubSpot' },
+                { en: 'Salesforce', it: 'Salesforce' },
+                { en: 'Pipedrive', it: 'Pipedrive' },
+                { en: 'None', it: 'Nessuno' },
+                { en: 'Other', it: 'Altro' }
+            ],
             required: false,
             step: 6,
             order: 1
@@ -859,7 +968,13 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'emailPlatform',
             label: { en: 'Email marketing platform', it: 'Piattaforma email marketing' },
             type: 'select',
-            options: ['Mailchimp', 'Constant Contact', 'HubSpot', 'None', 'Other'],
+            options: [
+                { en: 'Mailchimp', it: 'Mailchimp' },
+                { en: 'Constant Contact', it: 'Constant Contact' },
+                { en: 'HubSpot', it: 'HubSpot' },
+                { en: 'None', it: 'Nessuno' },
+                { en: 'Other', it: 'Altro' }
+            ],
             required: false,
             step: 6,
             order: 2
@@ -868,7 +983,14 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'socialPlatforms',
             label: { en: 'Social media platforms', it: 'Piattaforme social media' },
             type: 'multiselect',
-            options: ['Facebook', 'LinkedIn', 'Twitter / X', 'Instagram', 'TikTok', 'None'],
+            options: [
+                { en: 'Facebook', it: 'Facebook' },
+                { en: 'LinkedIn', it: 'LinkedIn' },
+                { en: 'Twitter / X', it: 'Twitter / X' },
+                { en: 'Instagram', it: 'Instagram' },
+                { en: 'TikTok', it: 'TikTok' },
+                { en: 'None', it: 'Nessuna' }
+            ],
             required: false,
             step: 6,
             order: 3
@@ -877,7 +999,12 @@ export const BLOGGING_SEO_SERVICE: Service = {
             name: 'commMethod',
             label: { en: 'Preferred communication method', it: 'Metodo di comunicazione preferito' },
             type: 'select',
-            options: ['Email', 'Slack', 'Microsoft Teams', 'Phone calls'],
+            options: [
+                { en: 'Email', it: 'Email' },
+                { en: 'Slack', it: 'Slack' },
+                { en: 'Microsoft Teams', it: 'Microsoft Teams' },
+                { en: 'Phone calls', it: 'Chiamate telefoniche' }
+            ],
             required: false,
             step: 6,
             order: 4
@@ -885,10 +1012,192 @@ export const BLOGGING_SEO_SERVICE: Service = {
     ]
 }
 
+export const LEAD_GEN_CRM_SERVICE: Service = {
+    _id: 'lead-gen-crm-service-id',
+    name: { en: 'Lead Generation & CRM', it: 'Lead Generation e CRM' },
+    slug: 'lead-generation-crm',
+    category: 'Lead Generation',
+    description: { en: 'Complete onboarding for Lead Generation and CRM optimization.', it: 'Onboarding completo per la Lead Generation e l\'ottimizzazione del CRM.' },
+    icon: 'TrendingUp',
+    color: '#F6B73A',
+    isActive: true,
+    steps: [
+        { title: { en: 'SECTION 1: COMPANY & CONTACT BASICS', it: 'SEZIONE 1: DATI AZIENDALI E CONTATTI' }, order: 1, layout: 'with-image' },
+        { title: { en: 'SECTION 2: CURRENT LEAD GENERATION SITUATION', it: 'SEZIONE 2: SITUAZIONE ATTUALE LEAD GENERATION' }, order: 2, layout: 'with-image' },
+        { title: { en: 'SECTION 3: CRM & SALES PROCESS', it: 'SEZIONE 3: CRM E PROCESSO DI VENDITA' }, order: 3, layout: 'two-column' },
+        { title: { en: 'SECTION 4: TARGET AUDIENCE & IDEAL CUSTOMER', it: 'SEZIONE 4: PUBBLICO TARGET E CLIENTE IDEALE' }, order: 4, layout: 'two-column' },
+        { title: { en: 'SECTION 5: SERVICE SELECTION & OBJECTIVES', it: 'SEZIONE 5: SELEZIONE DEL SERVIZIO E OBIETTIVI' }, order: 5, layout: 'two-column' },
+        { title: { en: 'SECTION 6: LEAD GENERATION GOALS & EXPECTATIONS', it: 'SEZIONE 6: OBIETTIVI E ASPETTATIVE LEAD GENERATION' }, order: 6, layout: 'two-column' },
+        { title: { en: 'SECTION 7: CURRENT TOOLS & INTEGRATIONS', it: 'SEZIONE 7: STRUMENTI ATTUALI E INTEGRAZIONI' }, order: 7, layout: 'two-column' },
+        { title: { en: 'SECTION 8: BUDGET & INVESTMENT', it: 'SEZIONE 8: BUDGET E INVESTIMENTO' }, order: 8, layout: 'two-column' },
+        { title: { en: 'SECTION 9: TECHNICAL REQUIREMENTS', it: 'SEZIONE 9: REQUISITI TECNICI' }, order: 9, layout: 'two-column' },
+        { title: { en: 'SECTION 10: COMPETITIVE & MARKET INTELLIGENCE', it: 'SEZIONE 10: INTELLIGENZA COMPETITIVA E DI MERCATO' }, order: 10, layout: 'two-column' },
+        { title: { en: 'SECTION 11: COMMUNICATION & WORKFLOW', it: 'SEZIONE 11: COMUNICAZIONE E WORKFLOW' }, order: 11, layout: 'two-column' },
+        { title: { en: 'SECTION 12: SPECIFIC CHALLENGES & PAIN POINTS', it: 'SEZIONE 12: SFIDE SPECIFICHE E PUNTI DOLENTI' }, order: 12, layout: 'two-column' }
+    ],
+    fields: [
+        // Section 1: COMPANY & CONTACT BASICS
+        { name: 'companyName', label: { en: 'Company Name', it: 'Nome Azienda' }, type: 'text', required: true, step: 1, order: 1 },
+        {
+            name: 'industry', label: { en: 'Industry/Sector', it: 'Settore / Industria' }, type: 'select', options: [
+                { en: 'Technology', it: 'Tecnologia' }, { en: 'Professional Services', it: 'Servizi Professionali' },
+                { en: 'Healthcare', it: 'Sanità' }, { en: 'Finance', it: 'Finanza' },
+                { en: 'Manufacturing', it: 'Produzione' }, { en: 'E-commerce', it: 'E-commerce' }, { en: 'Other', it: 'Altro' }
+            ], required: false, step: 1, order: 2
+        },
+        { name: 'companySize', label: { en: 'Company Size', it: 'Dimensione Azienda' }, type: 'select', options: ['1-10', '11-50', '51-200', '200+ employees'], required: false, step: 1, order: 3 },
+        { name: 'annualRevenue', label: { en: 'Annual Revenue', it: 'Fatturato Annuo' }, type: 'select', options: ['<100k', '100k-500k', '500k-2M', '2M+'], required: false, step: 1, order: 4 },
+        { name: 'websiteUrl', label: { en: 'Website URL', it: 'URL Sito Web' }, type: 'url', required: true, step: 1, order: 5 },
+        { name: 'contactName', label: { en: 'Primary Contact Name', it: 'Referente Principale' }, type: 'text', required: true, step: 1, order: 6 },
+        { name: 'jobTitle', label: { en: 'Job Title/Position', it: 'Ruolo / Posizione' }, type: 'text', required: true, step: 1, order: 7 },
+        { name: 'email', label: { en: 'Email Address', it: 'Indirizzo Email' }, type: 'email', required: true, step: 1, order: 8 },
+        { name: 'phone', label: { en: 'Phone Number', it: 'Numero di Telefono' }, type: 'text', required: true, step: 1, order: 9 },
+        { name: 'linkedin', label: { en: 'LinkedIn Profile', it: 'Profilo LinkedIn' }, type: 'url', required: false, step: 1, order: 10 },
+
+        // Section 2: CURRENT LEAD GENERATION SITUATION
+        {
+            name: 'currentMethods', label: { en: 'Current lead generation methods', it: 'Metodi attuali di lead generation' }, type: 'multiselect', options: [
+                { en: 'Cold calling', it: 'Chiamate a freddo' }, { en: 'Email campaigns', it: 'Campagne email' },
+                { en: 'LinkedIn outreach', it: 'Outreach su LinkedIn' }, { en: 'Paid advertising', it: 'Pubblicità a pagamento' },
+                { en: 'Content marketing', it: 'Content marketing' }, { en: 'Referrals', it: 'Referral / Passaparola' },
+                { en: 'Trade shows/events', it: 'Fiere / Eventi' }, { en: 'None/minimal', it: 'Nessuno / Minimo' }
+            ], required: false, step: 2, order: 1
+        },
+        { name: 'leadVolume', label: { en: 'Monthly lead volume', it: 'Volume lead mensile' }, type: 'select', options: ['<10', '10-50', '50-100', '100-500', '500+'], required: false, step: 2, order: 2 },
+        { name: 'leadQualitySat', label: { en: 'Lead quality satisfaction (1-10)', it: 'Soddisfazione qualità lead (1-10)' }, type: 'select', options: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], required: false, step: 2, order: 3 },
+        {
+            name: 'leadGenChallenges', label: { en: 'Biggest lead generation challenges', it: 'Maggiori sfide lead generation' }, type: 'multiselect', options: [
+                { en: 'Not enough leads', it: 'Non abbastanza lead' }, { en: 'Poor lead quality', it: 'Qualità dei lead scarsa' },
+                { en: 'High cost per lead', it: 'Costo per lead elevato' }, { en: 'Long sales cycles', it: 'Cicli di vendita lunghi' },
+                { en: 'No systematic process', it: 'Nessun processo sistematico' }, { en: 'Limited time/resources', it: 'Tempo/risorse limitati' },
+                { en: 'Difficulty reaching decision makers', it: 'Difficoltà a raggiungere i decision maker' }
+            ], required: false, step: 2, order: 4
+        },
+
+        // Section 3: CRM & SALES PROCESS
+        { name: 'currentCrm', label: { en: 'Current CRM system', it: 'Sistema CRM attuale' }, type: 'select', options: ['HubSpot', 'Salesforce', 'Pipedrive', 'Zoho', 'Excel/Spreadsheets', 'None', 'Other'], required: false, step: 3, order: 1 },
+        {
+            name: 'crmSatisfaction', label: { en: 'CRM satisfaction level', it: 'Livello di soddisfazione CRM' }, type: 'select', options: [
+                { en: 'Very satisfied', it: 'Molto soddisfatto' }, { en: 'Satisfied', it: 'Soddisfatto' },
+                { en: 'Neutral', it: 'Neutrale' }, { en: 'Dissatisfied', it: 'Insoddisfatto' },
+                { en: 'Very dissatisfied', it: 'Molto insoddisfatto' }
+            ], required: false, step: 3, order: 2
+        },
+        {
+            name: 'salesTeamSize', label: { en: 'Sales team size', it: 'Dimensione team vendita' }, type: 'select', options: [
+                { en: 'Just me', it: 'Solo io' }, { en: '2-5 people', it: '2-5 persone' },
+                { en: '6-15 people', it: '6-15 persone' }, { en: '15+ people', it: '15+ persone' }
+            ], required: false, step: 3, order: 3
+        },
+        { name: 'salesCycleLength', label: { en: 'Average sales cycle length', it: 'Durata media ciclo di vendita' }, type: 'select', options: ['<1 month', '1-3 months', '3-6 months', '6-12 months', '12+ months'], required: false, step: 3, order: 4 },
+        { name: 'avgDealSize', label: { en: 'Average deal size', it: 'Dimensione media trattativa' }, type: 'select', options: ['€500-5k', '€5k-25k', '€25k-100k', '€100k+'], required: false, step: 3, order: 5 },
+        { name: 'conversionRate', label: { en: 'Current conversion rate', it: 'Tasso di conversione attuale' }, type: 'select', options: ['<1%', '1-3%', '3-5%', '5-10%', '10%+'], required: false, step: 3, order: 6 },
+
+        // Section 4: TARGET AUDIENCE & IDEAL CUSTOMER
+        { name: 'targetCustomerType', label: { en: 'Target customer type', it: 'Tipo di cliente target' }, type: 'select', options: ['B2B', 'B2C', 'Both'], required: false, step: 4, order: 1 },
+        { name: 'geographicFocus', label: { en: 'Geographic focus', it: 'Focus geografico' }, type: 'select', options: [{ en: 'Local', it: 'Locale' }, { en: 'National', it: 'Nazionale' }, { en: 'International', it: 'Internazionale' }], required: false, step: 4, order: 2 },
+        { name: 'icpDescription', label: { en: 'Ideal customer profile description', it: 'Profilo cliente ideale' }, type: 'textarea', required: true, step: 4, order: 3 },
+        { name: 'targetJobTitles', label: { en: 'Target job titles/roles', it: 'Job title / Ruoli target' }, type: 'text', required: false, step: 4, order: 4 },
+        { name: 'companySizeTargets', label: { en: 'Company size targets', it: 'Target dimensione azienda' }, type: 'select', options: ['Startups', 'SME', 'Enterprise', 'All sizes'], required: false, step: 4, order: 5 },
+        { name: 'industryVerticals', label: { en: 'Industry verticals', it: 'Verticali di settore' }, type: 'text', required: false, step: 4, order: 6 },
+        { name: 'prospectBudget', label: { en: 'Budget range of prospects', it: 'Fascia budget potenziali clienti' }, type: 'select', options: ['€1k-10k', '€10k-50k', '€50k-200k', '€200k+'], required: false, step: 4, order: 7 },
+
+        // Section 5: SERVICE SELECTION & OBJECTIVES
+        {
+            name: 'servicesInterest', label: { en: 'Which Lead Generation & CRM services interest you?', it: 'Quali servizi Lead Generation & CRM ti interessano?' }, type: 'multiselect', options: [
+                'TORCH CRM', 'MULTICHANNEL OUTREACH + CRM', 'COLD MAILING + LINKEDIN + CRM', 'LINKEDIN LEAD GENERATION', 'DEM/NEWSLETTER AUTOMATION'
+            ], required: true, step: 5, order: 1
+        },
+
+        // Section 6: LEAD GENERATION GOALS & EXPECTATIONS
+        {
+            name: 'primaryObjective', label: { en: 'Primary objective', it: 'Obiettivo primario' }, type: 'multiselect', options: [
+                { en: 'Increase lead volume', it: 'Aumentare volume lead' }, { en: 'Improve lead quality', it: 'Migliorare qualità lead' },
+                { en: 'Reduce cost per lead', it: 'Ridurre costo per lead' }, { en: 'Accelerate sales cycle', it: 'Accelerare ciclo di vendita' },
+                { en: 'Better lead nurturing', it: 'Migliore lead nurturing' }, { en: 'Automate manual processes', it: 'Automazione processi manuali' },
+                { en: 'Improve sales team efficiency', it: 'Migliorare efficienza team vendita' }
+            ], required: false, step: 6, order: 1
+        },
+        { name: 'leadTarget', label: { en: 'Monthly lead target', it: 'Target lead mensile' }, type: 'select', options: ['10-25', '25-50', '50-100', '100-250', '250-500', '500+'], required: false, step: 6, order: 2 },
+        { name: 'acceptableCpl', label: { en: 'Acceptable cost per lead', it: 'Costo per lead accettabile' }, type: 'select', options: ['€10-25', '€25-50', '€50-100', '€100-200', '€200+'], required: false, step: 6, order: 3 },
+        { name: 'timelineResults', label: { en: 'Expected timeline for results', it: 'Tempistica prevista per i risultati' }, type: 'select', options: ['1 month', '2-3 months', '3-6 months', '6+ months'], required: false, step: 6, order: 4 },
+        { name: 'metricsPriority', label: { en: 'Success metrics priority', it: 'Priorità metriche di successo' }, type: 'textarea', placeholder: { en: 'e.g., 1. Volume, 2. Quality...', it: 'es. 1. Volume, 2. Qualità...' }, required: false, step: 6, order: 5 },
+
+        // Section 7: CURRENT TOOLS & INTEGRATIONS
+        { name: 'emailPlatform', label: { en: 'Email marketing platform', it: 'Piattaforma email marketing' }, type: 'select', options: ['Mailchimp', 'HubSpot', 'Constant Contact', 'None', 'Other'], required: false, step: 7, order: 1 },
+        { name: 'linkedinTools', label: { en: 'LinkedIn tools used', it: 'Strumenti LinkedIn utilizzati' }, type: 'select', options: ['Sales Navigator', 'Basic LinkedIn', 'None'], required: false, step: 7, order: 2 },
+        { name: 'analyticsTools', label: { en: 'Analytics tools', it: 'Strumenti di analisi' }, type: 'select', options: ['Google Analytics', 'HubSpot', 'Salesforce Analytics', 'None'], required: false, step: 7, order: 3 },
+        { name: 'commTools', label: { en: 'Communication tools', it: 'Strumenti di comunicazione' }, type: 'select', options: ['Slack', 'Teams', 'Email only', 'Other'], required: false, step: 7, order: 4 },
+        { name: 'bookingSystem', label: { en: 'Calendar/booking system', it: 'Sistema calendario/prenotazione' }, type: 'select', options: ['Calendly', 'HubSpot Meetings', 'Outlook', 'None'], required: false, step: 7, order: 5 },
+        { name: 'phoneSystem', label: { en: 'Phone system', it: 'Sistema telefonico' }, type: 'select', options: ['VoIP', 'Traditional', 'Mobile only', 'None'], required: false, step: 7, order: 6 },
+
+        // Section 8: BUDGET & INVESTMENT
+        { name: 'monthlyLeadGenBudget', label: { en: 'Monthly budget for lead generation', it: 'Budget mensile per lead generation' }, type: 'select', options: ['€500-1k', '€1k-2.5k', '€2.5k-5k', '€5k-10k', '€10k+'], required: false, step: 8, order: 1 },
+        { name: 'setupBudget', label: { en: 'Setup budget availability', it: 'Budget disponibile per il setup' }, type: 'select', options: ['€500-1k', '€1k-2k', '€2k-5k', '€5k+'], required: false, step: 8, order: 2 },
+        { name: 'roiExpectations', label: { en: 'ROI expectations', it: 'Aspettative ROI' }, type: 'select', options: ['2x', '3x', '5x', '10x+'], required: false, step: 8, order: 3 },
+        {
+            name: 'approvalProcess', label: { en: 'Budget approval process', it: 'Processo di approvazione budget' }, type: 'select', options: [
+                { en: 'I decide', it: 'Decido io' }, { en: 'Need manager approval', it: 'Serve approvazione manager' },
+                { en: 'Board approval', it: 'Approvazione del board' }, { en: 'Other', it: 'Altro' }
+            ], required: false, step: 8, order: 4
+        },
+        {
+            name: 'startTime', label: { en: 'When can you start?', it: 'Quando puoi iniziare?' }, type: 'select', options: [
+                { en: 'Immediately', it: 'Immediatamente' }, { en: 'Within 2 weeks', it: 'Entro 2 settimane' },
+                { en: 'Within 1 month', it: 'Entro 1 mese' }, { en: 'Within 3 months', it: 'Entro 3 mesi' }
+            ], required: false, step: 8, order: 5
+        },
+
+        // Section 9: TECHNICAL REQUIREMENTS
+        {
+            name: 'crmIntegration', label: { en: 'CRM integration needs', it: 'Esigenze di integrazione CRM' }, type: 'select', options: [
+                { en: 'Must integrate with existing', it: 'Deve integrarsi con l\'attuale' },
+                { en: 'Open to new CRM', it: 'Aperto a nuovo CRM' }, { en: 'No preference', it: 'Nessuna preferenza' }
+            ], required: false, step: 9, order: 1
+        },
+        {
+            name: 'dataExport', label: { en: 'Data export requirements', it: 'Requisiti esportazione dati' }, type: 'select', options: [
+                { en: 'Need to export existing data', it: 'Necessità esportazione dati esistenti' },
+                { en: 'Fresh start', it: 'Partenza da zero' }, { en: 'Partial migration', it: 'Migrazione parziale' }
+            ], required: false, step: 9, order: 2
+        },
+        { name: 'compliance', label: { en: 'Compliance requirements', it: 'Requisiti di conformità' }, type: 'multiselect', options: ['GDPR', 'CCPA', 'Industry-specific', 'None'], required: false, step: 9, order: 3 },
+        {
+            name: 'trainingNeeds', label: { en: 'Team training needs', it: 'Esigenze formazione team' }, type: 'select', options: [
+                { en: 'Extensive training', it: 'Formazione approfondita' }, { en: 'Basic training', it: 'Formazione base' },
+                { en: 'Self-service', it: 'Self-service' }, { en: 'No training needed', it: 'Nessuna formazione necessaria' }
+            ], required: false, step: 9, order: 4
+        },
+        { name: 'reportingFrequency', label: { en: 'Reporting frequency preference', it: 'Preferenza frequenza reportistica' }, type: 'select', options: ['Daily', 'Weekly', 'Bi-weekly', 'Monthly'], required: false, step: 9, order: 5 },
+
+        // Section 10: COMPETITIVE & MARKET INTELLIGENCE
+        { name: 'competitors', label: { en: 'Main competitors', it: 'Concorrenti principali' }, type: 'textarea', required: false, step: 10, order: 1 },
+        { name: 'usp', label: { en: 'What makes you different?', it: 'Cosa vi rende diversi? (USP)' }, type: 'textarea', required: true, step: 10, order: 2 },
+        { name: 'threats', label: { en: 'Biggest competitive threats', it: 'Maggiori minacce competitive' }, type: 'textarea', required: false, step: 10, order: 3 },
+        { name: 'positioning', label: { en: 'Market positioning', it: 'Posizionamento sul mercato' }, type: 'select', options: ['Premium', 'Mid-market', 'Budget-friendly', 'Specialized'], required: false, step: 10, order: 4 },
+        { name: 'agencyExperience', label: { en: 'Previous lead generation agency experience', it: 'Esperienza precedente con agenzie' }, type: 'select', options: [{ en: 'Yes', it: 'Sì' }, { en: 'No', it: 'No' }], required: false, step: 10, order: 5 },
+
+        // Section 11: COMMUNICATION & WORKFLOW
+        { name: 'commMethod', label: { en: 'Preferred communication method', it: 'Metodo di comunicazione preferito' }, type: 'select', options: ['Email', 'Phone', 'Video calls', 'Slack/Teams'], required: false, step: 11, order: 1 },
+        { name: 'meetingFreq', label: { en: 'Meeting frequency preference', it: 'Frequenza meeting preferita' }, type: 'select', options: ['Weekly', 'Bi-weekly', 'Monthly', 'As needed'], required: false, step: 11, order: 2 },
+        { name: 'decisionProcess', label: { en: 'Decision-making process', it: 'Processo decisionale' }, type: 'select', options: ['I decide alone', 'Small team', 'Committee', 'Long process'], required: false, step: 11, order: 3 },
+        { name: 'internalChampion', label: { en: 'Internal champion', it: 'Chi promuoverà il progetto internamente?' }, type: 'text', required: false, step: 11, order: 4 },
+        { name: 'successMeasurement', label: { en: 'Success measurement', it: 'Misurazione del successo internamente' }, type: 'textarea', required: false, step: 11, order: 5 },
+
+        // Section 12: SPECIFIC CHALLENGES & PAIN POINTS
+        { name: 'marketingChallenge', label: { en: 'Biggest sales/marketing challenge', it: 'Maggiore sfida sales/marketing' }, type: 'textarea', required: true, step: 12, order: 1 },
+        { name: 'bizConcerns', label: { en: 'What keeps you up at night?', it: 'Cosa ti preoccupa di più?' }, type: 'textarea', required: false, step: 12, order: 2 },
+        { name: 'failedAttempts', label: { en: 'Previous failed attempts', it: 'Tentativi precedenti falliti' }, type: 'textarea', required: false, step: 12, order: 3 },
+        { name: 'constraints', label: { en: 'Resource constraints', it: 'Vincoli di risorse (tempo, budget, persone)' }, type: 'textarea', required: false, step: 12, order: 4 },
+        { name: 'seasonalFactors', label: { en: 'Seasonal business factors', it: 'Fattori stagionali aziendali' }, type: 'textarea', required: false, step: 12, order: 5 }
+    ]
+}
+
 export const SERVICES: Service[] = [
     COLD_EMAIL_SERVICE,
     FACEBOOK_ADS_SERVICE,
-    BLOGGING_SEO_SERVICE
+    BLOGGING_SEO_SERVICE,
+    LEAD_GEN_CRM_SERVICE
 ]
 
 export function getServiceBySlug(slug: string): Service | undefined {
