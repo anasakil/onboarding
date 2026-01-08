@@ -129,25 +129,34 @@ const ServiceCard = memo(function ServiceCard({
   return (
     <button
       onClick={onSelect}
-      className={`group w-full text-center h-full will-change-transform transition-all duration-500 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      className={`group w-full text-left h-full will-change-transform transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
         }`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
-      <div className="h-full rounded-2xl p-8 bg-[#10273A] border border-[#1A3A52] shadow-sm hover:shadow-xl hover:shadow-[#F6B73A]/10 hover:border-[#F6B73A]/30 hover:-translate-y-1 transition-all duration-300">
-        <div className="flex justify-center mb-6">
-          <div className="w-16 h-16 rounded-2xl bg-[#0C1C2A] flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-            <Icon className="w-8 h-8 text-[#F6B73A]" strokeWidth={1.5} />
+      <div className="relative h-full rounded-2xl p-8 bg-[#10273A]/40 backdrop-blur-md border border-white/5 hover:border-[#F6B73A]/40 hover:bg-[#10273A]/80 shadow-lg hover:shadow-[#F6B73A]/10 transition-all duration-500 overflow-hidden">
+        {/* Gradient Glow */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-[#F6B73A]/5 rounded-full blur-3xl -mr-16 -mt-16 transition-opacity duration-500 opacity-0 group-hover:opacity-100" />
+
+        <div className="flex flex-col h-full relative z-10">
+          <div className="mb-6 flex justify-between items-start">
+            <div className="p-3.5 rounded-xl bg-gradient-to-br from-[#1A3A52]/50 to-transparent border border-white/5 group-hover:border-[#F6B73A]/30 group-hover:from-[#F6B73A]/20 group-hover:to-[#F6B73A]/5 transition-all duration-500">
+              <Icon className="w-7 h-7 text-[#F6B73A] group-hover:scale-110 transition-transform duration-500" strokeWidth={1.5} />
+            </div>
+            <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
+              <ArrowRight className="w-5 h-5 text-[#F6B73A]" />
+            </div>
           </div>
-        </div>
-        <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-[#F6B73A] transition-colors duration-200">
-          {getName(service)}
-        </h3>
-        <p className="text-[#8F8F94] text-sm leading-relaxed mb-6 line-clamp-2">
-          {getDescription(service)}
-        </p>
-        <div className="flex justify-center">
-          <div className="w-10 h-10 rounded-full border-2 border-[#1A3A52] flex items-center justify-center group-hover:border-[#F6B73A] group-hover:bg-[#F6B73A] transition-all duration-200">
-            <ArrowRight className="w-4 h-4 text-[#8F8F94] group-hover:text-[#0C1C2A] transition-colors duration-200" />
+
+          <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#F6B73A] transition-colors duration-300">
+            {getName(service)}
+          </h3>
+
+          <p className="text-[#94A3B8] text-sm leading-relaxed line-clamp-3 mb-4 flex-grow group-hover:text-[#CBD5E1] transition-colors duration-300">
+            {getDescription(service)}
+          </p>
+
+          <div className="mt-auto pt-4 border-t border-white/5 group-hover:border-[#F6B73A]/20 transition-colors duration-300 flex items-center text-xs font-semibold text-[#F6B73A] tracking-wider uppercase opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500 delay-75">
+            {locale === 'it' ? 'Inizia Ora' : 'Start Now'}
           </div>
         </div>
       </div>
