@@ -65,7 +65,8 @@
         "Validation": {
             "required": "{label} is required",
             "email": "Please enter a valid email address",
-            "url": "Please enter a valid URL"
+            "url": "Please enter a valid URL",
+            "fillRequired": "Please fill in all required fields"
         },
         "Steps": {
             "CompanyInfo": {

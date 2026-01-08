@@ -34,6 +34,7 @@ interface FormField {
   options?: string[] | { en: string; it: string }[]
   step: number
   order: number
+  showIf?: { field: string; value: string }
 }
 
 interface Step {
@@ -143,6 +144,19 @@ export default function OnboardingPage() {
     return val[locale as 'en' | 'it'] || val.en
   }, [locale])
 
+  // Helper to check if a field should be visible
+  const isFieldVisible = useCallback((field: FormField) => {
+    if (!field.showIf) return true
+    const dependentValue = formData[field.showIf.field]
+
+    // Handle array values (multiselect)
+    if (Array.isArray(dependentValue)) {
+      return dependentValue.includes(field.showIf.value)
+    }
+
+    return dependentValue === field.showIf.value
+  }, [formData])
+
   // Load document Lottie animation
   useEffect(() => {
     fetch("/animations/document.json")
@@ -179,8 +193,8 @@ export default function OnboardingPage() {
   const validateStep = useCallback(() => {
     if (!service) return false
 
-    const currentFields = service.fields
-      .filter((f) => f.step === currentStep)
+    const currentFields = (service.fields as FormField[])
+      .filter((f) => f.step === currentStep && isFieldVisible(f))
       .sort((a, b) => a.order - b.order)
 
     const newErrors: Record<string, string> = {}
@@ -231,8 +245,10 @@ export default function OnboardingPage() {
           window.scrollTo({ top: 0, behavior: 'smooth' })
         }, 200)
       }
+    } else {
+      toast.error(t('Validation.fillRequired'))
     }
-  }, [validateStep, currentStep, service])
+  }, [validateStep, currentStep, service, t])
 
   const handleBack = useCallback(() => {
     if (showReview) {
@@ -343,13 +359,14 @@ export default function OnboardingPage() {
 
   const sortedSteps = [...service.steps].sort((a, b) => a.order - b.order)
   const currentStepData = sortedSteps.find((s) => s.order === currentStep)
-  const currentFields = service.fields
-    .filter((f) => f.step === currentStep)
+  const currentFields = (service.fields as FormField[])
+    .filter((f) => f.step === currentStep && isFieldVisible(f))
     .sort((a, b) => a.order - b.order)
 
   const isLastStep = currentStep === sortedSteps.length
   // Only show illustration for first 2 steps, after that use full two-column form
-  const showIllustration = currentStep <= 2
+  // OVERRIDE: Lead Gen & CRM service never shows illustrations as requested
+  const showIllustration = currentStep <= 2 && params.slug !== 'lead-generation-crm'
 
   // Helper function to format field value for display
   const formatFieldValue = (field: FormField, value: any) => {
@@ -418,8 +435,8 @@ export default function OnboardingPage() {
             {/* Review Cards */}
             <div className="space-y-6">
               {sortedSteps.map((step) => {
-                const stepFields = service.fields
-                  .filter((f) => f.step === step.order)
+                const stepFields = (service.fields as FormField[])
+                  .filter((f) => f.step === step.order && isFieldVisible(f))
                   .sort((a, b) => a.order - b.order)
 
                 return (

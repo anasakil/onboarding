@@ -317,10 +317,8 @@ export default function HomePage() {
                   const getCategoryLabel = (c: string) => {
                     if (c === 'all') return locale === 'it' ? 'Tutti i Servizi' : 'All Services';
                     const labels: Record<string, { en: string, it: string }> = {
-                      'Marketing': { en: 'Marketing', it: 'Marketing' },
-                      'Advertising': { en: 'Advertising', it: 'Advertising' },
-                      'Content Strategy': { en: 'Content Strategy', it: 'Strategia Contenuti' },
-                      'Lead Generation': { en: 'Lead Generation', it: 'Lead Generation' }
+                      'Growth & Ads': { en: 'Growth & Ads', it: 'Crescita & Ads' },
+                      'SEO & Content': { en: 'SEO & Content', it: 'SEO & Contenuti' }
                     };
                     return labels[c]?.[locale as 'en' | 'it'] || c;
                   };
@@ -344,11 +342,9 @@ export default function HomePage() {
 
                       {/* Icon for category */}
                       {cat === 'all' && <Layers className="w-4 h-4" />}
-                      {cat === 'Marketing' && <Megaphone className="w-4 h-4" />}
-                      {cat === 'Advertising' && <Facebook className="w-4 h-4" />}
-                      {cat === 'Content Strategy' && <PenTool className="w-4 h-4" />}
-                      {cat === 'Lead Generation' && <TrendingUp className="w-4 h-4" />}
-                      {!['all', 'Marketing', 'Advertising', 'Content Strategy', 'Lead Generation'].includes(cat) && <Briefcase className="w-4 h-4" />}
+                      {cat === 'Growth & Ads' && <TrendingUp className="w-4 h-4" />}
+                      {cat === 'SEO & Content' && <Search className="w-4 h-4" />}
+                      {!['all', 'Growth & Ads', 'SEO & Content'].includes(cat) && <Briefcase className="w-4 h-4" />}
 
                       <span className="relative z-10">
                         {getCategoryLabel(cat)}

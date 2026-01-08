@@ -65,7 +65,8 @@
         "Validation": {
             "required": "{label} è obbligatorio",
             "email": "Inserisci un indirizzo email valido",
-            "url": "Inserisci un URL valido"
+            "url": "Inserisci un URL valido",
+            "fillRequired": "Compila tutti i campi obbligatori"
         },
         "Steps": {
             "CompanyInfo": {
