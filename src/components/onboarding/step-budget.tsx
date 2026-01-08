@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { BUDGET_RANGES, URGENCY_LEVELS, DECISION_POWER } from "@/lib/constants"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 
 interface BudgetData {
   budgetRange: string
@@ -37,6 +37,7 @@ export function StepBudget({
   const isValid = data.budgetRange && data.urgency
   const t = useTranslations('Onboarding.Steps.Budget')
   const tControls = useTranslations('Onboarding.Controls')
+  const locale = useLocale() as 'en' | 'it'
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -63,7 +64,7 @@ export function StepBudget({
             <SelectContent>
               {BUDGET_RANGES.map((range) => (
                 <SelectItem key={range.value} value={range.value}>
-                  {range.label}
+                  {range.label[locale]}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -93,10 +94,10 @@ export function StepBudget({
                       isSelected ? "text-primary-700" : "text-text-primary"
                     )}
                   >
-                    {level.label}
+                    {level.label[locale]}
                   </p>
                   <p className="text-sm text-text-secondary mt-1">
-                    {level.description}
+                    {level.description[locale]}
                   </p>
                 </button>
               )
@@ -132,9 +133,9 @@ export function StepBudget({
               {DECISION_POWER.map((power) => (
                 <SelectItem key={power.value} value={power.value}>
                   <div>
-                    <span>{power.label}</span>
+                    <span>{power.label[locale]}</span>
                     <span className="text-text-secondary ml-2 text-sm">
-                      - {power.description}
+                      - {power.description[locale]}
                     </span>
                   </div>
                 </SelectItem>

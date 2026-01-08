@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { formatDate } from "@/lib/utils"
 import { LEAD_STATUSES, SERVICES } from "@/lib/constants"
 import { MoreHorizontal, Eye, Edit, Trash2 } from "lucide-react"
+import { useLocale } from "next-intl"
 
 interface Lead {
   _id: string
@@ -33,6 +34,8 @@ interface LeadsTableProps {
 }
 
 export function LeadsTable({ leads, onStatusChange, onDelete }: LeadsTableProps) {
+  const locale = useLocale() as 'en' | 'it'
+
   const getStatusBadge = (status: string) => {
     const statusConfig = LEAD_STATUSES.find((s) => s.value === status)
     const colorMap: Record<string, "default" | "secondary" | "destructive" | "outline" | "success" | "warning" | "info"> = {
@@ -68,7 +71,13 @@ export function LeadsTable({ leads, onStatusChange, onDelete }: LeadsTableProps)
       .slice(0, 2)
       .map((value) => {
         const service = SERVICES.find((s) => s.value === value)
-        return service?.label || value
+        // Check if service label is object (localized) or string (if fallback needed)
+        // With current constants.ts, it's always an object.
+        const label = service?.label
+        if (label && typeof label === 'object' && 'en' in label) {
+          return label[locale];
+        }
+        return label || value
       })
       .join(", ")
   }

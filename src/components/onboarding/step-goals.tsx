@@ -5,7 +5,7 @@ import { ArrowRight, ArrowLeft, TrendingUp, Zap, Palette, Rocket, Maximize, Targ
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { GOALS } from "@/lib/constants"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 
 interface GoalsData {
   goals: string[]
@@ -33,6 +33,7 @@ const iconMap = {
 export function StepGoals({ data, onChange, onNext, onBack }: StepGoalsProps) {
   const t = useTranslations('Onboarding.Steps.Goals')
   const tControls = useTranslations('Onboarding.Controls')
+  const locale = useLocale() as 'en' | 'it'
 
   const toggleGoal = (goalValue: string) => {
     if (data.goals.includes(goalValue)) {
@@ -88,7 +89,7 @@ export function StepGoals({ data, onChange, onNext, onBack }: StepGoalsProps) {
                   isSelected ? "text-primary-700" : "text-text-primary"
                 )}
               >
-                {goal.label}
+                {goal.label[locale]}
               </span>
               <ArrowRight
                 className={cn(

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 import { ArrowRight, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SERVICES } from "@/lib/constants"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 
 interface StepServicesProps {
   value: string[]
@@ -37,6 +37,7 @@ export function StepServices({
 
   const t = useTranslations('Onboarding.Steps.Services')
   const tControls = useTranslations('Onboarding.Controls')
+  const locale = useLocale() as 'en' | 'it'
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -73,7 +74,7 @@ export function StepServices({
                       "opacity-50 cursor-not-allowed"
                     )}
                   >
-                    {service.label}
+                    {service.label[locale]}
                   </button>
                 )
               })}
