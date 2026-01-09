@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.baserow.io)",
+      "WebSearch",
+      "WebFetch(domain:baserow.io)",
+      "WebFetch(domain:community.baserow.io)",
+      "Bash(curl:*)",
+      "Bash(del \"C:\\Users\\AnasAkil\\Desktop\\onboarding\\temp_auth.json\")",
+      "Bash(python3:*)",
+      "Bash(cat:*)"
+    ]
+  }
+}
