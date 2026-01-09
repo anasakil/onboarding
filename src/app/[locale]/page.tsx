@@ -329,7 +329,8 @@ export default function HomePage() {
                       'Growth & Ads': { en: 'Growth & Ads', it: 'Crescita & Ads' },
                       'SEO & Content': { en: 'SEO & Content', it: 'SEO & Contenuti' },
                       'Development': { en: 'Development', it: 'Sviluppo' },
-                      'AI & Automation': { en: 'AI & Automation', it: 'AI & Automazione' }
+                      'AI & Automation': { en: 'AI & Automation', it: 'AI & Automazione' },
+                      'CRM': { en: 'CRM', it: 'CRM' }
                     };
                     return labels[c]?.[locale as 'en' | 'it'] || c;
                   };
@@ -357,7 +358,8 @@ export default function HomePage() {
                       {cat === 'SEO & Content' && <Search className="w-4 h-4" />}
                       {cat === 'Development' && <Code className="w-4 h-4" />}
                       {cat === 'AI & Automation' && <Bot className="w-4 h-4" />}
-                      {!['all', 'Growth & Ads', 'SEO & Content', 'Development', 'AI & Automation'].includes(cat) && <Briefcase className="w-4 h-4" />}
+                      {cat === 'CRM' && <Briefcase className="w-4 h-4" />}
+                      {!['all', 'Growth & Ads', 'SEO & Content', 'Development', 'AI & Automation', 'CRM'].includes(cat) && <Briefcase className="w-4 h-4" />}
 
                       <span className="relative z-10">
                         {getCategoryLabel(cat)}

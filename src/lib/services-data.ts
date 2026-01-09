@@ -1,4 +1,4 @@
-export interface Step {
+﻿export interface Step {
     title: { en: string; it: string }
     description?: { en: string; it: string }
     order: number
@@ -1130,10 +1130,10 @@ export const LEAD_GEN_CRM_SERVICE: Service = {
         {
             name: 'servicesInterest', label: { en: 'Which services interest you? (checkbox)', it: 'Quali servizi ti interessano? (checkbox)' }, type: 'multiselect', options: [
                 { en: '🔥 TORCH CRM', it: '🔥 TORCH CRM' },
-                { en: '📧 Multichannel Outreach + CRM', it: '📧 Outreach Multicanale + CRM' },
-                { en: '❄️ Cold Email + LinkedIn + CRM', it: '❄️ Cold Email + LinkedIn + CRM' },
-                { en: '💼 LinkedIn Lead Generation', it: '💼 Lead Generation LinkedIn' },
-                { en: '📬 DEM / Newsletter Automation', it: '📬 DEM / Automazione Newsletter' }
+                { en: 'ðŸ“§ Multichannel Outreach + CRM', it: 'ðŸ“§ Outreach Multicanale + CRM' },
+                { en: 'â„ï¸ Cold Email + LinkedIn + CRM', it: 'â„ï¸ Cold Email + LinkedIn + CRM' },
+                { en: 'ðŸ’¼ LinkedIn Lead Generation', it: 'ðŸ’¼ Lead Generation LinkedIn' },
+                { en: 'ðŸ“¬ DEM / Newsletter Automation', it: 'ðŸ“¬ DEM / Automazione Newsletter' }
             ], required: true, step: 5, order: 1
         },
 
@@ -1314,10 +1314,10 @@ export const SEO_CONTENT_SERVICE: Service = {
         // SECTION 3: SERVICE SELECTION & OBJECTIVES
         {
             name: 'interestedServices', label: { en: 'Which SEO & Content services interest you?', it: 'Quali servizi SEO & Contenuti ti interessano?' }, type: 'multiselect', options: [
-                { en: '📝 BLOGGING SEO FRIENDLY', it: '📝 BLOGGING SEO FRIENDLY' },
-                { en: '🔍 GENERAL SEO', it: '🔍 GENERAL SEO' },
-                { en: '📍 LOCAL SEO', it: '📍 LOCAL SEO' },
-                { en: '📄 LEAD MAGNET / WHITEPAPER', it: '📄 LEAD MAGNET / WHITEPAPER' }
+                { en: 'ðŸ“ BLOGGING SEO FRIENDLY', it: 'ðŸ“ BLOGGING SEO FRIENDLY' },
+                { en: 'ðŸ” GENERAL SEO', it: 'ðŸ” GENERAL SEO' },
+                { en: 'ðŸ“ LOCAL SEO', it: 'ðŸ“ LOCAL SEO' },
+                { en: 'ðŸ“„ LEAD MAGNET / WHITEPAPER', it: 'ðŸ“„ LEAD MAGNET / WHITEPAPER' }
             ], required: true, step: 3, order: 1
         },
 
@@ -1451,14 +1451,14 @@ export const SEO_CONTENT_SERVICE: Service = {
             ], required: false, step: 7, order: 5
         },
 
-        // SECTION 8: LOCAL SEO SPECIFICS (Visible if '📍 LOCAL SEO' is selected)
+        // SECTION 8: LOCAL SEO SPECIFICS (Visible if 'ðŸ“ LOCAL SEO' is selected)
         {
             name: 'hasPhysicalLocation', label: { en: 'Business has physical location', it: 'Attività ha sede fisica' }, type: 'select', options: [
                 { en: 'Yes', it: 'Sì' },
                 { en: 'No', it: 'No' },
                 { en: 'Multiple locations', it: 'Sedi multiple' }
             ], required: false, step: 8, order: 1,
-            showIf: { field: 'interestedServices', value: '📍 LOCAL SEO' }
+            showIf: { field: 'interestedServices', value: 'ðŸ“ LOCAL SEO' }
         },
         {
             name: 'gmbClaimed', label: { en: 'Google My Business claimed', it: 'Google My Business rivendicato' }, type: 'select', options: [
@@ -1466,7 +1466,7 @@ export const SEO_CONTENT_SERVICE: Service = {
                 { en: 'No', it: 'No' },
                 { en: 'Don’t know', it: 'Non so' }
             ], required: false, step: 8, order: 2,
-            showIf: { field: 'interestedServices', value: '📍 LOCAL SEO' }
+            showIf: { field: 'interestedServices', value: 'ðŸ“ LOCAL SEO' }
         },
         {
             name: 'gmbRating', label: { en: 'Current Google My Business rating', it: 'Rating attuale Google My Business' }, type: 'select', options: [
@@ -1475,15 +1475,15 @@ export const SEO_CONTENT_SERVICE: Service = {
                 { en: '4+ stars', it: '4+ stelle' },
                 { en: 'No reviews', it: 'Nessuna recensione' }
             ], required: false, step: 8, order: 3,
-            showIf: { field: 'interestedServices', value: '📍 LOCAL SEO' }
+            showIf: { field: 'interestedServices', value: 'ðŸ“ LOCAL SEO' }
         },
         {
             name: 'serviceAreas', label: { en: 'Service areas (specific cities/regions)', it: 'Aree di servizio (città/regioni specifiche)' }, type: 'text', required: false, step: 8, order: 4,
-            showIf: { field: 'interestedServices', value: '📍 LOCAL SEO' }
+            showIf: { field: 'interestedServices', value: 'ðŸ“ LOCAL SEO' }
         },
         {
             name: 'localCompetitors', label: { en: 'Local competitors', it: 'Competitor locali' }, type: 'textarea', required: false, step: 8, order: 5,
-            showIf: { field: 'interestedServices', value: '📍 LOCAL SEO' }
+            showIf: { field: 'interestedServices', value: 'ðŸ“ LOCAL SEO' }
         },
         {
             name: 'directoriesListed', label: { en: 'Local directories listed', it: 'Directory locali presenti' }, type: 'select', options: [
@@ -1492,7 +1492,7 @@ export const SEO_CONTENT_SERVICE: Service = {
                 { en: 'Industry-specific', it: 'Specifiche del settore' },
                 { en: 'None', it: 'Nessuna' }
             ], required: false, step: 8, order: 6,
-            showIf: { field: 'interestedServices', value: '📍 LOCAL SEO' }
+            showIf: { field: 'interestedServices', value: 'ðŸ“ LOCAL SEO' }
         },
 
         // SECTION 9: TECHNICAL & INTEGRATION DETAILS
@@ -1680,7 +1680,7 @@ export const DEVELOPMENT_SERVICE: Service = {
                 { en: '💻 WEBSITE DEVELOPMENT', it: '💻 SVILUPPO SITI WEB' },
                 { en: '🚀 SAAS PLATFORM DEVELOPMENT', it: '🚀 SVILUPPO PIATTAFORME SAAS' },
                 { en: '📱 MOBILE APP DEVELOPMENT', it: '📱 SVILUPPO APP SCARICABILI' },
-                { en: '⚙️ CUSTOM SOFTWARE', it: '⚙️ SOFTWARE CUSTOM' }
+                { en: 'âš™ï¸ CUSTOM SOFTWARE', it: 'âš™ï¸ SOFTWARE CUSTOM' }
             ], required: true, step: 2, order: 1
         },
 
@@ -1744,7 +1744,7 @@ export const DEVELOPMENT_SERVICE: Service = {
                 { en: 'Workflow automation', it: 'Automazione workflow' }, { en: 'Reporting system', it: 'Reportistica' },
                 { en: 'User management', it: 'Gestione utenti' }, { en: 'Data import/export', it: 'Import/Export dati' },
                 { en: 'API integrations', it: 'Integrazioni API' }, { en: 'Real-time features', it: 'Funzioni Real-time' }, { en: 'Document management', it: 'Gestione documenti' }
-            ], required: false, step: 6, order: 4, showIf: { field: 'devServices', value: '⚙️ CUSTOM SOFTWARE' }
+            ], required: false, step: 6, order: 4, showIf: { field: 'devServices', value: 'âš™ï¸ CUSTOM SOFTWARE' }
         },
 
         // SECTION 7
@@ -1880,6 +1880,159 @@ export const AI_AUTOMATION_SERVICE: Service = {
     ]
 }
 
+
+export const TORCH_CRM_SERVICE: Service = {
+    _id: 'torch-crm-service-id',
+    name: { en: 'TORCH CRM', it: 'TORCH CRM' },
+    slug: 'torch-crm',
+    category: 'CRM',
+    description: { en: 'Comprehensive CRM solution with automation and AI.', it: 'Soluzione CRM completa con automazione e AI.' },
+    icon: 'Megaphone',
+    color: '#F97316',
+    isActive: true,
+    steps: [
+        { title: { en: 'Company & Contact', it: 'Contatti e Azienda' }, order: 1, layout: 'two-column' },
+        { title: { en: 'Current CRM', it: 'CRM Attuale' }, order: 2, layout: 'two-column' },
+        { title: { en: 'Package Selection', it: 'Selezione Pacchetto' }, order: 3, layout: 'two-column' },
+        { title: { en: 'Sales Process', it: 'Processo di Vendita' }, order: 4, layout: 'two-column' },
+        { title: { en: 'Lead Management', it: 'Gestione Lead' }, order: 5, layout: 'two-column' },
+        { title: { en: 'Integration & Auto', it: 'Integrazione & Automazione' }, order: 6, layout: 'two-column' },
+        { title: { en: 'Reporting', it: 'Reportistica' }, order: 7, layout: 'two-column' },
+        { title: { en: 'Customization', it: 'Personalizzazione' }, order: 8, layout: 'two-column' },
+        { title: { en: 'Budget', it: 'Budget' }, order: 9, layout: 'two-column' },
+        { title: { en: 'Data & Setup', it: 'Dati & Setup' }, order: 10, layout: 'two-column' },
+        { title: { en: 'Training', it: 'Formazione' }, order: 11, layout: 'two-column' },
+        { title: { en: 'Advanced', it: 'Avanzate' }, order: 12, layout: 'two-column' },
+        { title: { en: 'Growth', it: 'Crescita' }, order: 13, layout: 'two-column' }
+    ],
+    fields: [
+        { name: 'companyName', label: { en: 'Company Name', it: 'Nome Azienda' }, type: 'text', required: true, step: 1, order: 1 },
+        { name: 'industry', label: { en: 'Industry / Sector', it: 'Settore' }, type: 'select', options: [{ en: 'Technology', it: 'Tecnologia' }, { en: 'Professional Services', it: 'Servizi Professionali' }, { en: 'Healthcare', it: 'Sanità' }, { en: 'Finance', it: 'Finanza' }, { en: 'Manufacturing', it: 'Produzione' }, { en: 'E-commerce', it: 'E-commerce' }, { en: 'Other', it: 'Altro' }], required: false, step: 1, order: 2 },
+        { name: 'companySize', label: { en: 'Company Size', it: 'Dimensione Azienda' }, type: 'select', options: [{ en: '1–10', it: '1–10' }, { en: '11–50', it: '11–50' }, { en: '51–200', it: '51–200' }, { en: '200+', it: '200+' }], required: false, step: 1, order: 3 },
+        { name: 'annualRevenue', label: { en: 'Annual Revenue', it: 'Fatturato Annuo' }, type: 'select', options: [{ en: '<100k', it: '<100k' }, { en: '100k-500k', it: '100k-500k' }, { en: '500k-2M', it: '500k-2M' }, { en: '2M+', it: '2M+' }], required: false, step: 1, order: 4 },
+        { name: 'websiteUrl', label: { en: 'Website URL', it: 'Sito Web' }, type: 'url', required: true, step: 1, order: 5 },
+        { name: 'primaryContactName', label: { en: 'Primary Contact Name', it: 'Nome Referente' }, type: 'text', required: true, step: 1, order: 6 },
+        { name: 'jobTitle', label: { en: 'Job Title', it: 'Ruolo' }, type: 'text', required: true, step: 1, order: 7 },
+        { name: 'email', label: { en: 'Email Address', it: 'Indirizzo Email' }, type: 'email', required: true, step: 1, order: 8 },
+        { name: 'phone', label: { en: 'Phone Number', it: 'Numero di Telefono' }, type: 'text', required: true, step: 1, order: 9 },
+        { name: 'currentCrm', label: { en: 'Current CRM system', it: 'CRM attuale' }, type: 'select', options: [{ en: 'HubSpot', it: 'HubSpot' }, { en: 'Salesforce', it: 'Salesforce' }, { en: 'Pipedrive', it: 'Pipedrive' }, { en: 'Zoho', it: 'Zoho' }, { en: 'Excel/Spreadsheets', it: 'Excel/Fogli di calcolo' }, { en: 'None', it: 'Nessuno' }, { en: 'Other', it: 'Altro' }], required: false, step: 2, order: 1 },
+        { name: 'crmSatisfaction', label: { en: 'CRM satisfaction level', it: 'Livello soddisfazione CRM' }, type: 'select', options: [{ en: 'Very satisfied', it: 'Molto soddisfatto' }, { en: 'Satisfied', it: 'Soddisfatto' }, { en: 'Neutral', it: 'Neutro' }, { en: 'Dissatisfied', it: 'Insoddisfatto' }, { en: 'Very dissatisfied', it: 'Molto insoddisfatto' }], required: false, step: 2, order: 2 },
+        {
+            name: 'crmPainPoints', label: { en: 'Main CRM pain points', it: 'Principali problemi CRM' }, type: 'multiselect', options: [
+                { en: 'Too complex to use', it: 'Troppo complesso' },
+                { en: 'Poor lead tracking', it: 'Tracciamento lead scarso' },
+                { en: 'No automation capabilities', it: 'Nessuna automazione' },
+                { en: 'Limited reporting', it: 'Reportistica limitata' },
+                { en: 'Expensive pricing', it: 'Troppo costoso' },
+                { en: 'Poor integration', it: 'Integrazione scarsa' },
+                { en: 'No mobile access', it: 'Nessun accesso mobile' },
+                { en: 'Data silos', it: 'Silos di dati' }
+            ], required: false, step: 2, order: 3
+        },
+        { name: 'leadVolume', label: { en: 'Current lead volume', it: 'Volume lead attuale' }, type: 'select', options: [{ en: '<10/month', it: '<10/mese' }, { en: '10-50/month', it: '10-50/mese' }, { en: '50-100/month', it: '50-100/mese' }, { en: '100-500/month', it: '100-500/mese' }, { en: '500+/month', it: '500+/mese' }], required: false, step: 2, order: 4 },
+        {
+            name: 'leadSources', label: { en: 'Lead sources', it: 'Fonti lead' }, type: 'multiselect', options: [
+                { en: 'Website forms', it: 'Form sito web' },
+                { en: 'Email campaigns', it: 'Campagne email' },
+                { en: 'LinkedIn outreach', it: 'Outreach LinkedIn' },
+                { en: 'Cold calling', it: 'Chiamate a freddo' },
+                { en: 'Referrals', it: 'Referral' },
+                { en: 'Trade shows', it: 'Fiere' },
+                { en: 'Social media', it: 'Social media' },
+                { en: 'Paid advertising', it: 'Pubblicità a pagamento' }
+            ], required: false, step: 2, order: 5
+        },
+        { name: 'torchPackage', label: { en: 'Which Torch CRM package interests you?', it: 'Quale pacchetto Torch CRM ti interessa?' }, type: 'select', options: [{ en: '🔥 STARTER (€99/mo)', it: '🔥 STARTER (€99/mese)' }, { en: '⚡ PROFESSIONAL (€150/mo)', it: '⚡ PROFESSIONAL (€150/mese)' }, { en: '🚀 ENTERPRISE (€199/mo)', it: '🚀 ENTERPRISE (€199/mese)' }], required: true, step: 3, order: 1 },
+        { name: 'salesTeamSize', label: { en: 'Sales team size', it: 'Dimensione team vendita' }, type: 'select', options: [{ en: 'Just me', it: 'Solo io' }, { en: '2-5 people', it: '2-5 persone' }, { en: '6-15 people', it: '6-15 persone' }, { en: '15+ people', it: '15+ persone' }], required: false, step: 4, order: 1 },
+        { name: 'salesCycle', label: { en: 'Average sales cycle length', it: 'Durata media ciclo vendita' }, type: 'select', options: [{ en: '<1 month', it: '<1 mese' }, { en: '1-3 months', it: '1-3 mesi' }, { en: '3-6 months', it: '3-6 mesi' }, { en: '6-12 months', it: '6-12 mesi' }, { en: '12+ months', it: '12+ mesi' }], required: false, step: 4, order: 2 },
+        { name: 'dealSize', label: { en: 'Average deal size', it: 'Valore medio deal' }, type: 'select', options: [{ en: '€500-5k', it: '€500-5k' }, { en: '€5k-25k', it: '€5k-25k' }, { en: '€25k-100k', it: '€25k-100k' }, { en: '€100k+', it: '€100k+' }], required: false, step: 4, order: 3 },
+        { name: 'conversionRate', label: { en: 'Current conversion rate', it: 'Tasso conversione attuale' }, type: 'select', options: [{ en: '<1%', it: '<1%' }, { en: '1-3%', it: '1-3%' }, { en: '3-5%', it: '3-5%' }, { en: '5-10%', it: '5-10%' }, { en: '10%+', it: '10%+' }], required: false, step: 4, order: 4 },
+        { name: 'processMaturity', label: { en: 'Sales process maturity', it: 'Maturità processo vendita' }, type: 'select', options: [{ en: 'Ad-hoc', it: 'Ad-hoc (Informale)' }, { en: 'Basic structure', it: 'Struttura base' }, { en: 'Defined process', it: 'Processo definito' }, { en: 'Advanced automation', it: 'Automazione avanzata' }], required: false, step: 4, order: 5 },
+        { name: 'qualificationCriteria', label: { en: 'Lead qualification criteria', it: 'Criteri qualificazione lead' }, type: 'textarea', placeholder: { en: 'Budget, Authority, Need, Timeline...', it: 'Budget, Authority, Need, Timeline...' }, required: false, step: 5, order: 1 },
+        { name: 'leadScoringImp', label: { en: 'Lead scoring importance', it: 'Importanza lead scoring' }, type: 'select', options: [{ en: 'Critical', it: 'Critica' }, { en: 'Important', it: 'Importante' }, { en: 'Nice to have', it: 'Opzionale (Nice to have)' }, { en: 'Not needed', it: 'Non necessaria' }], required: false, step: 5, order: 2 },
+        { name: 'followUpPref', label: { en: 'Follow-up preferences', it: 'Preferenze follow-up' }, type: 'select', options: [{ en: 'Manual', it: 'Manuale' }, { en: 'Semi-automated', it: 'Semi-automatizzato' }, { en: 'Fully automated', it: 'Completamente automatizzato' }], required: false, step: 5, order: 3 },
+        {
+            name: 'nurturingNeeds', label: { en: 'Lead nurturing needs', it: 'Necessità lead nurturing' }, type: 'multiselect', options: [
+                { en: 'Email sequences', it: 'Sequenze email' },
+                { en: 'Task reminders', it: 'Promemoria task' },
+                { en: 'Automated workflows', it: 'Workflow automatizzati' }
+            ], required: false, step: 5, order: 4
+        },
+        { name: 'pipelineStages', label: { en: 'Pipeline stages', it: 'Stadi pipeline' }, type: 'select', options: [{ en: '3-5', it: '3-5' }, { en: '6-8', it: '6-8' }, { en: '9-12', it: '9-12' }, { en: 'Custom', it: 'Personalizzati' }], required: false, step: 5, order: 5 },
+        {
+            name: 'integrations', label: { en: 'Current tools to integrate', it: 'Strumenti da integrare' }, type: 'multiselect', options: [
+                { en: 'Email marketing (Mailchimp, HubSpot...)', it: 'Email marketing' },
+                { en: 'Calendar systems (Google, Outlook)', it: 'Calendari' },
+                { en: 'Communication tools (Slack, Teams)', it: 'Comunicazione (Slack, Teams)' },
+                { en: 'Accounting software', it: 'Contabilità' },
+                { en: 'E-commerce platforms', it: 'E-commerce' },
+                { en: 'Social media tools', it: 'Social media' },
+                { en: 'Phone systems', it: 'Telefonia' },
+                { en: 'Analytics tools', it: 'Analytics' }
+            ], required: false, step: 6, order: 1
+        },
+        {
+            name: 'automationPriorities', label: { en: 'Automation priorities', it: 'Priorità automazione' }, type: 'multiselect', options: [
+                { en: 'Lead capture from website', it: 'Cattura lead da sito' },
+                { en: 'Email follow-up sequences', it: 'Sequenze follow-up email' },
+                { en: 'Task assignment', it: 'Assegnazione task' },
+                { en: 'Deal progression alerts', it: 'Alert progressione deal' },
+                { en: 'Report generation', it: 'Generazione report' },
+                { en: 'Data synchronization', it: 'Sincronizzazione dati' },
+                { en: 'Appointment booking', it: 'Prenotazione appuntamenti' }
+            ], required: false, step: 6, order: 2
+        },
+        {
+            name: 'metrics', label: { en: 'Key metrics to track', it: 'Metriche chiave' }, type: 'multiselect', options: [
+                { en: 'Lead volume and sources', it: 'Volume e fonti lead' },
+                { en: 'Conversion rates by stage', it: 'Tassi conversione per stadio' },
+                { en: 'Sales team performance', it: 'Performance team vendita' },
+                { en: 'Revenue forecasting', it: 'Previsione ricavi' },
+                { en: 'Customer lifetime value', it: 'Customer lifetime value' },
+                { en: 'Pipeline velocity', it: 'Velocità pipeline' },
+                { en: 'ROI by channel', it: 'ROI per canale' },
+                { en: 'Activity tracking', it: 'Tracciamento attività' }
+            ], required: false, step: 7, order: 1
+        },
+        { name: 'reportingFreq', label: { en: 'Reporting frequency', it: 'Frequenza report' }, type: 'select', options: [{ en: 'Real-time dashboards', it: 'Real-time' }, { en: 'Daily', it: 'Giornaliera' }, { en: 'Weekly', it: 'Settimanale' }, { en: 'Monthly', it: 'Mensile' }], required: false, step: 7, order: 2 },
+        { name: 'reportRecipients', label: { en: 'Report recipients', it: 'Destinatari report' }, type: 'select', options: [{ en: 'Sales team only', it: 'Solo team vendita' }, { en: 'Management', it: 'Management' }, { en: 'C-level', it: 'C-level' }, { en: 'All stakeholders', it: 'Tutti gli stakeholder' }], required: false, step: 7, order: 3 },
+        { name: 'dashboardPref', label: { en: 'Dashboard preferences', it: 'Preferenze dashboard' }, type: 'select', options: [{ en: 'Simple overview', it: 'Panoramica semplice' }, { en: 'Detailed analytics', it: 'Analytics dettagliati' }, { en: 'Custom KPIs', it: 'KPI personalizzati' }], required: false, step: 7, order: 4 },
+        { name: 'customFields', label: { en: 'Custom fields needed', it: 'Campi personalizzati' }, type: 'select', options: [{ en: 'Yes', it: 'Sì' }, { en: 'No', it: 'No' }, { en: 'Not sure', it: 'Non so' }], required: false, step: 8, order: 1 },
+        { name: 'workflowCustom', label: { en: 'Custom workflows required', it: 'Workflow personalizzati' }, type: 'select', options: [{ en: 'Standard is fine', it: 'Standard va bene' }, { en: 'Need some customization', it: 'Qualche personalizzazione' }, { en: 'Highly customized', it: 'Molto personalizzati' }], required: false, step: 8, order: 2 },
+        { name: 'brandingReq', label: { en: 'Branding requirements', it: 'Requisiti branding' }, type: 'select', options: [{ en: 'Standard interface', it: 'Interfaccia standard' }, { en: 'Company branding', it: 'Branding aziendale' }, { en: 'White-label', it: 'White-label' }], required: false, step: 8, order: 3 },
+        { name: 'userRoles', label: { en: 'User roles needed', it: 'Ruoli utente' }, type: 'select', options: [{ en: 'Admin only', it: 'Solo Admin' }, { en: 'Sales + Admin', it: 'Sales + Admin' }, { en: 'Multiple departments', it: 'Dipartimenti multipli' }, { en: 'Complex hierarchy', it: 'Gerarchia complessa' }], required: false, step: 8, order: 4 },
+        { name: 'monthlyBudget', label: { en: 'Monthly CRM budget', it: 'Budget CRM mensile' }, type: 'select', options: [{ en: '€99-150', it: '€99-150' }, { en: '€150-200', it: '€150-200' }, { en: '€200-500', it: '€200-500' }, { en: '€500+', it: '€500+' }], required: false, step: 9, order: 1 },
+        { name: 'setupBudget', label: { en: 'Setup/customization budget', it: 'Budget setup/custom' }, type: 'select', options: [{ en: '€0-1k', it: '€0-1k' }, { en: '€1k-3k', it: '€1k-3k' }, { en: '€3k-5k', it: '€3k-5k' }, { en: '€5k+', it: '€5k+' }], required: false, step: 9, order: 2 },
+        { name: 'roiExpectations', label: { en: 'ROI expectations', it: 'Aspettative ROI' }, type: 'select', options: [{ en: '2x', it: '2x' }, { en: '3x', it: '3x' }, { en: '5x', it: '5x' }, { en: '10x+', it: '10x+' }], required: false, step: 9, order: 3 },
+        { name: 'budgetApproval', label: { en: 'Budget approval process', it: 'Processo approvazione budget' }, type: 'select', options: [{ en: 'I decide', it: 'Decido io' }, { en: 'Need manager approval', it: 'Serve approvazione manager' }, { en: 'Board approval', it: 'Approvazione board' }], required: false, step: 9, order: 4 },
+        { name: 'startTiming', label: { en: 'When can you start?', it: 'Quando puoi iniziare?' }, type: 'select', options: [{ en: 'Immediately', it: 'Immediatamente' }, { en: 'Within 2 weeks', it: 'Entro 2 settimane' }, { en: 'Within 1 month', it: 'Entro 1 mese' }], required: false, step: 9, order: 5 },
+        { name: 'dataVolume', label: { en: 'Current data volume', it: 'Volume dati attuale' }, type: 'select', options: [{ en: 'Contacts: <500', it: 'Contatti: <500' }, { en: '500-2k', it: '500-2k' }, { en: '2k-10k', it: '2k-10k' }, { en: '10k+', it: '10k+' }], required: false, step: 10, order: 1 },
+        { name: 'dataQuality', label: { en: 'Data quality', it: 'Qualità dati' }, type: 'select', options: [{ en: 'Clean and organized', it: 'Puliti e organizzati' }, { en: 'Needs some cleanup', it: 'Serve pulizia' }, { en: 'Major cleanup needed', it: 'Serve pulizia profonda' }], required: false, step: 10, order: 2 },
+        { name: 'migrationAssist', label: { en: 'Migration assistance needed', it: 'Assistenza migrazione' }, type: 'select', options: [{ en: 'Yes - full support', it: 'Sì - supporto completo' }, { en: 'Yes - guidance only', it: 'Sì - solo guida' }, { en: 'No - self-service', it: 'No - fai da te' }], required: false, step: 10, order: 3 },
+        {
+            name: 'migrationSources', label: { en: 'Data sources', it: 'Fonti dati' }, type: 'multiselect', options: [
+                { en: 'CRM export', it: 'Export CRM' },
+                { en: 'Excel files', it: 'File Excel' },
+                { en: 'Multiple systems', it: 'Sistemi multipli' },
+                { en: 'No existing data', it: 'Nessun dato esistente' }
+            ], required: false, step: 10, order: 4
+        },
+        { name: 'trainingReq', label: { en: 'Team training requirements', it: 'Requisiti formazione team' }, type: 'select', options: [{ en: 'Self-service', it: 'Self-service' }, { en: 'Basic training', it: 'Base' }, { en: 'Comprehensive training', it: 'Completa' }, { en: 'Ongoing coaching', it: 'Coaching continuo' }], required: false, step: 11, order: 1 },
+        { name: 'supportPref', label: { en: 'Support preferences', it: 'Preferenze supporto' }, type: 'select', options: [{ en: 'Email support', it: 'Email' }, { en: 'Phone support', it: 'Telefono' }, { en: 'Live chat', it: 'Live chat' }, { en: 'Video calls', it: 'Videochiamate' }], required: false, step: 11, order: 2 },
+        { name: 'implTimeline', label: { en: 'Implementation timeline', it: 'Timeline implementazione' }, type: 'select', options: [{ en: 'ASAP', it: 'ASAP' }, { en: '1-2 weeks', it: '1-2 settimane' }, { en: '2-4 weeks', it: '2-4 settimane' }, { en: '1-2 months', it: '1-2 mesi' }], required: false, step: 11, order: 3 },
+        { name: 'successCriteria', label: { en: 'Success criteria', it: 'Criteri di successo' }, type: 'textarea', required: false, step: 11, order: 4 },
+        { name: 'aiInterest', label: { en: 'AI-driven lead scoring interest', it: 'Interesse AI lead scoring' }, type: 'select', options: [{ en: 'Very interested', it: 'Molto interessato' }, { en: 'Somewhat interested', it: 'Interessato' }, { en: 'Not interested', it: 'Non interessato' }], required: false, step: 12, order: 1 },
+        { name: 'advancedAuto', label: { en: 'Advanced automation needs', it: 'Automazione avanzata' }, type: 'select', options: [{ en: 'Basic workflows', it: 'Workflow base' }, { en: 'Complex automation', it: 'Automazione complessa' }, { en: 'Enterprise-level', it: 'Livello Enterprise' }], required: false, step: 12, order: 2 },
+        { name: 'apiReq', label: { en: 'API integration requirements', it: 'Requisiti API' }, type: 'select', options: [{ en: 'None', it: 'Nessuno' }, { en: 'Basic', it: 'Base' }, { en: 'Advanced custom integrations', it: 'Integrazioni custom avanzate' }], required: false, step: 12, order: 3 },
+        { name: 'mobileApp', label: { en: 'Mobile app importance', it: 'Importanza app mobile' }, type: 'select', options: [{ en: 'Critical', it: 'Critica' }, { en: 'Important', it: 'Importante' }, { en: 'Nice to have', it: 'Opzionale' }, { en: 'Not needed', it: 'Non necessaria' }], required: false, step: 12, order: 4 },
+        { name: 'multiLang', label: { en: 'Multi-language support', it: 'Supporto multilingua' }, type: 'select', options: [{ en: 'English only', it: 'Solo Inglese' }, { en: 'Multiple languages needed', it: 'Più lingue' }], required: false, step: 12, order: 5 },
+        { name: 'growthExp', label: { en: 'Expected growth', it: 'Crescita attesa' }, type: 'select', options: [{ en: 'Stable', it: 'Stabile' }, { en: '25% growth', it: 'Crescita 25%' }, { en: '50% growth', it: 'Crescita 50%' }, { en: '100%+ growth', it: 'Crescita 100%+' }], required: false, step: 13, order: 1 },
+        { name: 'scalingPlan', label: { en: 'Team scaling plan (Current / 6mo / 1yr)', it: 'Piano scaling team (Attuale / 6 mesi / 1 anno)' }, type: 'textarea', required: false, step: 13, order: 2 },
+        { name: 'featureExp', label: { en: 'Feature expansion', it: 'Espansione funzionalità' }, type: 'select', options: [{ en: 'Current needs only', it: 'Solo necessità attuali' }, { en: 'Moderate expansion', it: 'Espansione moderata' }, { en: 'Aggressive feature growth', it: 'Espansione aggressiva' }], required: false, step: 13, order: 3 },
+        { name: 'geoExp', label: { en: 'Geographic expansion', it: 'Espansione geografica' }, type: 'select', options: [{ en: 'Local only', it: 'Solo locale' }, { en: 'National', it: 'Nazionale' }, { en: 'International', it: 'Internazionale' }], required: false, step: 13, order: 4 }
+    ]
+}
+
 export const SERVICES: Service[] = [
     COLD_EMAIL_SERVICE,
     FACEBOOK_ADS_SERVICE,
@@ -1887,7 +2040,8 @@ export const SERVICES: Service[] = [
     LEAD_GEN_CRM_SERVICE,
     SEO_CONTENT_SERVICE,
     DEVELOPMENT_SERVICE,
-    AI_AUTOMATION_SERVICE
+    AI_AUTOMATION_SERVICE,
+    TORCH_CRM_SERVICE
 ]
 
 export function getServiceBySlug(slug: string): Service | undefined {
