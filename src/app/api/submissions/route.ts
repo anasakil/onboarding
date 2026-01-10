@@ -1,48 +1,44 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
-import { connectDB } from '@/lib/db/connect'
-import { Submission } from '@/lib/db/models'
+import { saveSubmissionToBaserow, getSubmissionsFromBaserow, BASEROW_TABLES } from '@/lib/baserow'
 
 export const dynamic = 'force-dynamic'
 
-// GET - Admin only: Fetch all submissions
+// GET - Fetch submissions from Baserow for a specific service
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions)
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
-    await connectDB()
-
     const { searchParams } = new URL(request.url)
-    const status = searchParams.get('status')
-    const serviceId = searchParams.get('serviceId')
+    const serviceSlug = searchParams.get('service')
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '20')
 
-    const query: Record<string, unknown> = {}
-    if (status) query.status = status
-    if (serviceId) query.serviceId = serviceId
+    if (!serviceSlug) {
+      return NextResponse.json(
+        { error: 'Service slug is required. Use ?service=cold-email-marketing' },
+        { status: 400 }
+      )
+    }
 
-    const [submissions, total] = await Promise.all([
-      Submission.find(query)
-        .populate('assignedTo', 'name email')
-        .sort({ createdAt: -1 })
-        .skip((page - 1) * limit)
-        .limit(limit)
-        .lean(),
-      Submission.countDocuments(query),
-    ])
+    if (!BASEROW_TABLES[serviceSlug]) {
+      return NextResponse.json(
+        { error: `Unknown service: ${serviceSlug}. Available: ${Object.keys(BASEROW_TABLES).join(', ')}` },
+        { status: 400 }
+      )
+    }
+
+    const result = await getSubmissionsFromBaserow(serviceSlug, page, limit)
+
+    if (!result.success) {
+      return NextResponse.json({ error: result.error }, { status: 500 })
+    }
 
     return NextResponse.json({
-      submissions,
+      service: serviceSlug,
+      submissions: result.rows,
       pagination: {
         page,
         limit,
-        total,
-        pages: Math.ceil(total / limit),
+        total: result.total,
+        pages: Math.ceil((result.total || 0) / limit),
       },
     })
   } catch (error) {
@@ -54,24 +50,46 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Public: Create new submission (client form submission)
+// POST - Save submission to Baserow (service-specific table)
 export async function POST(request: NextRequest) {
   try {
-    await connectDB()
-
     const body = await request.json()
+    const serviceSlug = body.serviceSlug || body.slug
+    const formData = body.data || body
 
-    const submission = await Submission.create({
-      serviceId: body.serviceId,
-      serviceName: body.serviceName,
-      data: body.data,
-      clientEmail: body.clientEmail,
-      clientName: body.clientName,
-      clientPhone: body.clientPhone,
-      status: 'pending',
-    })
+    if (!serviceSlug) {
+      return NextResponse.json(
+        { error: 'serviceSlug is required' },
+        { status: 400 }
+      )
+    }
 
-    return NextResponse.json(submission, { status: 201 })
+    if (!BASEROW_TABLES[serviceSlug]) {
+      return NextResponse.json(
+        { error: `Unknown service: ${serviceSlug}. Available: ${Object.keys(BASEROW_TABLES).join(', ')}` },
+        { status: 400 }
+      )
+    }
+
+    // Save to the service-specific Baserow table
+    const result = await saveSubmissionToBaserow(serviceSlug, formData)
+
+    if (!result.success) {
+      console.error('Failed to save to Baserow:', result.error)
+      return NextResponse.json(
+        { error: 'Failed to save submission', details: result.error },
+        { status: 500 }
+      )
+    }
+
+    console.log(`Saved to Baserow table for ${serviceSlug}, row ID:`, result.rowId)
+
+    return NextResponse.json({
+      success: true,
+      id: result.rowId,
+      service: serviceSlug,
+      message: 'Submission saved successfully'
+    }, { status: 201 })
   } catch (error) {
     console.error('POST /api/submissions error:', error)
     return NextResponse.json(

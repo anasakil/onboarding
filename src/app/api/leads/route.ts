@@ -5,6 +5,7 @@ import { connectDB } from '@/lib/db/connect'
 import { OnboardingRequest, Admin, ActivityLog } from '@/lib/db/models'
 import { calculateLeadScore } from '@/lib/scoring/lead-scoring'
 import { determineAssignment } from '@/lib/rules/auto-assignment'
+import { syncOnboardingToBaserow } from '@/lib/baserow'
 
 export const dynamic = 'force-dynamic'
 
@@ -132,6 +133,42 @@ export async function POST(request: NextRequest) {
         priorityLevel: scoreResult.level,
         assignmentRule: assignmentResult.ruleApplied,
       },
+    })
+
+    // Sync to Baserow (non-blocking)
+    syncOnboardingToBaserow({
+      _id: lead._id.toString(),
+      leadType: body.leadType,
+      companyName: body.companyName,
+      companyType: body.companyType,
+      industry: body.industry,
+      companySize: body.companySize,
+      contactName: body.contactName,
+      contactEmail: body.contactEmail,
+      contactPhone: body.contactPhone,
+      services: body.services,
+      goals: body.goals,
+      challenges: body.challenges,
+      budgetRange: body.budgetRange,
+      urgency: body.urgency,
+      timeline: body.timeline,
+      decisionPower: body.decisionPower,
+      status: 'new',
+      priorityScore: scoreResult.score,
+      priorityLevel: scoreResult.level,
+      assignedTo: assignedToId || '',
+      createdBy: session.user.id,
+      source: body.source,
+      createdAt: lead.createdAt,
+      updatedAt: lead.updatedAt,
+    }).then(result => {
+      if (!result.success) {
+        console.error('Failed to sync to Baserow:', result.error)
+      } else {
+        console.log('Synced to Baserow, row ID:', result.rowId)
+      }
+    }).catch(err => {
+      console.error('Baserow sync error:', err)
     })
 
     return NextResponse.json(lead, { status: 201 })

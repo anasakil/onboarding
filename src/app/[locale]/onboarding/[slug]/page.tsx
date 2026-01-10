@@ -288,6 +288,7 @@ export default function OnboardingPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          serviceSlug: service.slug,
           serviceId: service._id,
           serviceName: getLoc(service.name),
           data: formData,
