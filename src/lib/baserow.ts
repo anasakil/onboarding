@@ -10,6 +10,9 @@ const SERVICE_TABLES: Record<string, number> = {
   'blogging-seo-friendly': 1584,
   'lead-generation-crm': 1585,
   'seo-content-strategy': 1586,
+  'development-services': 1587,
+  'ai-automation': 1588,
+  'torch-crm': 1589,
 }
 
 // Field mappings for each service (form field name -> Baserow column name)
@@ -216,6 +219,32 @@ const SEO_CONTENT_FIELDS: Record<string, string> = {
   hostingProvider: 'Hosting Provider',
 }
 
+// Simple field mappings for newer services (store complex data in Form Data field)
+const DEVELOPMENT_FIELDS: Record<string, string> = {
+  companyName: 'Company Name',
+  primaryContactName: 'Primary Contact Name',
+  email: 'Email',
+  phone: 'Phone',
+  companySize: 'Company Size',
+}
+
+const AI_AUTOMATION_FIELDS: Record<string, string> = {
+  companyName: 'Company Name',
+  primaryContactName: 'Primary Contact Name',
+  email: 'Email',
+  phone: 'Phone',
+  jobTitle: 'Job Title',
+  websiteUrl: 'Website URL',
+}
+
+const TORCH_CRM_FIELDS: Record<string, string> = {
+  companyName: 'Company Name',
+  primaryContactName: 'Primary Contact Name',
+  email: 'Email',
+  phone: 'Phone',
+  industry: 'Industry',
+}
+
 // Get field mappings for a service
 function getFieldMappings(serviceSlug: string): Record<string, string> {
   switch (serviceSlug) {
@@ -229,6 +258,12 @@ function getFieldMappings(serviceSlug: string): Record<string, string> {
       return LEAD_GEN_CRM_FIELDS
     case 'seo-content-strategy':
       return SEO_CONTENT_FIELDS
+    case 'development-services':
+      return DEVELOPMENT_FIELDS
+    case 'ai-automation':
+      return AI_AUTOMATION_FIELDS
+    case 'torch-crm':
+      return TORCH_CRM_FIELDS
     default:
       return {}
   }
@@ -278,6 +313,12 @@ export async function saveSubmissionToBaserow(
     // Add status and created at
     payload['Status'] = 'new'
     payload['Created At'] = new Date().toISOString()
+
+    // For newer services, store full form data as JSON
+    const newerServices = ['development-services', 'ai-automation', 'torch-crm']
+    if (newerServices.includes(serviceSlug)) {
+      payload['Form Data'] = JSON.stringify(formData, null, 2)
+    }
 
     const response = await fetch(
       `${BASEROW_URL}/api/database/rows/table/${tableId}/?user_field_names=true`,
