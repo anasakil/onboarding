@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react"
 import Link from "next/link"
-import { Header } from "@/components/dashboard"
+import { Header, useDashboard } from "@/components/dashboard"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -46,6 +46,7 @@ const STATUS_COLORS: Record<string, string> = {
 }
 
 export default function SubmissionsPage() {
+  const { toggleSidebar, isSidebarOpen } = useDashboard()
   const [submissions, setSubmissions] = useState<Submission[]>([])
   const [loading, setLoading] = useState(true)
   const [statusFilter, setStatusFilter] = useState<string>('all')
@@ -140,15 +141,17 @@ export default function SubmissionsPage() {
       <Header
         title="Submissions"
         description="View and manage client form submissions"
+        onMenuToggle={toggleSidebar}
+        isMenuOpen={isSidebarOpen}
         action={
-          <Button variant="outline" onClick={fetchSubmissions}>
-            <RefreshCw className="w-4 h-4 mr-2" />
-            Refresh
+          <Button variant="outline" onClick={fetchSubmissions} size="sm">
+            <RefreshCw className="w-4 h-4 md:mr-2" />
+            <span className="hidden md:inline">Refresh</span>
           </Button>
         }
       />
 
-      <div className="p-6 space-y-6">
+      <div className="p-4 md:p-6 space-y-4 md:space-y-6">
         {/* Filters */}
         <Card>
           <CardContent className="p-4">

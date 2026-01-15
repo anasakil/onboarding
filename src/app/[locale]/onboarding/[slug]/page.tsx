@@ -47,7 +47,7 @@ interface Step {
 
 interface Service extends StaticService { }
 
-// Compact Step Progress Bar
+// Compact Step Progress Bar - Mobile optimized
 const StepProgress = ({
   currentStep,
   totalSteps,
@@ -60,9 +60,9 @@ const StepProgress = ({
   labels: { step: string; complete: string }
 }) => {
   return (
-    <div className="mb-6">
+    <div className="mb-4 md:mb-6">
       {/* Steps indicator */}
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-0.5 md:gap-1">
         {steps.map((step, index) => {
           const stepNumber = index + 1
           const isCompleted = stepNumber < currentStep
@@ -73,14 +73,14 @@ const StepProgress = ({
               {/* Step circle */}
               <div
                 className={cn(
-                  "w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold transition-all duration-300 flex-shrink-0",
+                  "w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center text-[10px] md:text-xs font-semibold transition-all duration-300 flex-shrink-0",
                   isCompleted && "bg-[#F6B73A] text-[#0C1C2A]",
-                  isCurrent && "bg-[#F6B73A] text-[#0C1C2A] ring-4 ring-[#F6B73A]/20",
+                  isCurrent && "bg-[#F6B73A] text-[#0C1C2A] ring-2 md:ring-4 ring-[#F6B73A]/20",
                   !isCompleted && !isCurrent && "bg-[#1A3A52] text-[#8F8F94]"
                 )}
               >
                 {isCompleted ? (
-                  <Check className="w-3.5 h-3.5" />
+                  <Check className="w-3 h-3 md:w-3.5 md:h-3.5" />
                 ) : (
                   stepNumber
                 )}
@@ -88,7 +88,7 @@ const StepProgress = ({
 
               {/* Connector line */}
               {index < steps.length - 1 && (
-                <div className="flex-1 h-0.5 mx-2">
+                <div className="flex-1 h-0.5 mx-1 md:mx-2">
                   <div
                     className={cn(
                       "h-full rounded-full transition-all duration-500",
@@ -100,21 +100,6 @@ const StepProgress = ({
             </div>
           )
         })}
-      </div>
-
-      {/* Current step label */}
-      <div className="flex items-center justify-between mt-3">
-        <p className="text-xs text-[#8F8F94]">
-          {/* We'll pass these as props or context ideally, but for now let's keep it simple or accept t as prop if we move StepProgress out. 
-              Actually StepProgress is defined inside the file, so we can't easily access `t` unless we move it inside component or pass it. 
-              Let's make StepProgress accept translation strings or moved inside. 
-              Better: Accept a `t` prop or strings. Let's pass `labels` object.
-          */}
-          {/* Wait, StepProgress is outside OnboardingPage. I should change its signature or components structure.
-              For simplicity in this refactor, I will move StepProgress definition inside OnboardingPage OR pass t as prop.
-              Passing t as prop is cleaner.
-           */}
-        </p>
       </div>
     </div>
   )
@@ -314,7 +299,7 @@ export default function OnboardingPage() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0C1C2A]">
+      <div className="min-h-screen flex items-center justify-center bg-[#0C1C2A] px-4">
         <LoadingAnimation size="lg" text={t('Messages.loading')} />
       </div>
     )
@@ -333,22 +318,22 @@ export default function OnboardingPage() {
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-[#0C1C2A] flex items-center justify-center p-4">
-        <div className="bg-[#10273A] rounded-2xl shadow-lg border border-[#1A3A52] p-8 max-w-sm w-full text-center animate-fade-in-up">
+        <div className="bg-[#10273A] rounded-xl md:rounded-2xl shadow-lg border border-[#1A3A52] p-6 md:p-8 max-w-sm w-full text-center animate-fade-in-up">
           {/* Success icon */}
-          <div className="relative w-16 h-16 mx-auto mb-5">
+          <div className="relative w-14 h-14 md:w-16 md:h-16 mx-auto mb-4 md:mb-5">
             <div className="absolute inset-0 bg-[#F6B73A]/20 rounded-full animate-ping" style={{ animationDuration: '2s' }} />
-            <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-[#F6B73A] to-[#E9A30E] flex items-center justify-center shadow-lg shadow-[#F6B73A]/30">
-              <CheckCircle className="w-8 h-8 text-[#0C1C2A]" />
+            <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-[#F6B73A] to-[#E9A30E] flex items-center justify-center shadow-lg shadow-[#F6B73A]/30">
+              <CheckCircle className="w-7 h-7 md:w-8 md:h-8 text-[#0C1C2A]" />
             </div>
           </div>
 
-          <h1 className="text-xl font-bold text-white mb-2">{t('Messages.successTitle')}</h1>
-          <p className="text-[#8F8F94] text-sm mb-6 leading-relaxed">
+          <h1 className="text-lg md:text-xl font-bold text-white mb-2">{t('Messages.successTitle')}</h1>
+          <p className="text-[#8F8F94] text-xs md:text-sm mb-5 md:mb-6 leading-relaxed">
             {t('Messages.successDesc', { serviceName: getName(service) })}
           </p>
 
           <Link href="/">
-            <button className="w-full h-10 text-sm font-semibold text-[#0C1C2A] rounded-xl flex items-center justify-center gap-2 bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-md hover:shadow-lg transition-all">
+            <button className="w-full h-10 md:h-11 text-sm font-semibold text-[#0C1C2A] rounded-lg md:rounded-xl flex items-center justify-center gap-2 bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-md hover:shadow-lg transition-all active:scale-[0.98]">
               <Home className="w-4 h-4" />
               {t('Controls.backToHome')}
             </button>
@@ -382,28 +367,28 @@ export default function OnboardingPage() {
     return (
       <div className="min-h-screen bg-[#0C1C2A]">
         <header className="bg-[#10273A] border-b border-[#1A3A52] sticky top-0 z-50">
-          <div className="max-w-6xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+          <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-10 py-3 md:py-4 flex items-center justify-between">
             <Link href="/" className="hover:opacity-80 transition-opacity">
               <Logo size="sm" />
             </Link>
-            <div className="flex items-center gap-2 text-sm text-[#8F8F94]">
-              <Shield className="w-4 h-4 text-[#F6B73A]" />
-              <span>{t('Review.headerLabel')}</span>
+            <div className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm text-[#8F8F94]">
+              <Shield className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#F6B73A]" />
+              <span className="hidden sm:inline">{t('Review.headerLabel')}</span>
             </div>
           </div>
         </header>
 
-        <div className="max-w-6xl mx-auto px-6 lg:px-10 py-8">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-10 py-6 md:py-8">
           <div className={cn(
             "transition-all duration-300",
             isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
           )}>
             {/* Header with animation */}
-            <div className="flex flex-col lg:flex-row items-center gap-8 mb-10">
-              {/* Lottie Animation */}
+            <div className="flex flex-col lg:flex-row items-center gap-6 md:gap-8 mb-8 md:mb-10">
+              {/* Lottie Animation - smaller on mobile */}
               <div className="w-full lg:w-1/3 flex justify-center">
                 {documentAnimation ? (
-                  <div className="w-64 h-64">
+                  <div className="w-40 h-40 md:w-64 md:h-64">
                     <Lottie
                       animationData={documentAnimation}
                       loop={true}
@@ -412,29 +397,29 @@ export default function OnboardingPage() {
                     />
                   </div>
                 ) : (
-                  <div className="w-64 h-64 bg-gradient-to-br from-[#F6B73A]/10 to-[#F6B73A]/5 rounded-3xl flex items-center justify-center">
-                    <CheckCircle className="w-20 h-20 text-[#F6B73A]" />
+                  <div className="w-40 h-40 md:w-64 md:h-64 bg-gradient-to-br from-[#F6B73A]/10 to-[#F6B73A]/5 rounded-2xl md:rounded-3xl flex items-center justify-center">
+                    <CheckCircle className="w-14 h-14 md:w-20 md:h-20 text-[#F6B73A]" />
                   </div>
                 )}
               </div>
 
               {/* Review Title */}
               <div className="flex-1 text-center lg:text-left">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F6B73A]/10 text-[#F6B73A] text-sm font-medium mb-4">
-                  <Check className="w-4 h-4" />
+                <div className="inline-flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-[#F6B73A]/10 text-[#F6B73A] text-xs md:text-sm font-medium mb-3 md:mb-4">
+                  <Check className="w-3.5 h-3.5 md:w-4 md:h-4" />
                   {t('Review.badge')}
                 </div>
-                <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 md:mb-3">
                   {t('Review.title')}
                 </h1>
-                <p className="text-[#8F8F94] text-lg max-w-xl">
+                <p className="text-[#8F8F94] text-sm md:text-lg max-w-xl">
                   {t('Review.description')}
                 </p>
               </div>
             </div>
 
             {/* Review Cards */}
-            <div className="space-y-6">
+            <div className="space-y-4 md:space-y-6">
               {sortedSteps.map((step) => {
                 const stepFields = (service.fields as FormField[])
                   .filter((f) => f.step === step.order && isFieldVisible(f))
@@ -443,29 +428,29 @@ export default function OnboardingPage() {
                 return (
                   <div
                     key={step.order}
-                    className="bg-[#10273A] rounded-2xl border border-[#1A3A52] overflow-hidden animate-fade-in-up"
+                    className="bg-[#10273A] rounded-xl md:rounded-2xl border border-[#1A3A52] overflow-hidden animate-fade-in-up"
                     style={{ animationDelay: `${(step.order - 1) * 100}ms` }}
                   >
                     {/* Card Header */}
-                    <div className="flex items-center justify-between px-6 py-4 bg-[#0C1C2A] border-b border-[#1A3A52]">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-[#F6B73A] text-[#0C1C2A] flex items-center justify-center text-sm font-semibold">
+                    <div className="flex items-center justify-between px-4 md:px-6 py-3 md:py-4 bg-[#0C1C2A] border-b border-[#1A3A52]">
+                      <div className="flex items-center gap-2 md:gap-3">
+                        <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-[#F6B73A] text-[#0C1C2A] flex items-center justify-center text-xs md:text-sm font-semibold">
                           {step.order}
                         </div>
-                        <h3 className="font-semibold text-white">{getLoc(step.title)}</h3>
+                        <h3 className="font-semibold text-white text-sm md:text-base">{getLoc(step.title)}</h3>
                       </div>
                       <button
                         onClick={() => goToStep(step.order)}
-                        className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-[#F6B73A] hover:bg-[#F6B73A]/10 transition-colors"
+                        className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium text-[#F6B73A] hover:bg-[#F6B73A]/10 transition-colors active:scale-95"
                       >
-                        <Edit3 className="w-4 h-4" />
-                        {t('Review.edit')}
+                        <Edit3 className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                        <span className="hidden sm:inline">{t('Review.edit')}</span>
                       </button>
                     </div>
 
                     {/* Card Content */}
-                    <div className="p-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="p-4 md:p-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                         {stepFields.map((field) => (
                           <div
                             key={field.name}
@@ -473,8 +458,8 @@ export default function OnboardingPage() {
                               (field.type === 'textarea' || field.type === 'multiselect' || field.type === 'radio') && "md:col-span-2"
                             )}
                           >
-                            <p className="text-sm text-[#8F8F94] mb-1">{getLoc(field.label)}</p>
-                            <p className="text-white font-medium">
+                            <p className="text-xs md:text-sm text-[#8F8F94] mb-0.5 md:mb-1">{getLoc(field.label)}</p>
+                            <p className="text-white font-medium text-sm md:text-base break-words">
                               {formatFieldValue(field, formData[field.name])}
                             </p>
                           </div>
@@ -487,30 +472,30 @@ export default function OnboardingPage() {
             </div>
 
             {/* Submit Actions */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 mt-10 pt-8 border-t border-[#1A3A52]">
+            <div className="flex flex-col-reverse sm:flex-row items-center gap-3 md:gap-4 mt-8 md:mt-10 pt-6 md:pt-8 border-t border-[#1A3A52]">
               <button
                 onClick={handleBack}
-                className="w-full sm:w-auto h-12 px-8 rounded-xl border border-[#1A3A52] bg-[#10273A] hover:bg-[#1A3A52] transition-all text-sm font-medium text-white flex items-center justify-center gap-2"
+                className="w-full sm:w-auto h-11 md:h-12 px-6 md:px-8 rounded-lg md:rounded-xl border border-[#1A3A52] bg-[#10273A] hover:bg-[#1A3A52] transition-all text-sm font-medium text-white flex items-center justify-center gap-2 active:scale-[0.98]"
               >
                 <ArrowLeft className="w-4 h-4" />
                 {t('Controls.backToEdit')}
               </button>
 
-              <div className="flex-1" />
+              <div className="flex-1 hidden sm:block" />
 
               <button
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="w-full sm:w-auto h-12 px-10 rounded-xl text-[#0C1C2A] text-base font-semibold bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full sm:w-auto h-11 md:h-12 px-8 md:px-10 rounded-lg md:rounded-xl text-[#0C1C2A] text-sm md:text-base font-semibold bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-50 active:scale-[0.98]"
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <Loader2 className="w-4 h-4 md:w-5 md:h-5 animate-spin" />
                     {t('Controls.submitting')}
                   </>
                 ) : (
                   <>
-                    <Send className="w-5 h-5" />
+                    <Send className="w-4 h-4 md:w-5 md:h-5" />
                     {t('Controls.submit')}
                   </>
                 )}
@@ -525,16 +510,16 @@ export default function OnboardingPage() {
   // Split layout with illustration
   if (showIllustration) {
     return (
-      <div className="min-h-screen flex">
+      <div className="min-h-screen flex flex-col lg:flex-row">
         {/* Left - Form */}
         <div className="w-full lg:w-1/2 min-h-screen bg-[#0C1C2A] flex flex-col">
-          <header className="px-5 lg:px-8 py-3 border-b border-[#1A3A52]">
+          <header className="px-4 lg:px-8 py-3 border-b border-[#1A3A52]">
             <Link href="/" className="hover:opacity-80 transition-opacity inline-block">
               <Logo size="sm" />
             </Link>
           </header>
 
-          <div className="flex-1 flex items-center justify-center px-5 lg:px-8 py-6">
+          <div className="flex-1 flex items-center justify-center px-4 lg:px-8 py-6">
             <div className="w-full max-w-sm">
               <StepProgress
                 currentStep={currentStep}
@@ -551,17 +536,17 @@ export default function OnboardingPage() {
                 isTransitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
               )}>
                 {/* Step header */}
-                <div className="mb-5">
-                  <h1 className="text-lg font-bold text-white mb-1">
+                <div className="mb-4 md:mb-5">
+                  <h1 className="text-base md:text-lg font-bold text-white mb-1">
                     {getLoc(currentStepData?.title)}
                   </h1>
                   {currentStepData?.description && (
-                    <p className="text-[#8F8F94] text-sm">{getLoc(currentStepData.description)}</p>
+                    <p className="text-[#8F8F94] text-xs md:text-sm">{getLoc(currentStepData.description)}</p>
                   )}
                 </div>
 
                 {/* Fields */}
-                <div className="space-y-4">
+                <div className="space-y-3 md:space-y-4">
                   {currentFields.map((field, index) => (
                     <div
                       key={field._id || field.name}
@@ -584,18 +569,18 @@ export default function OnboardingPage() {
                 </div>
 
                 {/* Navigation */}
-                <div className="flex items-center gap-3 mt-6 pt-5 border-t border-[#1A3A52]">
+                <div className="flex items-center gap-2 md:gap-3 mt-5 md:mt-6 pt-4 md:pt-5 border-t border-[#1A3A52]">
                   {currentStep > 1 ? (
                     <button
                       onClick={handleBack}
-                      className="h-9 px-4 rounded-lg border border-[#1A3A52] bg-[#10273A] hover:bg-[#1A3A52] transition-all text-sm font-medium text-white flex items-center gap-1.5"
+                      className="h-9 md:h-10 px-3 md:px-4 rounded-lg border border-[#1A3A52] bg-[#10273A] hover:bg-[#1A3A52] transition-all text-xs md:text-sm font-medium text-white flex items-center gap-1.5 active:scale-[0.98]"
                     >
                       <ArrowLeft className="w-3.5 h-3.5" />
                       {t('Controls.back')}
                     </button>
                   ) : (
                     <Link href="/">
-                      <button className="h-9 px-4 rounded-lg border border-[#1A3A52] bg-[#10273A] hover:bg-[#1A3A52] transition-all text-sm font-medium text-white flex items-center gap-1.5">
+                      <button className="h-9 md:h-10 px-3 md:px-4 rounded-lg border border-[#1A3A52] bg-[#10273A] hover:bg-[#1A3A52] transition-all text-xs md:text-sm font-medium text-white flex items-center gap-1.5 active:scale-[0.98]">
                         <ArrowLeft className="w-3.5 h-3.5" />
                         {t('Controls.back')}
                       </button>
@@ -606,7 +591,7 @@ export default function OnboardingPage() {
 
                   <button
                     onClick={handleNext}
-                    className="h-9 px-5 rounded-lg text-[#0C1C2A] text-sm font-semibold bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-1.5"
+                    className="h-9 md:h-10 px-4 md:px-5 rounded-lg text-[#0C1C2A] text-xs md:text-sm font-semibold bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-1.5 active:scale-[0.98]"
                   >
                     {t('Controls.continue')}
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -629,20 +614,20 @@ export default function OnboardingPage() {
   return (
     <div className="min-h-screen bg-[#0C1C2A]">
       <header className="bg-[#10273A] border-b border-[#1A3A52] sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-10 py-3 md:py-4 flex items-center justify-between">
           <Link href="/" className="hover:opacity-80 transition-opacity">
             <Logo size="sm" />
           </Link>
-          <div className="flex items-center gap-2 text-sm text-[#8F8F94]">
-            <Shield className="w-4 h-4 text-[#F6B73A]" />
-            <span>{t('Review.headerLabel')}</span>
+          <div className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm text-[#8F8F94]">
+            <Shield className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#F6B73A]" />
+            <span className="hidden sm:inline">{t('Review.headerLabel')}</span>
           </div>
         </div>
       </header>
 
-      <div className="max-w-6xl mx-auto px-6 lg:px-10 py-8">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-10 py-6 md:py-8">
         {/* Progress bar - full width */}
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8">
           <StepProgress
             currentStep={currentStep}
             totalSteps={sortedSteps.length}
@@ -655,23 +640,23 @@ export default function OnboardingPage() {
         </div>
 
         {/* Full width container */}
-        <div className="bg-[#10273A] rounded-2xl p-6 md:p-10 border border-[#1A3A52]">
+        <div className="bg-[#10273A] rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-10 border border-[#1A3A52]">
           <div className={cn(
             "transition-all duration-200",
             isTransitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
           )}>
             {/* Step header - centered */}
-            <div className="text-center mb-8">
-              <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
+            <div className="text-center mb-6 md:mb-8">
+              <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-1.5 md:mb-2">
                 {getLoc(currentStepData?.title)}
               </h1>
               {currentStepData?.description && (
-                <p className="text-[#8F8F94] text-base max-w-2xl mx-auto">{getLoc(currentStepData.description)}</p>
+                <p className="text-[#8F8F94] text-sm md:text-base max-w-2xl mx-auto">{getLoc(currentStepData.description)}</p>
               )}
             </div>
 
             {/* Two-column grid for form fields */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
               {currentFields.map((field, index) => (
                 <div
                   key={field._id || field.name}
@@ -696,21 +681,21 @@ export default function OnboardingPage() {
             </div>
 
             {/* Navigation - full width */}
-            <div className="flex items-center gap-4 mt-10 pt-6 border-t border-[#1A3A52]">
+            <div className="flex flex-col-reverse sm:flex-row items-center gap-3 md:gap-4 mt-8 md:mt-10 pt-5 md:pt-6 border-t border-[#1A3A52]">
               <button
                 onClick={handleBack}
-                className="h-11 px-6 rounded-xl border border-[#1A3A52] bg-[#0C1C2A] hover:bg-[#1A3A52] transition-all text-sm font-medium text-white flex items-center gap-2"
+                className="w-full sm:w-auto h-10 md:h-11 px-5 md:px-6 rounded-lg md:rounded-xl border border-[#1A3A52] bg-[#0C1C2A] hover:bg-[#1A3A52] transition-all text-sm font-medium text-white flex items-center justify-center gap-2 active:scale-[0.98]"
               >
                 <ArrowLeft className="w-4 h-4" />
                 {t('Controls.back')}
               </button>
 
-              <div className="flex-1" />
+              <div className="flex-1 hidden sm:block" />
 
               {isLastStep ? (
                 <button
                   onClick={handleNext}
-                  className="h-11 px-8 rounded-xl text-[#0C1C2A] text-sm font-semibold bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
+                  className="w-full sm:w-auto h-10 md:h-11 px-6 md:px-8 rounded-lg md:rounded-xl text-[#0C1C2A] text-sm font-semibold bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 active:scale-[0.98]"
                 >
                   {t('Controls.review')}
                   <Check className="w-4 h-4" />
@@ -718,7 +703,7 @@ export default function OnboardingPage() {
               ) : (
                 <button
                   onClick={handleNext}
-                  className="h-11 px-8 rounded-xl text-[#0C1C2A] text-sm font-semibold bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2"
+                  className="w-full sm:w-auto h-10 md:h-11 px-6 md:px-8 rounded-lg md:rounded-xl text-[#0C1C2A] text-sm font-semibold bg-gradient-to-r from-[#F6B73A] to-[#E9A30E] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 active:scale-[0.98]"
                 >
                   {t('Controls.continue')}
                   <ArrowRight className="w-4 h-4" />

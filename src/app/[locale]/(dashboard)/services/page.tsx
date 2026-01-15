@@ -2,15 +2,13 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { Header } from "@/components/dashboard"
+import { Header, useDashboard } from "@/components/dashboard"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Plus, Settings, Eye, EyeOff } from "lucide-react"
 
 import { useLocale } from "next-intl"
-
-// ... imports
 
 interface Service {
   _id: string
@@ -27,7 +25,8 @@ interface Service {
 
 export default function ServicesPage() {
   const locale = useLocale()
-  // Helper to safely get localized name
+  const { toggleSidebar, isSidebarOpen } = useDashboard()
+
   const getName = (s: Service) => {
     if (typeof s.name === 'string') return s.name
     return (s.name as { en: string; it: string })[locale as 'en' | 'it'] || (s.name as { en: string; it: string }).en
@@ -87,8 +86,13 @@ export default function ServicesPage() {
   if (loading) {
     return (
       <div>
-        <Header title="Services" description="Manage your service catalog" />
-        <div className="p-6">
+        <Header
+          title="Services"
+          description="Manage your service catalog"
+          onMenuToggle={toggleSidebar}
+          isMenuOpen={isSidebarOpen}
+        />
+        <div className="p-4 md:p-6">
           <div className="animate-pulse space-y-4">
             {[1, 2, 3].map((i) => (
               <div key={i} className="h-32 bg-gray-200 rounded-lg" />
@@ -104,20 +108,31 @@ export default function ServicesPage() {
       <Header
         title="Services"
         description="Manage your service catalog and form fields"
+        onMenuToggle={toggleSidebar}
+        isMenuOpen={isSidebarOpen}
         action={
           <Link href="/services/new">
-            <Button>
-              <Plus className="w-4 h-4 mr-2" />
-              Add Service
+            <Button size="sm" className="h-9">
+              <Plus className="w-4 h-4 mr-1.5" />
+              <span className="hidden sm:inline">Add Service</span>
+              <span className="sm:hidden">Add</span>
             </Button>
           </Link>
         }
       />
 
-      <div className="p-6 space-y-6">
+      {/* Mobile floating action button */}
+      <Link
+        href="/services/new"
+        className="fixed bottom-6 right-6 z-30 sm:hidden w-14 h-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center hover:bg-primary-500 active:scale-95 transition-all"
+      >
+        <Plus className="w-6 h-6" />
+      </Link>
+
+      <div className="p-4 md:p-6 space-y-4 md:space-y-6 pb-24 sm:pb-6">
         {Object.keys(groupedServices).length === 0 ? (
           <Card>
-            <CardContent className="p-12 text-center">
+            <CardContent className="p-8 md:p-12 text-center">
               <p className="text-text-secondary mb-4">No services found</p>
               <Link href="/services/new">
                 <Button>
@@ -130,30 +145,31 @@ export default function ServicesPage() {
         ) : (
           Object.entries(groupedServices).map(([category, categoryServices]) => (
             <Card key={category}>
-              <CardHeader>
-                <CardTitle>{category}</CardTitle>
+              <CardHeader className="pb-3 md:pb-4">
+                <CardTitle className="text-base md:text-lg">{category}</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <CardContent className="pt-0">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                   {categoryServices.map((service) => (
                     <div
                       key={service._id}
-                      className={`p-4 border rounded-lg transition-colors ${service.isActive
+                      className={`p-3 md:p-4 border rounded-lg transition-colors ${service.isActive
                         ? 'border-border hover:border-primary bg-white'
                         : 'border-gray-200 bg-gray-50 opacity-60'
                         }`}
                     >
                       <div className="flex items-start justify-between mb-2">
                         <div
-                          className="w-10 h-10 rounded-lg flex items-center justify-center text-white text-lg"
+                          className="w-9 h-9 md:w-10 md:h-10 rounded-lg flex items-center justify-center text-white text-base md:text-lg flex-shrink-0"
                           style={{ backgroundColor: service.color || '#6BBE4A' }}
                         >
                           {service.icon || getName(service).charAt(0)}
                         </div>
-                        <div className="flex gap-1">
+                        <div className="flex gap-0.5 md:gap-1">
                           <Button
                             variant="ghost"
                             size="sm"
+                            className="h-8 w-8 p-0"
                             onClick={() => toggleActive(service.slug, service.isActive)}
                             title={service.isActive ? 'Deactivate' : 'Activate'}
                           >
@@ -164,25 +180,25 @@ export default function ServicesPage() {
                             )}
                           </Button>
                           <Link href={`/services/${service.slug}/edit`}>
-                            <Button variant="ghost" size="sm">
+                            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                               <Settings className="w-4 h-4" />
                             </Button>
                           </Link>
                         </div>
                       </div>
-                      <h3 className="font-medium text-text-primary">
+                      <h3 className="font-medium text-text-primary text-sm md:text-base">
                         {getName(service)}
                       </h3>
                       {service.description && (
-                        <p className="text-sm text-text-secondary mt-1 line-clamp-2">
+                        <p className="text-xs md:text-sm text-text-secondary mt-1 line-clamp-2">
                           {getDescription(service)}
                         </p>
                       )}
-                      <div className="flex gap-2 mt-3">
-                        <Badge variant="secondary">
+                      <div className="flex flex-wrap gap-1.5 md:gap-2 mt-2.5 md:mt-3">
+                        <Badge variant="secondary" className="text-xs px-2 py-0.5">
                           {service.steps?.length || 0} steps
                         </Badge>
-                        <Badge variant="outline">
+                        <Badge variant="outline" className="text-xs px-2 py-0.5">
                           {service.fields?.length || 0} fields
                         </Badge>
                       </div>

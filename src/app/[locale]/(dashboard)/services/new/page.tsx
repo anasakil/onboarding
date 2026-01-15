@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { Header } from "@/components/dashboard"
+import { Header, useDashboard } from "@/components/dashboard"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -31,6 +31,7 @@ const CATEGORIES = [
 
 export default function NewServicePage() {
   const router = useRouter()
+  const { toggleSidebar, isSidebarOpen } = useDashboard()
   const [saving, setSaving] = useState(false)
   const [service, setService] = useState({
     name: { en: '', it: '' },
@@ -77,23 +78,26 @@ export default function NewServicePage() {
       <Header
         title="New Service"
         description="Create a new service for client onboarding"
+        onMenuToggle={toggleSidebar}
+        isMenuOpen={isSidebarOpen}
         action={
           <div className="flex gap-2">
-            <Link href="/services">
-              <Button variant="outline">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Cancel
+            <Link href="/services" className="hidden sm:block">
+              <Button variant="outline" size="sm">
+                <ArrowLeft className="w-4 h-4 mr-1.5" />
+                <span className="hidden md:inline">Cancel</span>
               </Button>
             </Link>
-            <Button onClick={handleSave} disabled={saving}>
-              <Save className="w-4 h-4 mr-2" />
-              {saving ? 'Creating...' : 'Create & Configure Fields'}
+            <Button onClick={handleSave} disabled={saving} size="sm">
+              <Save className="w-4 h-4 mr-1.5" />
+              <span className="hidden sm:inline">{saving ? 'Creating...' : 'Create'}</span>
+              <span className="sm:hidden">{saving ? '...' : 'Save'}</span>
             </Button>
           </div>
         }
       />
 
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <Card>
           <CardHeader>
             <CardTitle>Service Details</CardTitle>

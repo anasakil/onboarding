@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter, useParams } from "next/navigation"
-import { Header } from "@/components/dashboard"
+import { Header, useDashboard } from "@/components/dashboard"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -88,6 +88,7 @@ export default function ServiceEditPage() {
   const router = useRouter()
   const params = useParams()
   const slug = params.slug as string
+  const { toggleSidebar, isSidebarOpen } = useDashboard()
 
   const [service, setService] = useState<Service | null>(null)
   const [loading, setLoading] = useState(true)
@@ -234,8 +235,8 @@ export default function ServiceEditPage() {
   if (loading) {
     return (
       <div>
-        <Header title="Edit Service" description="Loading..." />
-        <div className="p-6">
+        <Header title="Edit Service" description="Loading..." onMenuToggle={toggleSidebar} isMenuOpen={isSidebarOpen} />
+        <div className="p-4 md:p-6">
           <div className="animate-pulse space-y-4">
             <div className="h-48 bg-gray-200 rounded-lg" />
             <div className="h-64 bg-gray-200 rounded-lg" />
@@ -248,8 +249,8 @@ export default function ServiceEditPage() {
   if (!service) {
     return (
       <div>
-        <Header title="Service Not Found" description="" />
-        <div className="p-6">
+        <Header title="Service Not Found" description="" onMenuToggle={toggleSidebar} isMenuOpen={isSidebarOpen} />
+        <div className="p-4 md:p-6">
           <p>The requested service was not found.</p>
           <Link href="/services">
             <Button className="mt-4">Back to Services</Button>
@@ -264,23 +265,26 @@ export default function ServiceEditPage() {
       <Header
         title={`Edit: ${service.name}`}
         description="Configure service details and form fields"
+        onMenuToggle={toggleSidebar}
+        isMenuOpen={isSidebarOpen}
         action={
           <div className="flex gap-2">
-            <Link href="/services">
-              <Button variant="outline">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Cancel
+            <Link href="/services" className="hidden sm:block">
+              <Button variant="outline" size="sm">
+                <ArrowLeft className="w-4 h-4 mr-1.5" />
+                <span className="hidden md:inline">Cancel</span>
               </Button>
             </Link>
-            <Button onClick={handleSave} disabled={saving}>
-              <Save className="w-4 h-4 mr-2" />
-              {saving ? 'Saving...' : 'Save Changes'}
+            <Button onClick={handleSave} disabled={saving} size="sm">
+              <Save className="w-4 h-4 mr-1.5" />
+              <span className="hidden sm:inline">{saving ? 'Saving...' : 'Save'}</span>
+              <span className="sm:hidden">{saving ? '...' : 'Save'}</span>
             </Button>
           </div>
         }
       />
 
-      <div className="p-6 space-y-6">
+      <div className="p-4 md:p-6 space-y-4 md:space-y-6">
         {/* Service Details */}
         <Card>
           <CardHeader>

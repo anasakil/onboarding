@@ -44,23 +44,24 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left Panel - Login Form */}
-      <div className="flex-1 flex flex-col p-8 lg:p-12 bg-white">
-        <Logo size="md" />
+      <div className="flex-1 flex flex-col p-6 md:p-8 lg:p-12 bg-white">
+        <Logo size="sm" className="md:hidden" />
+        <Logo size="md" className="hidden md:block" />
 
         <div className="flex-1 flex items-center justify-center">
-          <div className="w-full max-w-md space-y-8">
-            <div className="space-y-2">
-              <h1 className="text-3xl font-bold text-text-primary">
+          <div className="w-full max-w-md space-y-6 md:space-y-8">
+            <div className="space-y-1.5 md:space-y-2">
+              <h1 className="text-2xl md:text-3xl font-bold text-text-primary">
                 Welcome back
               </h1>
-              <p className="text-text-secondary">
+              <p className="text-sm md:text-base text-text-secondary">
                 Sign in to your admin account
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+              <div className="space-y-1.5 md:space-y-2">
+                <Label htmlFor="email" className="text-sm">Email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -69,11 +70,12 @@ export default function LoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   autoComplete="email"
+                  className="h-11 md:h-10"
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+              <div className="space-y-1.5 md:space-y-2">
+                <Label htmlFor="password" className="text-sm">Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -82,20 +84,20 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   autoComplete="current-password"
+                  className="h-11 md:h-10"
                 />
               </div>
 
               <Button
                 type="submit"
-                className="w-full"
-                size="lg"
+                className="w-full h-11 md:h-10"
                 disabled={isLoading}
               >
                 {isLoading ? "Signing in..." : "Sign in"}
               </Button>
             </form>
 
-            <p className="text-center text-sm text-text-secondary">
+            <p className="text-center text-xs md:text-sm text-text-secondary">
               Demo credentials: admin@awesome.com / admin123
             </p>
           </div>

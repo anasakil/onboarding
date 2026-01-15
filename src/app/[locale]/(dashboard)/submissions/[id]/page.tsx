@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { useRouter, useParams } from "next/navigation"
 import Link from "next/link"
-import { Header } from "@/components/dashboard"
+import { Header, useDashboard } from "@/components/dashboard"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -44,6 +44,7 @@ export default function SubmissionDetailPage() {
   const router = useRouter()
   const params = useParams()
   const id = params.id as string
+  const { toggleSidebar, isSidebarOpen } = useDashboard()
 
   const [submission, setSubmission] = useState<Submission | null>(null)
   const [loading, setLoading] = useState(true)
@@ -119,8 +120,8 @@ export default function SubmissionDetailPage() {
   if (loading) {
     return (
       <div>
-        <Header title="Submission Details" description="Loading..." />
-        <div className="p-6">
+        <Header title="Submission Details" description="Loading..." onMenuToggle={toggleSidebar} isMenuOpen={isSidebarOpen} />
+        <div className="p-4 md:p-6">
           <div className="animate-pulse space-y-4">
             <div className="h-32 bg-gray-200 rounded-lg" />
             <div className="h-64 bg-gray-200 rounded-lg" />
@@ -133,8 +134,8 @@ export default function SubmissionDetailPage() {
   if (!submission) {
     return (
       <div>
-        <Header title="Submission Not Found" description="" />
-        <div className="p-6">
+        <Header title="Submission Not Found" description="" onMenuToggle={toggleSidebar} isMenuOpen={isSidebarOpen} />
+        <div className="p-4 md:p-6">
           <p>The requested submission was not found.</p>
           <Link href="/submissions">
             <Button className="mt-4">Back to Submissions</Button>
@@ -147,25 +148,28 @@ export default function SubmissionDetailPage() {
   return (
     <div>
       <Header
-        title="Submission Details"
-        description={`${submission.serviceName} - ${formatDate(submission.createdAt)}`}
+        title="Submission"
+        description={submission.serviceName}
+        onMenuToggle={toggleSidebar}
+        isMenuOpen={isSidebarOpen}
         action={
           <div className="flex gap-2">
-            <Link href="/submissions">
-              <Button variant="outline">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back
+            <Link href="/submissions" className="hidden sm:block">
+              <Button variant="outline" size="sm">
+                <ArrowLeft className="w-4 h-4 mr-1.5" />
+                <span className="hidden md:inline">Back</span>
               </Button>
             </Link>
-            <Button onClick={handleSave} disabled={saving}>
-              <Save className="w-4 h-4 mr-2" />
-              {saving ? 'Saving...' : 'Save Changes'}
+            <Button onClick={handleSave} disabled={saving} size="sm">
+              <Save className="w-4 h-4 mr-1.5" />
+              <span className="hidden sm:inline">{saving ? 'Saving...' : 'Save'}</span>
+              <span className="sm:hidden">{saving ? '...' : 'Save'}</span>
             </Button>
           </div>
         }
       />
 
-      <div className="p-6 space-y-6">
+      <div className="p-4 md:p-6 space-y-4 md:space-y-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">

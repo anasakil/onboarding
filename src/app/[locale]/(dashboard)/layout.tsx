@@ -1,7 +1,23 @@
 "use client"
 
-import { Sidebar } from "@/components/dashboard"
+import { Sidebar, DashboardProvider, useDashboard } from "@/components/dashboard"
 import { SessionProvider } from "@/components/providers/session-provider"
+
+function DashboardContent({ children }: { children: React.ReactNode }) {
+  const { isSidebarOpen, closeSidebar } = useDashboard()
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onClose={closeSidebar}
+      />
+      <div className="lg:pl-64 min-h-screen flex flex-col">
+        <main className="flex-1">{children}</main>
+      </div>
+    </div>
+  )
+}
 
 export default function DashboardLayout({
   children,
@@ -10,12 +26,9 @@ export default function DashboardLayout({
 }) {
   return (
     <SessionProvider>
-      <div className="min-h-screen bg-background">
-        <Sidebar />
-        <div className="pl-64">
-          <main>{children}</main>
-        </div>
-      </div>
+      <DashboardProvider>
+        <DashboardContent>{children}</DashboardContent>
+      </DashboardProvider>
     </SessionProvider>
   )
 }

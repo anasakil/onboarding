@@ -1141,3 +1141,16 @@
 .gradient-border:hover::before {
   opacity: 1;
 }
+
+/* ========================================
+   SCROLLBAR UTILITIES
+   ======================================== */
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
