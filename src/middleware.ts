@@ -29,21 +29,22 @@ export default withAuth(
       authorized: ({ token, req }) => {
         const { pathname } = req.nextUrl;
 
-        // Allow access to login page without token (checking localized paths too)
-        const isPublicPage =
-          pathname === '/login' ||
-          pathname.match(/^\/(en|it)\/login$/) ||
-          pathname.startsWith('/onboarding') ||
-          pathname.match(/^\/(en|it)\/onboarding/) ||
-          pathname === '/' ||
-          pathname.match(/^\/(en|it)$/);
+        // Protected routes that require authentication (dashboard routes)
+        const protectedRoutes = ['dashboard', 'team', 'settings', 'companies', 'services', 'submissions'];
 
-        if (isPublicPage) {
-          return true;
+        // Check if path matches a protected route
+        const isProtectedPage = protectedRoutes.some(route =>
+          pathname === `/${route}` ||
+          pathname.startsWith(`/${route}/`) ||
+          pathname.match(new RegExp(`^/(en|it)/${route}(/|$)`))
+        );
+
+        // Require token only for protected routes, allow everything else (including onboarding pages)
+        if (isProtectedPage) {
+          return !!token;
         }
 
-        // Require token for all other protected routes
-        return !!token;
+        return true;
       },
     },
   }

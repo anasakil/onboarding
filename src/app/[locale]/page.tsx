@@ -280,7 +280,7 @@ export default function HomePage() {
   }, [services, activeTab])
 
   const handleSelect = useCallback((slug: string) => {
-    router.push(`/onboarding/${slug}`)
+    router.push(`/${slug}`)
   }, [router])
 
   return (

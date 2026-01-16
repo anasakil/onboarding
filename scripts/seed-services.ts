@@ -450,7 +450,7 @@ async function seedServices() {
     console.log(`  - Fields: ${service.fields.length}`)
 
     console.log('\n✅ Blogging service seeded successfully!')
-    console.log(`\n🔗 Access at: /onboarding/blogging`)
+    console.log(`\n🔗 Access at: /blogging`)
 
   } catch (error) {
     console.error('Error seeding services:', error)
